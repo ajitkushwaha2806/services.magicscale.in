@@ -16,10 +16,13 @@ export async function initiatePaytmTransaction(orderId, amount, customerId) {
   }
 
   const appUrl =
+    process.env.PAYTM_CALLBACK_URL ||
     process.env.NEXT_PUBLIC_APP_URL ||
     (process.env.NODE_ENV === "production"
-      ? "https://magicscale.in"
+      ? "https://services.magicscale.in"
       : "http://localhost:3000");
+
+  const callbackUrl = process.env.PAYTM_CALLBACK_URL || `${appUrl}/api/paytm/callback`;
 
   const paytmParams = {};
 
@@ -28,13 +31,13 @@ export async function initiatePaytmTransaction(orderId, amount, customerId) {
     mid: PAYTM_MID,
     websiteName: PAYTM_WEBSITE_NAME,
     orderId: orderId,
-    callbackUrl: `${appUrl}/api/paytm/callback`,
+    callbackUrl: callbackUrl,
     txnAmount: {
-      value: String(amount.toFixed(2)),
+      value: String(Number(amount).toFixed(2)),
       currency: "INR",
     },
     userInfo: {
-      custId: customerId || "CUST_001",
+      custId: customerId || `CUST_${Date.now()}`,
     },
   };
 
@@ -48,7 +51,6 @@ export async function initiatePaytmTransaction(orderId, amount, customerId) {
   };
 
   const post_data = JSON.stringify(paytmParams);
-
   const url = `${BASE_URL}/theia/api/v1/initiateTransaction?mid=${PAYTM_MID}&orderId=${orderId}`;
 
   const response = await fetch(url, {
@@ -69,6 +71,7 @@ export async function initiatePaytmTransaction(orderId, amount, customerId) {
       amount: amount,
     };
   } else {
+    console.error("Paytm Request Body:", JSON.stringify(paytmParams.body, null, 2));
     console.error("Paytm InitiateTransaction Failed Response:", JSON.stringify(responseData, null, 2));
     throw new Error(
       responseData?.body?.resultInfo?.resultMsg || "Failed to initiate Paytm transaction"
