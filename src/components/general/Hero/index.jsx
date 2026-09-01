@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 import { cn } from "@/lib/utils";
 import { GridPattern } from "@/components/ui/grid-pattern";
-import { ArrowRight, TrendingUp, Video, CheckCircle2, ChevronDown } from "lucide-react";
+import { ArrowRight, TrendingUp, Video, ChevronDown } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import BookDemoModal from "../BookDemoModal";
@@ -80,22 +80,6 @@ export const Hero = () => {
         </Link>
       </div>
 
-      {/* Trust Badges Row */}
-      <div className="relative z-10 flex flex-wrap items-center justify-center gap-x-4 sm:gap-x-6 gap-y-2 text-xs sm:text-sm font-semibold text-zinc-500 dark:text-zinc-400 mb-10 sm:mb-14 animate-in fade-in duration-700 delay-300">
-        <div className="flex items-center gap-1.5">
-          <CheckCircle2 className="w-4 h-4 text-green-600 shrink-0" />
-          <span>Free 30-Min Live Audit</span>
-        </div>
-        <div className="flex items-center gap-1.5">
-          <CheckCircle2 className="w-4 h-4 text-green-600 shrink-0" />
-          <span>Actionable Growth Plan</span>
-        </div>
-        <div className="flex items-center gap-1.5">
-          <CheckCircle2 className="w-4 h-4 text-green-600 shrink-0" />
-          <span>100% Free • No Card Needed</span>
-        </div>
-      </div>
-
       {/* Dashboard Image Showcase */}
       <div className="w-full max-w-5xl mx-auto px-2 sm:px-4 relative z-10 animate-in fade-in zoom-in-[0.99] duration-1000 delay-500 fill-mode-both">
         <div className="group relative rounded-xl sm:rounded-2xl p-2 sm:p-2.5 bg-zinc-100 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 shadow-2xl shadow-zinc-900/10 dark:shadow-black/40">
@@ -117,16 +101,17 @@ export const Hero = () => {
               </div>
             </div>
 
-            {/* Real Merchant Report Image */}
-            <div className="relative w-full bg-white p-1 sm:p-2">
-              <Image
-                src="/assets/live-sales-growth.png"
-                alt="Zomato Real Sales Growth Overview"
-                width={1024}
-                height={490}
-                priority
-                className="w-full h-auto object-contain rounded-md"
-              />
+            {/* Real Merchant Report Image - Zoomed on Right Revenue & Growth Metrics */}
+            <div className="relative w-full bg-white p-1 sm:p-2 overflow-hidden">
+              <div className="relative w-full h-[210px] sm:h-[320px] md:h-[440px] overflow-hidden rounded-md">
+                <Image
+                  src="/assets/live-sales-growth.png"
+                  alt="Zomato Real Sales Growth Overview"
+                  fill
+                  priority
+                  className="object-cover object-right sm:object-contain"
+                />
+              </div>
             </div>
           </div>
         </div>

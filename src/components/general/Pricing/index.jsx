@@ -111,7 +111,7 @@ export default function Pricing() {
         
         {/* Basic Plan */}
         <div className="flex flex-col bg-white dark:bg-[#10101a] rounded-md border border-neutral-200 dark:border-neutral-800 shadow-xl overflow-hidden transition-all duration-300 hover:border-green-500/30 hover:shadow-2xl hover:-translate-y-1">
-          <div className="p-8 pb-0">
+          <div className="p-4 sm:p-8 pb-0">
             <h3 className="text-2xl font-black text-neutral-900 dark:text-white">Basic Growth</h3>
             <p className="text-sm text-neutral-500 mt-2 font-medium">For essential visibility & optimization.</p>
             
@@ -145,7 +145,7 @@ export default function Pricing() {
             </p>
           </div>
           
-          <div className="p-8 bg-neutral-50 dark:bg-neutral-900/30 mt-8 flex-grow border-t border-neutral-100 dark:border-neutral-800/50">
+          <div className="p-4 sm:p-8 bg-neutral-50 dark:bg-neutral-900/30 mt-8 flex-grow border-t border-neutral-100 dark:border-neutral-800/50">
             <p className="font-bold text-neutral-900 dark:text-white mb-4 text-sm uppercase tracking-wider">Features Included</p>
             <ul className="space-y-4">
               {basicFeatures.map((feature, idx) => (
@@ -165,7 +165,7 @@ export default function Pricing() {
             <Zap className="w-4 h-4 fill-white" /> Recommended for max ROI
           </div>
 
-          <div className="p-8 pb-0 pt-16">
+          <div className="p-4 sm:p-8 pb-0 pt-12 sm:pt-16">
             <h3 className="text-2xl font-black text-neutral-900 dark:text-white flex items-center gap-3">
               Premium Growth
             </h3>
@@ -201,7 +201,7 @@ export default function Pricing() {
             </p>
           </div>
           
-          <div className="p-8 bg-green-50/50 dark:bg-green-950/10 mt-8 flex-grow border-t border-green-100 dark:border-green-900/30">
+          <div className="p-4 sm:p-8 bg-green-50/50 dark:bg-green-950/10 mt-8 flex-grow border-t border-green-100 dark:border-green-900/30">
             <p className="font-bold text-neutral-900 dark:text-white mb-4 text-sm uppercase tracking-wider">Features Included</p>
             <ul className="space-y-4">
               {premiumFeatures.map((feature, idx) => {

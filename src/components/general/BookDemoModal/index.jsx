@@ -3,10 +3,12 @@ import React, { useState, useRef, useEffect } from "react";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { toast } from "react-hot-toast";
-import { Video, Calendar, Clock, User, Phone, Mail, Store, MapPin, CheckCircle2, Loader2, Sparkles, ArrowRight, ShieldCheck, ChevronDown, Check, ShoppingBag } from "lucide-react";
+import { Video, Calendar, Clock, User, Phone, Mail, Store, MapPin, CheckCircle2, Loader2, Sparkles, ArrowRight, ArrowLeft, ShieldCheck, ChevronDown, Check, ShoppingBag, Edit2 } from "lucide-react";
 import posthog from "posthog-js";
 
 export default function BookDemoModal({ open, onOpenChange }) {
+  const [step, setStep] = useState(1);
+
   // Generate next 7 days starting today
   const getDates = () => {
     const dates = [];
@@ -69,6 +71,23 @@ export default function BookDemoModal({ open, onOpenChange }) {
     document.addEventListener("mousedown", handleClickOutside);
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
+
+  // Reset to step 1 whenever modal opens
+  useEffect(() => {
+    if (open) {
+      setStep(1);
+      setSubmitted(false);
+    }
+  }, [open]);
+
+  const handleNextStep = (e) => {
+    e.preventDefault();
+    if (!formData.meetingDate || !formData.meetingSlot) {
+      toast.error("Please select both a date and a time slot.");
+      return;
+    }
+    setStep(2);
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -136,6 +155,7 @@ export default function BookDemoModal({ open, onOpenChange }) {
     onOpenChange(false);
     setTimeout(() => {
       setSubmitted(false);
+      setStep(1);
     }, 300);
   };
 
@@ -143,48 +163,72 @@ export default function BookDemoModal({ open, onOpenChange }) {
 
   return (
     <Dialog open={open} onOpenChange={(val) => { if (!isProcessing) onOpenChange(val); }}>
-      <DialogContent className="z-[100] border border-zinc-200 dark:border-zinc-800 p-0 w-[95vw] max-w-[540px] bg-white dark:bg-[#0c0c14] rounded-2xl shadow-2xl overflow-hidden max-h-[94vh] flex flex-col">
+      <DialogContent className="z-[100] border border-zinc-200 dark:border-zinc-800 p-0 w-[95vw] max-w-[500px] bg-white dark:bg-[#0c0c14] rounded-md shadow-2xl overflow-hidden max-h-[94vh] flex flex-col">
         
-        {/* Header */}
-        <div className="px-6 pt-6 pb-4 sm:px-8 bg-zinc-50 dark:bg-zinc-900/60 border-b border-zinc-100 dark:border-zinc-800">
-          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-md bg-green-500/10 border border-green-500/20 text-green-700 dark:text-green-300 text-xs font-bold uppercase tracking-wider mb-2">
-            <Video className="w-3.5 h-3.5 text-green-600 dark:text-green-400" />
-            1-on-1 Google Meet Growth Session
+        {/* Header with Step Indicator */}
+        <div className="px-5 pt-5 pb-3 sm:px-6 bg-zinc-50 dark:bg-zinc-900/60 border-b border-zinc-100 dark:border-zinc-800">
+          <div className="flex items-center justify-between mb-2">
+            <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-md bg-green-500/10 border border-green-500/20 text-green-700 dark:text-green-300 text-[11px] font-bold uppercase tracking-wider">
+              <Video className="w-3.5 h-3.5 text-green-600 dark:text-green-400" />
+              1-on-1 Google Meet Session
+            </div>
+
+            {!submitted && (
+              <span className="text-[11px] font-bold text-zinc-500 dark:text-zinc-400">
+                Step {step} of 2
+              </span>
+            )}
           </div>
 
           <DialogHeader>
-            <DialogTitle className="text-left text-2xl font-black text-zinc-900 dark:text-white tracking-tight">
-              {submitted ? "Slot Confirmed 🎉" : "Schedule Your Strategy Meeting"}
+            <DialogTitle className="text-left text-xl sm:text-2xl font-black text-zinc-900 dark:text-white tracking-tight">
+              {submitted 
+                ? "Slot Confirmed 🎉" 
+                : step === 1 
+                ? "Select Date & Time Slot" 
+                : "Restaurant & Contact Details"}
             </DialogTitle>
-            <DialogDescription className="text-left text-zinc-600 dark:text-zinc-400 text-xs sm:text-sm mt-1 font-medium leading-relaxed">
+            <DialogDescription className="text-left text-zinc-600 dark:text-zinc-400 text-xs sm:text-sm mt-0.5 font-medium leading-relaxed">
               {submitted
                 ? `We have reserved your slot for ${formData.restaurantName}.`
-                : "Select your preferred slot between 11:00 AM to 6:00 PM."}
+                : step === 1 
+                ? "Choose your convenient slot between 11:00 AM to 6:00 PM."
+                : "Where should we send your Google Meet invite & live audit?"}
             </DialogDescription>
           </DialogHeader>
+
+          {/* Progress Bar */}
+          {!submitted && (
+            <div className="w-full bg-zinc-200 dark:bg-zinc-800 h-1 rounded-full mt-3 overflow-hidden">
+              <div 
+                className="bg-green-600 h-full transition-all duration-300 rounded-full"
+                style={{ width: step === 1 ? "50%" : "100%" }}
+              />
+            </div>
+          )}
         </div>
 
-        {/* Form or Confirmed State */}
-        <div className="overflow-y-auto px-6 py-5 sm:px-8 flex-1">
+        {/* Modal Body */}
+        <div className="overflow-y-auto px-5 py-4 sm:px-6 flex-1">
           {submitted ? (
-            <div className="py-6 flex flex-col items-center text-center space-y-5">
-              <div className="w-20 h-20 rounded-full bg-green-100 dark:bg-green-950/60 border-2 border-green-500/30 flex items-center justify-center text-green-600 dark:text-green-400 shadow-xl shadow-green-500/10">
-                <CheckCircle2 className="w-10 h-10" />
+            <div className="py-4 flex flex-col items-center text-center space-y-4">
+              <div className="w-16 h-16 rounded-full bg-green-100 dark:bg-green-950/60 border-2 border-green-500/30 flex items-center justify-center text-green-600 dark:text-green-400 shadow-xl shadow-green-500/10">
+                <CheckCircle2 className="w-8 h-8" />
               </div>
 
-              <div className="space-y-2 max-w-sm">
-                <h4 className="text-xl font-bold text-zinc-900 dark:text-white">
+              <div className="space-y-1.5 max-w-sm">
+                <h4 className="text-lg font-bold text-zinc-900 dark:text-white">
                   Meeting Booked for {formData.restaurantName}
                 </h4>
-                <p className="text-sm text-zinc-600 dark:text-zinc-400">
+                <p className="text-xs sm:text-sm text-zinc-600 dark:text-zinc-400">
                   Scheduled for <strong className="text-green-600 dark:text-green-400 font-bold">{formData.meetingDate}</strong> at <strong className="text-green-600 dark:text-green-400 font-bold">{formData.meetingSlot}</strong>.
                 </p>
               </div>
 
-              <div className="bg-zinc-50 dark:bg-zinc-900/80 border border-zinc-200 dark:border-zinc-800 rounded-xl p-4 text-left w-full text-xs space-y-2 text-zinc-600 dark:text-zinc-300">
+              <div className="bg-zinc-50 dark:bg-zinc-900/80 border border-zinc-200 dark:border-zinc-800 rounded-md p-3.5 text-left w-full text-xs space-y-2 text-zinc-600 dark:text-zinc-300">
                 <div className="flex items-center gap-2">
                   <Video className="w-4 h-4 text-green-500 shrink-0" />
-                  <span>Google Meet invite will be sent to WhatsApp <strong>{formData.phone}</strong> & <strong>{formData.email || "Email"}</strong></span>
+                  <span>Google Meet invite sent to WhatsApp <strong>{formData.phone}</strong> & <strong>{formData.email || "Email"}</strong></span>
                 </div>
                 <div className="flex items-center gap-2">
                   <Sparkles className="w-4 h-4 text-green-500 shrink-0" />
@@ -192,24 +236,25 @@ export default function BookDemoModal({ open, onOpenChange }) {
                 </div>
               </div>
 
-              <div className="w-full pt-2">
+              <div className="w-full pt-1">
                 <Button
                   onClick={handleClose}
-                  className="w-full h-12 bg-green-600 hover:bg-green-700 text-white font-bold rounded-md shadow-lg shadow-green-600/20"
+                  className="w-full h-11 bg-green-600 hover:bg-green-700 text-white font-bold rounded-md shadow-lg shadow-green-600/20"
                 >
                   Done
                 </Button>
               </div>
             </div>
-          ) : (
-            <form onSubmit={handleSubmit} className="space-y-4">
+          ) : step === 1 ? (
+            /* STEP 1: DATE & TIME SELECTION */
+            <form onSubmit={handleNextStep} className="space-y-4">
               
               {/* Date Selection */}
               <div className="space-y-1.5">
                 <div className="flex items-center justify-between">
                   <label className="text-xs font-bold text-zinc-800 dark:text-zinc-200 uppercase tracking-wide flex items-center gap-1.5">
                     <Calendar className="w-3.5 h-3.5 text-green-600" />
-                    1. Select Meeting Date
+                    Select Meeting Date
                   </label>
                   <span className="text-[10px] text-zinc-400 font-medium">Scroll horizontally &rarr;</span>
                 </div>
@@ -222,7 +267,7 @@ export default function BookDemoModal({ open, onOpenChange }) {
                         type="button"
                         key={i}
                         onClick={() => setFormData({ ...formData, meetingDate: d.value })}
-                        className={`shrink-0 min-w-[78px] sm:min-w-[84px] py-2 px-2.5 rounded-md border text-center transition-all flex flex-col items-center justify-center snap-start ${
+                        className={`shrink-0 min-w-[76px] sm:min-w-[80px] py-2 px-2 rounded-md border text-center transition-all flex flex-col items-center justify-center snap-start ${
                           isSelected
                             ? "border-green-500 bg-green-500 text-white shadow-md shadow-green-500/25 scale-[1.02]"
                             : "border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-900 text-zinc-700 dark:text-zinc-300 hover:border-green-400"
@@ -242,7 +287,7 @@ export default function BookDemoModal({ open, onOpenChange }) {
               <div className="space-y-1.5">
                 <label className="text-xs font-bold text-zinc-800 dark:text-zinc-200 uppercase tracking-wide flex items-center gap-1.5">
                   <Clock className="w-3.5 h-3.5 text-green-600" />
-                  2. Select Slot (11:00 AM – 6:00 PM)
+                  Select Slot (11:00 AM – 6:00 PM)
                 </label>
                 <div className="grid grid-cols-2 gap-2">
                   {slots.map((slot, i) => {
@@ -265,159 +310,201 @@ export default function BookDemoModal({ open, onOpenChange }) {
                 </div>
               </div>
 
-              {/* Restaurant & Personal Details */}
-              <div className="space-y-3 pt-2 border-t border-zinc-100 dark:border-zinc-800">
-                <label className="text-xs font-bold text-zinc-800 dark:text-zinc-200 uppercase tracking-wide flex items-center gap-1.5">
-                  <Store className="w-3.5 h-3.5 text-green-600" />
-                  3. Restaurant & Contact Info
-                </label>
-
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                  <div className="space-y-1">
-                    <span className="text-[11px] font-bold text-zinc-600 dark:text-zinc-400">Restaurant / Brand Name *</span>
-                    <div className="relative">
-                      <Store className="w-4 h-4 text-zinc-400 absolute left-3 top-3 pointer-events-none" />
-                      <input
-                        type="text"
-                        required
-                        placeholder="e.g. Fatkong Chinese"
-                        value={formData.restaurantName}
-                        onChange={(e) => setFormData({ ...formData, restaurantName: e.target.value })}
-                        className="w-full h-10 pl-9 pr-3 text-xs sm:text-sm rounded-md border border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-900 focus:bg-white focus:ring-2 focus:ring-green-500/20 focus:border-green-500 outline-none text-zinc-900 dark:text-white font-medium"
-                      />
-                    </div>
-                  </div>
-
-                  <div className="space-y-1">
-                    <span className="text-[11px] font-bold text-zinc-600 dark:text-zinc-400">Your Full Name *</span>
-                    <div className="relative">
-                      <User className="w-4 h-4 text-zinc-400 absolute left-3 top-3 pointer-events-none" />
-                      <input
-                        type="text"
-                        required
-                        placeholder="e.g. Rahul Sharma"
-                        value={formData.name}
-                        onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                        className="w-full h-10 pl-9 pr-3 text-xs sm:text-sm rounded-md border border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-900 focus:bg-white focus:ring-2 focus:ring-green-500/20 focus:border-green-500 outline-none text-zinc-900 dark:text-white font-medium"
-                      />
-                    </div>
-                  </div>
+              {/* Selected Slot Preview Pill */}
+              <div className="bg-green-50 dark:bg-green-950/40 border border-green-200 dark:border-green-800/60 rounded-md p-2.5 flex items-center justify-between text-xs text-green-800 dark:text-green-300">
+                <div className="flex items-center gap-2 font-bold">
+                  <Video className="w-4 h-4 text-green-600" />
+                  <span>{formData.meetingDate} at {formData.meetingSlot}</span>
                 </div>
-
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                  <div className="space-y-1">
-                    <span className="text-[11px] font-bold text-zinc-600 dark:text-zinc-400">WhatsApp Number *</span>
-                    <div className="relative">
-                      <Phone className="w-4 h-4 text-zinc-400 absolute left-3 top-3 pointer-events-none" />
-                      <input
-                        type="tel"
-                        required
-                        maxLength={10}
-                        placeholder="9876543210"
-                        value={formData.phone}
-                        onChange={(e) => setFormData({ ...formData, phone: e.target.value.replace(/\D/g, "") })}
-                        className="w-full h-10 pl-9 pr-3 text-xs sm:text-sm rounded-md border border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-900 focus:bg-white focus:ring-2 focus:ring-green-500/20 focus:border-green-500 outline-none text-zinc-900 dark:text-white font-medium"
-                      />
-                    </div>
-                  </div>
-
-                  <div className="space-y-1">
-                    <span className="text-[11px] font-bold text-zinc-600 dark:text-zinc-400">Email (for Calendar Invite)</span>
-                    <div className="relative">
-                      <Mail className="w-4 h-4 text-zinc-400 absolute left-3 top-3 pointer-events-none" />
-                      <input
-                        type="email"
-                        placeholder="rahul@gmail.com"
-                        value={formData.email}
-                        onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                        className="w-full h-10 pl-9 pr-3 text-xs sm:text-sm rounded-md border border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-900 focus:bg-white focus:ring-2 focus:ring-green-500/20 focus:border-green-500 outline-none text-zinc-900 dark:text-white font-medium"
-                      />
-                    </div>
-                  </div>
-                </div>
-
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                  <div className="space-y-1">
-                    <span className="text-[11px] font-bold text-zinc-600 dark:text-zinc-400">City / Location</span>
-                    <div className="relative">
-                      <MapPin className="w-4 h-4 text-zinc-400 absolute left-3 top-3 pointer-events-none" />
-                      <input
-                        type="text"
-                        placeholder="e.g. Mumbai / Delhi NCR"
-                        value={formData.city}
-                        onChange={(e) => setFormData({ ...formData, city: e.target.value })}
-                        className="w-full h-10 pl-9 pr-3 text-xs sm:text-sm rounded-md border border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-900 focus:bg-white focus:ring-2 focus:ring-green-500/20 focus:border-green-500 outline-none text-zinc-900 dark:text-white font-medium"
-                      />
-                    </div>
-                  </div>
-
-                  {/* Custom Daily Orders Dropdown */}
-                  <div className="space-y-1 relative" ref={dropdownRef}>
-                    <span className="text-[11px] font-bold text-zinc-600 dark:text-zinc-400">Daily Orders on Zomato/Swiggy</span>
-                    
-                    <button
-                      type="button"
-                      onClick={() => setOrdersDropdownOpen(!ordersDropdownOpen)}
-                      className="w-full h-10 px-3 text-xs rounded-md border border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-900 focus:bg-white focus:ring-2 focus:ring-green-500/20 focus:border-green-500 outline-none text-zinc-900 dark:text-white font-medium flex items-center justify-between transition-all"
-                    >
-                      <div className="flex items-center gap-2 truncate">
-                        <ShoppingBag className="w-3.5 h-3.5 text-zinc-400 shrink-0" />
-                        <span className="truncate">{selectedOrderLabel}</span>
-                      </div>
-                      <ChevronDown className={`w-4 h-4 text-zinc-400 transition-transform duration-200 shrink-0 ${ordersDropdownOpen ? "rotate-180" : ""}`} />
-                    </button>
-
-                    {ordersDropdownOpen && (
-                      <div className="absolute left-0 right-0 bottom-full mb-1 sm:bottom-auto sm:top-full sm:mt-1 z-50 bg-white dark:bg-[#14141e] border border-zinc-200 dark:border-zinc-800 rounded-md shadow-2xl p-1.5 space-y-1 animate-in fade-in zoom-in-95 duration-150">
-                        {orderOptions.map((opt) => {
-                          const isSelected = formData.dailyOrders === opt.value;
-                          return (
-                            <button
-                              type="button"
-                              key={opt.value}
-                              onClick={() => {
-                                setFormData({ ...formData, dailyOrders: opt.value });
-                                setOrdersDropdownOpen(false);
-                              }}
-                              className={`w-full text-left px-3 py-2 rounded-md text-xs font-semibold flex items-center justify-between transition-colors ${
-                                isSelected
-                                  ? "bg-green-50 text-green-700 dark:bg-green-950/60 dark:text-green-300 font-bold"
-                                  : "text-zinc-700 dark:text-zinc-300 hover:bg-zinc-100 dark:hover:bg-zinc-800/80"
-                              }`}
-                            >
-                              <span>{opt.label}</span>
-                              {isSelected && <Check className="w-3.5 h-3.5 text-green-600 dark:text-green-400" />}
-                            </button>
-                          );
-                        })}
-                      </div>
-                    )}
-                  </div>
-                </div>
-
+                <span className="text-[10px] font-extrabold uppercase bg-green-600 text-white px-2 py-0.5 rounded">Free</span>
               </div>
 
-              {/* Submit Button */}
-              <div className="pt-3">
+              {/* Next Step Button */}
+              <div className="pt-2">
+                <Button
+                  type="submit"
+                  className="w-full h-12 bg-green-600 hover:bg-green-700 text-white text-sm font-bold rounded-md shadow-xl shadow-green-600/30 flex items-center justify-center gap-2 transition-all active:scale-[0.98]"
+                >
+                  <span>Next: Restaurant Details</span>
+                  <ArrowRight className="w-4 h-4" />
+                </Button>
+                
+                <div className="flex items-center justify-center gap-2 text-center text-[11px] text-zinc-500 dark:text-zinc-400 mt-2">
+                  <ShieldCheck className="w-3.5 h-3.5 text-green-600" />
+                  <span>100% Free 1-on-1 Consultation</span>
+                </div>
+              </div>
+
+            </form>
+          ) : (
+            /* STEP 2: RESTAURANT & CONTACT DETAILS */
+            <form onSubmit={handleSubmit} className="space-y-3.5">
+              
+              {/* Selected Slot Summary with Edit Button */}
+              <div className="bg-zinc-50 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-md p-2.5 flex items-center justify-between text-xs">
+                <div className="flex items-center gap-2 text-zinc-800 dark:text-zinc-200 font-semibold truncate">
+                  <Calendar className="w-3.5 h-3.5 text-green-600 shrink-0" />
+                  <span className="truncate">{formData.meetingDate} • {formData.meetingSlot}</span>
+                </div>
+                <button
+                  type="button"
+                  onClick={() => setStep(1)}
+                  className="text-green-600 hover:text-green-700 text-xs font-bold flex items-center gap-1 shrink-0 ml-2 hover:underline"
+                >
+                  <Edit2 className="w-3 h-3" />
+                  Change
+                </button>
+              </div>
+
+              <div className="space-y-1">
+                <span className="text-[11px] font-bold text-zinc-700 dark:text-zinc-300">Restaurant / Brand Name *</span>
+                <div className="relative">
+                  <Store className="w-4 h-4 text-zinc-400 absolute left-3 top-3 pointer-events-none" />
+                  <input
+                    type="text"
+                    required
+                    placeholder="e.g. Fatkong Chinese"
+                    value={formData.restaurantName}
+                    onChange={(e) => setFormData({ ...formData, restaurantName: e.target.value })}
+                    className="w-full h-10 pl-9 pr-3 text-xs sm:text-sm rounded-md border border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-900 focus:bg-white focus:ring-2 focus:ring-green-500/20 focus:border-green-500 outline-none text-zinc-900 dark:text-white font-medium"
+                  />
+                </div>
+              </div>
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                <div className="space-y-1">
+                  <span className="text-[11px] font-bold text-zinc-700 dark:text-zinc-300">Your Full Name *</span>
+                  <div className="relative">
+                    <User className="w-4 h-4 text-zinc-400 absolute left-3 top-3 pointer-events-none" />
+                    <input
+                      type="text"
+                      required
+                      placeholder="e.g. Rahul Sharma"
+                      value={formData.name}
+                      onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                      className="w-full h-10 pl-9 pr-3 text-xs sm:text-sm rounded-md border border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-900 focus:bg-white focus:ring-2 focus:ring-green-500/20 focus:border-green-500 outline-none text-zinc-900 dark:text-white font-medium"
+                    />
+                  </div>
+                </div>
+
+                <div className="space-y-1">
+                  <span className="text-[11px] font-bold text-zinc-700 dark:text-zinc-300">WhatsApp Number *</span>
+                  <div className="relative">
+                    <Phone className="w-4 h-4 text-zinc-400 absolute left-3 top-3 pointer-events-none" />
+                    <input
+                      type="tel"
+                      required
+                      maxLength={10}
+                      placeholder="9876543210"
+                      value={formData.phone}
+                      onChange={(e) => setFormData({ ...formData, phone: e.target.value.replace(/\D/g, "") })}
+                      className="w-full h-10 pl-9 pr-3 text-xs sm:text-sm rounded-md border border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-900 focus:bg-white focus:ring-2 focus:ring-green-500/20 focus:border-green-500 outline-none text-zinc-900 dark:text-white font-medium"
+                    />
+                  </div>
+                </div>
+              </div>
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                <div className="space-y-1">
+                  <span className="text-[11px] font-bold text-zinc-700 dark:text-zinc-300">Email (for Calendar Invite)</span>
+                  <div className="relative">
+                    <Mail className="w-4 h-4 text-zinc-400 absolute left-3 top-3 pointer-events-none" />
+                    <input
+                      type="email"
+                      placeholder="rahul@gmail.com"
+                      value={formData.email}
+                      onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                      className="w-full h-10 pl-9 pr-3 text-xs sm:text-sm rounded-md border border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-900 focus:bg-white focus:ring-2 focus:ring-green-500/20 focus:border-green-500 outline-none text-zinc-900 dark:text-white font-medium"
+                    />
+                  </div>
+                </div>
+
+                <div className="space-y-1">
+                  <span className="text-[11px] font-bold text-zinc-700 dark:text-zinc-300">City / Location</span>
+                  <div className="relative">
+                    <MapPin className="w-4 h-4 text-zinc-400 absolute left-3 top-3 pointer-events-none" />
+                    <input
+                      type="text"
+                      placeholder="e.g. Mumbai / Delhi NCR"
+                      value={formData.city}
+                      onChange={(e) => setFormData({ ...formData, city: e.target.value })}
+                      className="w-full h-10 pl-9 pr-3 text-xs sm:text-sm rounded-md border border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-900 focus:bg-white focus:ring-2 focus:ring-green-500/20 focus:border-green-500 outline-none text-zinc-900 dark:text-white font-medium"
+                    />
+                  </div>
+                </div>
+              </div>
+
+              {/* Custom Daily Orders Dropdown */}
+              <div className="space-y-1 relative" ref={dropdownRef}>
+                <span className="text-[11px] font-bold text-zinc-700 dark:text-zinc-300">Daily Orders on Zomato/Swiggy</span>
+                
+                <button
+                  type="button"
+                  onClick={() => setOrdersDropdownOpen(!ordersDropdownOpen)}
+                  className="w-full h-10 px-3 text-xs rounded-md border border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-900 focus:bg-white focus:ring-2 focus:ring-green-500/20 focus:border-green-500 outline-none text-zinc-900 dark:text-white font-medium flex items-center justify-between transition-all"
+                >
+                  <div className="flex items-center gap-2 truncate">
+                    <ShoppingBag className="w-3.5 h-3.5 text-zinc-400 shrink-0" />
+                    <span className="truncate">{selectedOrderLabel}</span>
+                  </div>
+                  <ChevronDown className={`w-4 h-4 text-zinc-400 transition-transform duration-200 shrink-0 ${ordersDropdownOpen ? "rotate-180" : ""}`} />
+                </button>
+
+                {ordersDropdownOpen && (
+                  <div className="absolute left-0 right-0 bottom-full mb-1 sm:bottom-auto sm:top-full sm:mt-1 z-50 bg-white dark:bg-[#14141e] border border-zinc-200 dark:border-zinc-800 rounded-md shadow-2xl p-1.5 space-y-1 animate-in fade-in zoom-in-95 duration-150">
+                    {orderOptions.map((opt) => {
+                      const isSelected = formData.dailyOrders === opt.value;
+                      return (
+                        <button
+                          type="button"
+                          key={opt.value}
+                          onClick={() => {
+                            setFormData({ ...formData, dailyOrders: opt.value });
+                            setOrdersDropdownOpen(false);
+                          }}
+                          className={`w-full text-left px-3 py-2 rounded-md text-xs font-semibold flex items-center justify-between transition-colors ${
+                            isSelected
+                              ? "bg-green-50 text-green-700 dark:bg-green-950/60 dark:text-green-300 font-bold"
+                              : "text-zinc-700 dark:text-zinc-300 hover:bg-zinc-100 dark:hover:bg-zinc-800/80"
+                          }`}
+                        >
+                          <span>{opt.label}</span>
+                          {isSelected && <Check className="w-3.5 h-3.5 text-green-600 dark:text-green-400" />}
+                        </button>
+                      );
+                    })}
+                  </div>
+                )}
+              </div>
+
+              {/* Action Buttons: Back + Submit */}
+              <div className="pt-2 flex items-center gap-2">
+                <Button
+                  type="button"
+                  variant="outline"
+                  onClick={() => setStep(1)}
+                  disabled={isProcessing}
+                  className="h-12 px-4 border-zinc-200 dark:border-zinc-800 rounded-md font-bold text-xs flex items-center gap-1.5 shrink-0"
+                >
+                  <ArrowLeft className="w-3.5 h-3.5" />
+                  <span>Back</span>
+                </Button>
+
                 <Button
                   type="submit"
                   disabled={isProcessing}
-                  className="w-full h-13 bg-green-600 hover:bg-green-700 text-white text-base font-bold rounded-md shadow-xl shadow-green-600/30 flex items-center justify-center gap-2 transition-all active:scale-[0.98]"
+                  className="flex-1 h-12 bg-green-600 hover:bg-green-700 text-white text-sm font-bold rounded-md shadow-xl shadow-green-600/30 flex items-center justify-center gap-2 transition-all active:scale-[0.98]"
                 >
                   {isProcessing ? (
                     <Loader2 className="w-5 h-5 animate-spin" />
                   ) : (
                     <>
                       <Video className="w-4 h-4" />
-                      <span>Confirm Free Google Meet Slot</span>
-                      <ArrowRight className="w-4 h-4 ml-1" />
+                      <span>Confirm Free Slot</span>
+                      <ArrowRight className="w-4 h-4 ml-0.5" />
                     </>
                   )}
                 </Button>
-                <div className="flex items-center justify-center gap-2 text-center text-[11px] text-zinc-500 dark:text-zinc-400 mt-2.5">
-                  <ShieldCheck className="w-3.5 h-3.5 text-green-600" />
-                  <span>100% Free Consultation • No Credit Card Required</span>
-                </div>
               </div>
 
             </form>

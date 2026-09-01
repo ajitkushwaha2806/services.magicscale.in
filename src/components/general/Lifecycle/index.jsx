@@ -87,9 +87,9 @@ export default function Lifecycle() {
         </div>
       }
     >
-      <div className="max-w-6xl mx-auto relative z-10 px-4 sm:px-6">
+      <div className="max-w-6xl mx-auto relative z-10">
         {/* Cards Grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 relative">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 sm:gap-8 relative">
 
           {roadmap.map((item, idx) => {
             const Icon = item.icon;
@@ -105,7 +105,7 @@ export default function Lifecycle() {
                 {/* Glow Background */}
                 <div className="absolute -inset-1 rounded-md bg-gradient-to-b from-green-500/20 via-emerald-500/5 to-transparent blur-xl opacity-0 group-hover:opacity-100 transition-all duration-500" />
 
-                <div className="relative h-full flex flex-col bg-white dark:bg-[#0c0c14] border border-neutral-200 dark:border-neutral-800 rounded-md p-6 sm:p-7 shadow-lg dark:shadow-2xl transition-all duration-300 hover:border-green-500/50 hover:-translate-y-1.5">
+                <div className="relative h-full flex flex-col bg-white dark:bg-[#0c0c14] border border-neutral-200 dark:border-neutral-800 rounded-md p-4 sm:p-7 shadow-lg dark:shadow-2xl transition-all duration-300 hover:border-green-500/50 hover:-translate-y-1.5">
 
                   {/* Top Bar with Step & Icon */}
                   <div className="flex items-center justify-between mb-5">

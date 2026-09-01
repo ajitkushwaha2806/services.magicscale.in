@@ -39,7 +39,7 @@ export default function Deliverables() {
         </div>
       }
     >
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 relative z-10 mx-auto max-w-7xl px-4 sm:px-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 relative z-10 mx-auto max-w-7xl">
         {features.map((feature, idx) => {
           const stepNumber = (idx + 1).toString().padStart(2, '0');
           return (
@@ -49,9 +49,9 @@ export default function Deliverables() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "100px" }}
               transition={{ delay: idx * 0.05, duration: 0.5 }}
-              className="group relative flex flex-col bg-white dark:bg-[#10101a] p-4 rounded-2xl border border-neutral-200 dark:border-neutral-800 shadow-sm transition-all duration-300 hover:shadow-lg"
+              className="group relative flex flex-col bg-white dark:bg-[#10101a] p-2 sm:p-3.5 rounded-md border border-neutral-200 dark:border-neutral-800 shadow-sm transition-all duration-300 hover:shadow-lg"
             >
-              <div className="relative w-full aspect-[4/3] bg-neutral-100 dark:bg-neutral-900/50 rounded-xl overflow-hidden flex items-center justify-center">
+              <div className="relative w-full aspect-[4/3] bg-neutral-100 dark:bg-neutral-900/50 rounded-md overflow-hidden flex items-center justify-center">
                 <div className="absolute inset-0 flex items-center justify-center z-10 pointer-events-none">
                   <span className="text-8xl font-black text-[#ff6b00]/10 dark:text-[#ff6b00]/5 select-none">
                     {stepNumber}
