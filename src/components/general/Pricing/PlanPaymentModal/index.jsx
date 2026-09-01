@@ -62,12 +62,12 @@ export default function PlanPaymentModal({ open, onOpenChange, selectedPlan }) {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (!formData.name.trim() || !formData.phone.trim() || !formData.restaurantName.trim()) {
+    if (!formData.name?.trim() || !formData.phone?.trim() || !formData.restaurantName?.trim()) {
       toast.error("Please enter your name, phone number, and restaurant name.");
       return;
     }
 
-    const cleanPhone = formData.phone.replace(/\D/g, "");
+    const cleanPhone = (formData.phone || "").replace(/\D/g, "");
     if (!/^\d{10}$/.test(cleanPhone)) {
       toast.error("Please enter a valid 10-digit phone number.");
       return;
