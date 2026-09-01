@@ -7,14 +7,15 @@ const PAYTM_ENV = process.env.NEXT_PUBLIC_PAYTM_ENV || "staging";
 
 const getPaytmCheckoutUrl = (mid) => {
   return PAYTM_ENV === "production"
-    ? `https://securegw.paytm.in/merchantpgpui/checkoutjs/merchants/${mid}.js`
-    : `https://securegw-stage.paytm.in/merchantpgpui/checkoutjs/merchants/${mid}.js`;
+    ? `https://secure.paytmpayments.com/merchantpgpui/checkoutjs/merchants/${mid}.js`
+    : `https://securestage.paytmpayments.com/merchantpgpui/checkoutjs/merchants/${mid}.js`;
 };
 
 const loadPaytmScript = (mid) => {
   return new Promise((resolve, reject) => {
     const existingScript = document.getElementById("paytm-checkoutjs");
     if (existingScript) {
+      // If script exists but from another host or loaded previously, resolve
       resolve(true);
       return;
     }
@@ -55,6 +56,8 @@ export const useRegistration = () => {
           throw new Error("Paytm SDK not found");
         }
 
+        const formattedAmount = Number(amount).toFixed(2);
+
         const config = {
           root: "",
           flow: "DEFAULT",
@@ -62,7 +65,7 @@ export const useRegistration = () => {
             orderId: orderId,
             token: txnToken,
             tokenType: "TXN_TOKEN",
-            amount: amount?.toString(),
+            amount: formattedAmount,
           },
           handler: {
             notifyMerchant: function (eventName, data) {

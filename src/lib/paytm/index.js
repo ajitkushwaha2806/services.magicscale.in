@@ -7,20 +7,23 @@ const PAYTM_WEBSITE_NAME = process.env.PAYTM_WEBSITE_NAME || (PAYTM_ENV === "pro
 
 const BASE_URL =
   PAYTM_ENV === "production"
-    ? "https://securegw.paytm.in"
-    : "https://securegw-stage.paytm.in";
+    ? "https://secure.paytmpayments.com"
+    : "https://securestage.paytmpayments.com";
 
 export async function initiatePaytmTransaction(orderId, amount, customerId) {
   if (!PAYTM_MID || !PAYTM_MERCHANT_KEY) {
     throw new Error("Paytm credentials are not configured.");
   }
 
+  const prodDomain = process.env.NEXT_PUBLIC_APP_URL && !process.env.NEXT_PUBLIC_APP_URL.includes("localhost")
+    ? process.env.NEXT_PUBLIC_APP_URL
+    : "https://services.magicscale.in";
+
   const appUrl =
     process.env.PAYTM_CALLBACK_URL ||
-    process.env.NEXT_PUBLIC_APP_URL ||
-    (process.env.NODE_ENV === "production"
-      ? "https://services.magicscale.in"
-      : "http://localhost:3000");
+    (PAYTM_ENV === "production"
+      ? prodDomain
+      : (process.env.NEXT_PUBLIC_APP_URL || "http://localhost:3000"));
 
   const callbackUrl = process.env.PAYTM_CALLBACK_URL || `${appUrl}/api/paytm/callback`;
 
