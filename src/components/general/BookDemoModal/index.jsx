@@ -1,10 +1,12 @@
 "use client";
 import React, { useState, useEffect } from "react";
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { toast } from "react-hot-toast";
 import { Video, Calendar, Clock, User, Phone, Store, CheckCircle2, Loader2, Sparkles, ArrowRight, ArrowLeft, ShieldCheck, Edit2 } from "lucide-react";
 import posthog from "posthog-js";
+
+const STORAGE_KEY = "magicscale_demo_booking_progress";
 
 export default function BookDemoModal({ open, onOpenChange }) {
   const [step, setStep] = useState(1);
@@ -47,10 +49,42 @@ export default function BookDemoModal({ open, onOpenChange }) {
   const [isProcessing, setIsProcessing] = useState(false);
   const [submitted, setSubmitted] = useState(false);
 
-  // Reset to step 1 whenever modal opens
+  // Restore saved progress from localStorage on mount
+  useEffect(() => {
+    try {
+      const saved = localStorage.getItem(STORAGE_KEY);
+      if (saved) {
+        const parsed = JSON.parse(saved);
+        setFormData((prev) => ({
+          ...prev,
+          name: parsed.name || prev.name,
+          restaurantName: parsed.restaurantName || prev.restaurantName,
+          phone: parsed.phone || prev.phone,
+          meetingSlot: parsed.meetingSlot || prev.meetingSlot,
+          meetingDate: parsed.meetingDate || prev.meetingDate,
+        }));
+        if (parsed.step && (parsed.step === 1 || parsed.step === 2)) {
+          setStep(parsed.step);
+        }
+      }
+    } catch (err) {
+      console.warn("Could not read demo booking progress", err);
+    }
+  }, []);
+
+  // Save progress on every state change
+  useEffect(() => {
+    try {
+      if (!submitted && (formData.name || formData.restaurantName || formData.phone || formData.meetingSlot)) {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify({ ...formData, step }));
+      }
+    } catch (err) {
+      console.warn("Could not save demo booking progress", err);
+    }
+  }, [formData, step, submitted]);
+
   useEffect(() => {
     if (open) {
-      setStep(1);
       setSubmitted(false);
     }
   }, [open]);
@@ -67,12 +101,12 @@ export default function BookDemoModal({ open, onOpenChange }) {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (!formData.restaurantName.trim() || !formData.name.trim() || !formData.phone.trim()) {
+    if (!formData.restaurantName?.trim() || !formData.name?.trim() || !formData.phone?.trim()) {
       toast.error("Please fill in your restaurant name, full name, and WhatsApp number.");
       return;
     }
 
-    const cleanPhone = formData.phone.replace(/\D/g, "");
+    const cleanPhone = (formData.phone || "").replace(/\D/g, "");
     if (!/^\d{10}$/.test(cleanPhone)) {
       toast.error("Please enter a valid 10-digit WhatsApp phone number.");
       return;
@@ -85,12 +119,12 @@ export default function BookDemoModal({ open, onOpenChange }) {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          name: formData.name.trim(),
+          name: formData.name?.trim() || "",
           phone: cleanPhone,
-          restaurantName: formData.restaurantName.trim(),
+          restaurantName: formData.restaurantName?.trim() || "",
           meetingDate: formData.meetingDate,
           meetingSlot: formData.meetingSlot,
-          businessActivity: `Free Google Meet Demo: ${formData.restaurantName} | Slot: ${formData.meetingDate} ${formData.meetingSlot}`,
+          businessActivity: `Free Google Meet Demo: ${formData.restaurantName || ""} | Slot: ${formData.meetingDate} ${formData.meetingSlot}`,
           planId: "growth-consultation",
         }),
       });
@@ -112,6 +146,11 @@ export default function BookDemoModal({ open, onOpenChange }) {
           });
         }
       }
+
+      // Clear stored progress on successful submission
+      try {
+        localStorage.removeItem(STORAGE_KEY);
+      } catch (e) {}
 
       setSubmitted(true);
       toast.success("Google Meet strategy session booked!");

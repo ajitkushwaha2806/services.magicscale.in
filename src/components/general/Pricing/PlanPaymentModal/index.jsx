@@ -7,6 +7,8 @@ import { Store, User, Phone, Mail, ShieldCheck, Lock, Loader2, ArrowRight, Check
 import posthog from "posthog-js";
 import { useRegistration } from "@/hooks/useRegistration";
 
+const STORAGE_KEY = "magicscale_plan_checkout_progress";
+
 export default function PlanPaymentModal({ open, onOpenChange, selectedPlan }) {
   const { registration } = useRegistration();
 
@@ -14,10 +16,38 @@ export default function PlanPaymentModal({ open, onOpenChange, selectedPlan }) {
     name: "",
     phone: "",
     restaurantName: "",
-    email: "",
   });
 
   const [isProcessing, setIsProcessing] = useState(false);
+
+  // Restore saved progress from localStorage on mount
+  useEffect(() => {
+    try {
+      const saved = localStorage.getItem(STORAGE_KEY);
+      if (saved) {
+        const parsed = JSON.parse(saved);
+        setFormData((prev) => ({
+          ...prev,
+          name: parsed.name || prev.name,
+          phone: parsed.phone || prev.phone,
+          restaurantName: parsed.restaurantName || prev.restaurantName,
+        }));
+      }
+    } catch (err) {
+      console.warn("Could not load plan checkout progress", err);
+    }
+  }, []);
+
+  // Save progress on every state change
+  useEffect(() => {
+    try {
+      if (formData.name || formData.restaurantName || formData.phone) {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(formData));
+      }
+    } catch (err) {
+      console.warn("Could not save plan checkout progress", err);
+    }
+  }, [formData]);
 
   useEffect(() => {
     const handlePaytmOpened = () => {
@@ -52,10 +82,10 @@ export default function PlanPaymentModal({ open, onOpenChange, selectedPlan }) {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
-            name: formData.name.trim(),
+            name: formData.name?.trim() || "",
             phone: cleanPhone,
-            email: formData.email.trim(),
-            restaurantName: formData.restaurantName.trim(),
+            email: formData.email?.trim() || "",
+            restaurantName: formData.restaurantName?.trim() || "",
             businessActivity: `Plan Purchase: ${selectedPlan.title}`,
             planId: selectedPlan._id,
           }),
@@ -84,16 +114,19 @@ export default function PlanPaymentModal({ open, onOpenChange, selectedPlan }) {
       toast.loading("Initiating secure payment gateway...", { id: "pay-toast" });
 
       await registration.mutateAsync({
-        name: formData.name.trim(),
+        name: formData.name?.trim() || "",
         phone: cleanPhone,
-        email: formData.email.trim(),
-        restaurantName: formData.restaurantName.trim(),
-        businessName: formData.restaurantName.trim(),
+        email: formData.email?.trim() || "",
+        restaurantName: formData.restaurantName?.trim() || "",
+        businessName: formData.restaurantName?.trim() || "",
         businessActivity: `Growth Plan: ${selectedPlan.title}`,
         planId: selectedPlan._id,
       });
 
       toast.dismiss("pay-toast");
+      try {
+        localStorage.removeItem(STORAGE_KEY);
+      } catch (e) {}
     } catch (error) {
       console.error(error);
       toast.dismiss("pay-toast");
