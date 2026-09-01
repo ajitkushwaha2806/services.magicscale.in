@@ -1,121 +1,77 @@
 export const PLANS = {
-  "fssai-food-license": {
-    _id: "fssai-food-license", // Keeping _id for compatibility with existing code
-    title: "FSSAI Food License Registration",
-    slug: "fssai-food-license",
-    description: "Get your FSSAI Food License quickly with complete documentation, application filing, and support.",
+  "basic-growth-1m": {
+    _id: "basic-growth-1m",
+    title: "Basic Growth Plan (1 Month)",
+    slug: "basic-growth-1m",
+    description: "Essential visibility, menu setup, and ad optimization for 1 month.",
     currency: "INR",
-    price: 699, // Base price for payment fallback if needed
-    advancePrice: 100,
-    advanceText: "Pay ₹100 Advance, rest after License Issue",
-    badge: "Pay ₹100 Advance",
-    ctaText: "Apply Now",
+    price: 9999,
+    advancePrice: 9999,
+    advanceText: "Pay ₹9,999",
+    badge: "1 Month Plan",
+    ctaText: "Choose Basic (1 Month)",
+    isActive: true,
+    whatsappSupportLink: "https://wa.me/918826073117",
+  },
+  "basic-growth-3m": {
+    _id: "basic-growth-3m",
+    title: "Basic Growth Plan (3 Months)",
+    slug: "basic-growth-3m",
+    description: "Essential visibility, menu setup, and ad optimization with 3-month savings.",
+    currency: "INR",
+    price: 23999,
+    advancePrice: 23999,
+    advanceText: "Pay ₹23,999",
+    badge: "3 Months Plan",
+    ctaText: "Choose Basic (3 Months)",
+    isActive: true,
+    whatsappSupportLink: "https://wa.me/918826073117",
+  },
+  "premium-growth-1m": {
+    _id: "premium-growth-1m",
+    title: "Premium Growth Plan (1 Month)",
+    slug: "premium-growth-1m",
+    description: "Advanced growth solution with branding, premium photography, repeat customer focus, and live rating calls.",
+    currency: "INR",
+    price: 14999,
+    advancePrice: 14999,
+    advanceText: "Pay ₹14,999",
+    badge: "1 Month Plan",
+    ctaText: "Choose Premium (1 Month)",
+    isActive: true,
+    whatsappSupportLink: "https://wa.me/918826073117",
+  },
+  "premium-growth-3m": {
+    _id: "premium-growth-3m",
+    title: "Premium Growth Plan (3 Months)",
+    slug: "premium-growth-3m",
+    description: "Full 90-day scale with branding, photography, live rating calls, and priority consultation.",
+    currency: "INR",
+    price: 35999,
+    advancePrice: 35999,
+    advanceText: "Pay ₹35,999",
+    badge: "3 Months Plan",
+    ctaText: "Choose Premium (3 Months)",
+    isActive: true,
+    whatsappSupportLink: "https://wa.me/918826073117",
+  },
+  "growth-consultation": {
+    _id: "growth-consultation",
+    title: "1-on-1 Growth Strategy Call (Google Meet)",
+    slug: "growth-consultation",
+    description: "30-min live Google Meet strategy session with a dedicated Zomato & Swiggy growth consultant.",
+    currency: "INR",
+    price: 0,
+    advancePrice: 0,
+    advanceText: "Free Strategy Call",
+    badge: "Free Slot Booking",
+    ctaText: "Book Meeting Now",
     features: [
-      "Expert Documentation Support",
-      "Application Filing",
-      "Government Fee Guidance",
-      "Status Tracking",
-      "Dedicated Support",
-      "Fast Processing",
-      "Digital License Copy"
-    ],
-    plans: [
-      {
-        licenseType: "Basic Registration",
-        description: "For small food businesses with turnover up to ₹12 Lakhs/year.",
-        pricing: [
-          {
-            duration: "1 Year",
-            price: 699,
-            originalPrice: 1499,
-            popular: true
-          },
-          {
-            duration: "2 Years",
-            price: 1800,
-            originalPrice: 2500
-          },
-          {
-            duration: "3 Years",
-            price: 2500,
-            originalPrice: 3500
-          },
-          {
-            duration: "5 Years",
-            price: 3699,
-            originalPrice: 5500
-          }
-        ]
-      },
-      {
-        licenseType: "State License",
-        description: "For medium-sized food businesses operating within one state.",
-        pricing: [
-          {
-            duration: "1 Year",
-            price: 1699,
-            originalPrice: 2699
-          },
-          {
-            duration: "2 Years",
-            price: 3500,
-            originalPrice: 4500
-          },
-          {
-            duration: "3 Years",
-            price: 4500,
-            originalPrice: 6000
-          },
-          {
-            duration: "5 Years",
-            price: 6699,
-            originalPrice: 9000
-          }
-        ]
-      },
-      {
-        licenseType: "Central License",
-        description: "For large food businesses, importers, exporters, and multi-state operations.",
-        pricing: [
-          {
-            duration: "1 Year",
-            price: 3699,
-            originalPrice: 5699
-          },
-          {
-            duration: "2 Years",
-            price: 6699,
-            originalPrice: 8699
-          },
-          {
-            duration: "3 Years",
-            price: 8699,
-            originalPrice: 10699
-          },
-          {
-            duration: "5 Years",
-            price: 12699,
-            originalPrice: 15699
-          }
-        ]
-      }
-    ],
-    includedServices: [
-      "Eligibility Check",
-      "Document Verification",
-      "Application Filing",
-      "FSSAI Registration Assistance",
-      "License Download Support",
-      "Customer Support"
-    ],
-    documentsRequired: [
-      "Aadhaar Card",
-      "PAN Card",
-      "Passport Size Photograph",
-      "Business Name",
-      "Business Address",
-      "Email ID",
-      "Mobile Number"
+      "30-Min Live Google Meet Consultation",
+      "Full Zomato & Swiggy Menu Audit",
+      "Ad Spend & ROAS Calculation",
+      "Competitor Gap Analysis",
+      "Actionable 30-Day Growth Roadmap"
     ],
     isActive: true,
     whatsappSupportLink: "https://wa.me/918826073117"

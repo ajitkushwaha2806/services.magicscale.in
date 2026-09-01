@@ -13,7 +13,7 @@ export default function Page() {
     "@context": "https://schema.org",
     "@type": "WebPage",
     name: "Swiggy & Zomato Growth Services",
-    url: "https://fssai.magicscale.in",
+    url: "https://magicscale.in",
     description: "Expert growth management for restaurants on Swiggy and Zomato.",
   };
 
@@ -29,7 +29,7 @@ export default function Page() {
     serviceType: "Digital Marketing for Restaurants",
     offers: {
       "@type": "Offer",
-      price: "999",
+      price: "100",
       priceCurrency: "INR",
     },
   };
@@ -67,7 +67,7 @@ export default function Page() {
         name: "What are your charges?",
         acceptedAnswer: {
           "@type": "Answer",
-          text: "Our plans start at just ₹999 for basic optimization, and scale based on your specific growth requirements.",
+          text: "Our plans start at ₹9,999/month, and we offer a 1-on-1 Strategy Call on Google Meet for ₹100.",
         },
       },
     ],
@@ -81,13 +81,13 @@ export default function Page() {
         "@type": "ListItem",
         position: 1,
         name: "Home",
-        item: "https://fssai.magicscale.in",
+        item: "https://magicscale.in",
       },
       {
         "@type": "ListItem",
         position: 2,
         name: "Swiggy & Zomato Growth",
-        item: "https://fssai.magicscale.in/#pricing",
+        item: "https://magicscale.in/#pricing",
       },
     ],
   };
@@ -96,9 +96,9 @@ export default function Page() {
     "@context": "https://schema.org",
     "@type": "ProfessionalService",
     name: "MagicScale Restaurant Growth",
-    image: "https://fssai.magicscale.in/og-image.png",
-    "@id": "https://fssai.magicscale.in",
-    url: "https://fssai.magicscale.in",
+    image: "https://magicscale.in/og-image.png",
+    "@id": "https://magicscale.in",
+    url: "https://magicscale.in",
     telephone: "+918826073117",
     priceRange: "₹999 - ₹4999",
     address: {

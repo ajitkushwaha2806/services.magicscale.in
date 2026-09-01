@@ -18,7 +18,7 @@ export async function initiatePaytmTransaction(orderId, amount, customerId) {
   const appUrl =
     process.env.NEXT_PUBLIC_APP_URL ||
     (process.env.NODE_ENV === "production"
-      ? "https://fssai.magicscale.in"
+      ? "https://magicscale.in"
       : "http://localhost:3000");
 
   const paytmParams = {};

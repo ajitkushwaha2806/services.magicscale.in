@@ -14,9 +14,14 @@ const registrationSchema = new mongoose.Schema(
 
     email: String,
     address: String,
+    city: String,
+    restaurantName: String,
     businessName: String,
     businessActivity: String,
     turnover: String,
+    dailyOrders: String,
+    meetingDate: String,
+    meetingSlot: String,
     profilePicUrl: String,
     aadharUrl: String,
     panUrl: String,
@@ -62,3 +67,4 @@ const registrationSchema = new mongoose.Schema(
 export const Registration =
   mongoose.models.Registration ||
   mongoose.model("Registration", registrationSchema);
+

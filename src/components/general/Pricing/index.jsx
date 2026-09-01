@@ -1,14 +1,17 @@
 "use client";
 import React, { useState } from "react";
 import Title from "../Title";
-import PayButton from "../Payment/PayButton";
 import SectionWrapper from "../SectionWrapper";
-import { Check, Shield, Zap, Info } from "lucide-react";
+import { Check, Shield, Zap, ArrowRight } from "lucide-react";
 import { Highlighter } from "@/components/ui/highlighter";
 import { motion } from "framer-motion";
+import { PLANS } from "@/constants/plans";
+import PlanPaymentModal from "./PlanPaymentModal";
 
 export default function Pricing() {
-  const [isQuarterly, setIsQuarterly] = useState(true);
+  const [isQuarterly, setIsQuarterly] = useState(false);
+  const [modalOpen, setModalOpen] = useState(false);
+  const [selectedPlan, setSelectedPlan] = useState(null);
 
   const basicFeatures = [
     "Basic Food Photography",
@@ -38,22 +41,39 @@ export default function Pricing() {
     "Advanced Profit & Performance Optimization",
   ];
 
+  const handleSelectPlan = (planKey) => {
+    const plan = PLANS[planKey];
+    if (plan) {
+      setSelectedPlan(plan);
+      setModalOpen(true);
+    }
+  };
+
   return (
-    <SectionWrapper title={
-      <div className="mx-auto mb-10 text-center max-w-3xl">
-        <Title
-          title={
-            <>
-              Choose Your{" "}
-              <Highlighter action="highlight" color="#22c55e">
-                <span className="text-white relative z-10 px-2 py-1">Growth Plan</span>
-              </Highlighter>
-            </>
-          }
-          description="Two clear service levels - one for structured account growth and one for aggressive brand, customer, and retention growth."
-        />
-      </div>
-    }>
+    <SectionWrapper
+      id="pricing"
+      title={
+        <div className="mx-auto mb-10 text-center max-w-3xl">
+          <Title
+            title={
+              <>
+                Choose Your{" "}
+                <Highlighter action="highlight" color="#22c55e">
+                  <span className="text-white relative z-10 px-2 py-1">Growth Plan</span>
+                </Highlighter>
+              </>
+            }
+            description="Two clear service levels - one for structured account growth and one for aggressive brand, customer, and retention growth."
+          />
+        </div>
+      }
+    >
+      {/* Plan Payment Modal */}
+      <PlanPaymentModal
+        open={modalOpen}
+        onOpenChange={setModalOpen}
+        selectedPlan={selectedPlan}
+      />
       
       {/* Toggle */}
       <div className="flex justify-center items-center mb-16">
@@ -88,7 +108,9 @@ export default function Pricing() {
       </div>
 
       <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8 relative z-10">
-        <div className="flex flex-col bg-white dark:bg-[#10101a] rounded-3xl border border-neutral-200 dark:border-neutral-800 shadow-xl overflow-hidden transition-all duration-300 hover:border-green-500/30 hover:shadow-2xl hover:-translate-y-1">
+        
+        {/* Basic Plan */}
+        <div className="flex flex-col bg-white dark:bg-[#10101a] rounded-md border border-neutral-200 dark:border-neutral-800 shadow-xl overflow-hidden transition-all duration-300 hover:border-green-500/30 hover:shadow-2xl hover:-translate-y-1">
           <div className="p-8 pb-0">
             <h3 className="text-2xl font-black text-neutral-900 dark:text-white">Basic Growth</h3>
             <p className="text-sm text-neutral-500 mt-2 font-medium">For essential visibility & optimization.</p>
@@ -110,11 +132,16 @@ export default function Pricing() {
               )}
             </div>
 
-            <PayButton className="w-full bg-neutral-900 hover:bg-neutral-800 dark:bg-white dark:hover:bg-neutral-200 text-white dark:text-neutral-900 h-14 text-lg rounded-xl shadow-lg transition-all font-bold">
-              Choose Basic
-            </PayButton>
+            <button
+              onClick={() => handleSelectPlan(isQuarterly ? "basic-growth-3m" : "basic-growth-1m")}
+              className="w-full bg-neutral-900 hover:bg-neutral-800 dark:bg-white dark:hover:bg-neutral-200 text-white dark:text-neutral-900 h-14 text-lg rounded-md shadow-lg transition-all font-bold flex items-center justify-center gap-2 group active:scale-[0.98]"
+            >
+              <span>Choose Basic</span>
+              <ArrowRight className="w-5 h-5 transition-transform group-hover:translate-x-1" />
+            </button>
+
             <p className="text-center text-xs text-neutral-400 mt-3 font-semibold flex items-center justify-center gap-1">
-              <Shield className="w-3.5 h-3.5" /> Safe & Secure Payment
+              <Shield className="w-3.5 h-3.5" /> Safe & Secure Payment via Paytm
             </p>
           </div>
           
@@ -132,7 +159,7 @@ export default function Pricing() {
         </div>
 
         {/* Premium Plan */}
-        <div className="flex flex-col bg-white dark:bg-[#10101a] rounded-3xl border-2 border-green-500 shadow-2xl overflow-hidden transition-all duration-300 hover:shadow-green-500/10 hover:-translate-y-1 relative">
+        <div className="flex flex-col bg-white dark:bg-[#10101a] rounded-md border-2 border-green-500 shadow-2xl overflow-hidden transition-all duration-300 hover:shadow-green-500/10 hover:-translate-y-1 relative">
           
           <div className="absolute top-0 inset-x-0 h-8 bg-green-500 text-white text-xs font-black uppercase tracking-widest flex items-center justify-center gap-1.5">
             <Zap className="w-4 h-4 fill-white" /> Recommended for max ROI
@@ -161,11 +188,16 @@ export default function Pricing() {
               )}
             </div>
 
-            <PayButton className="w-full bg-green-500 hover:bg-green-600 text-white h-14 text-lg rounded-xl shadow-[0_8px_20px_rgba(34,197,94,0.3)] transition-all font-bold">
-              Choose Premium
-            </PayButton>
+            <button
+              onClick={() => handleSelectPlan(isQuarterly ? "premium-growth-3m" : "premium-growth-1m")}
+              className="w-full bg-green-500 hover:bg-green-600 text-white h-14 text-lg rounded-md shadow-[0_8px_20px_rgba(34,197,94,0.3)] transition-all font-bold flex items-center justify-center gap-2 group active:scale-[0.98]"
+            >
+              <span>Choose Premium</span>
+              <ArrowRight className="w-5 h-5 transition-transform group-hover:translate-x-1" />
+            </button>
+
             <p className="text-center text-xs text-neutral-400 mt-3 font-semibold flex items-center justify-center gap-1">
-              <Shield className="w-3.5 h-3.5" /> Safe & Secure Payment
+              <Shield className="w-3.5 h-3.5" /> Safe & Secure Payment via Paytm
             </p>
           </div>
           

@@ -2,9 +2,6 @@ import React from "react";
 import { Hero } from "@/components/general/Hero";
 import StickyMobileCTA from "@/components/general/StickyMobileCTA";
 import WhyChooseUs from "@/components/general/WhyChooseUs";
-import PainSection from "@/components/general/PainSection";
-import LicenseTypes from "@/components/general/LicenseTypes";
-import HowItWorks from "@/components/general/HowItWorks";
 import Deliverables from "@/components/general/Deliverables";
 import Pricing from "@/components/general/Pricing";
 import Lifecycle from "@/components/general/Lifecycle";
@@ -17,9 +14,6 @@ export default function Home() {
     <div className="w-full pb-16 text-neutral-900 transition-colors duration-300 dark:text-white">
       <Hero />
       <WhyChooseUs />
-      <PainSection />
-      <LicenseTypes />
-      <HowItWorks />
       <StickyMobileCTA />
       <Deliverables />
       <Pricing />

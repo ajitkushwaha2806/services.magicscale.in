@@ -11,30 +11,30 @@ const poppins = Poppins({
 });
 
 export const metadata = {
-  metadataBase: new URL("https://fssai.magicscale.in"),
+  metadataBase: new URL("https://magicscale.in"),
 
   title: {
-    default: "FSSAI License Online | MagicScale",
+    default: "MagicScale | 10x Your Restaurant Orders on Zomato & Swiggy",
     template: "%s | MagicScale",
   },
 
   description:
-    "Apply for FSSAI License online starting at ₹999. Get Basic, State and Central Food License with expert support.",
+    "Expert Swiggy & Zomato account management, high-ROI ad campaigns, menu score optimization, and live rating calls to skyrocket your restaurant sales.",
 
   keywords: [
-    "FSSAI License",
-    "Food License",
-    "FSSAI Registration",
-    "Food Registration",
-    "Apply FSSAI License",
-    "FSSAI Online",
-    "Basic FSSAI License",
-    "State FSSAI License",
-    "Central FSSAI License",
+    "Restaurant Growth Agency",
+    "Zomato Account Management",
+    "Swiggy Account Management",
+    "Food Business Growth",
+    "Restaurant Marketing Agency",
+    "Menu Score Optimization",
+    "Zomato Ads Optimization",
+    "Swiggy Ads Management",
+    "Cloud Kitchen Growth",
   ],
 
   alternates: {
-    canonical: "https://fssai.magicscale.in",
+    canonical: "https://magicscale.in",
   },
 
   icons: {
@@ -42,16 +42,16 @@ export const metadata = {
   },
 
   openGraph: {
-    title: "FSSAI License Online | MagicScale",
-    description: "Apply for FSSAI License online starting at ₹999. Get Basic, State and Central Food License with expert support.",
-    url: "https://fssai.magicscale.in",
+    title: "MagicScale | 10x Your Restaurant Orders on Zomato & Swiggy",
+    description: "Expert Swiggy & Zomato account management, high-ROI ad campaigns, menu score optimization, and live rating calls to skyrocket your restaurant sales.",
+    url: "https://magicscale.in",
     siteName: "MagicScale",
     images: [
       {
         url: "/og-image.png",
         width: 1200,
         height: 630,
-        alt: "MagicScale FSSAI License",
+        alt: "MagicScale Restaurant Growth",
       },
     ],
     locale: "en_IN",
@@ -59,8 +59,8 @@ export const metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "FSSAI License Online | MagicScale",
-    description: "Apply for FSSAI License online starting at ₹999.",
+    title: "MagicScale | Restaurant Growth Management",
+    description: "Scale your daily orders on Swiggy and Zomato systematically.",
     images: ["/og-image.png"],
   },
 };
@@ -70,8 +70,8 @@ export default function RootLayout({ children }) {
     "@context": "https://schema.org",
     "@type": "Organization",
     name: "MagicScale",
-    url: "https://fssai.magicscale.in",
-    logo: "https://fssai.magicscale.in/og-image.png",
+    url: "https://magicscale.in",
+    logo: "https://magicscale.in/og-image.png",
     contactPoint: {
       "@type": "ContactPoint",
       telephone: "+91-8826073117",
@@ -84,8 +84,8 @@ export default function RootLayout({ children }) {
   const websiteSchema = {
     "@context": "https://schema.org",
     "@type": "WebSite",
-    name: "MagicScale FSSAI Licensing",
-    url: "https://fssai.magicscale.in",
+    name: "MagicScale Restaurant Growth",
+    url: "https://magicscale.in",
   };
 
   return (

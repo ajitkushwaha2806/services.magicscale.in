@@ -1,5 +1,5 @@
 export default function sitemap() {
-  const baseUrl = "https://fssai.magicscale.in";
+  const baseUrl = "https://magicscale.in";
 
   return [
     {

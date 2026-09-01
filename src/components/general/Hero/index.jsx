@@ -1,10 +1,18 @@
+"use client";
+import React, { useState } from "react";
 import { cn } from "@/lib/utils";
-import { Highlighter } from "@/components/ui/highlighter";
 import { GridPattern } from "@/components/ui/grid-pattern";
+import { ArrowRight, TrendingUp, Video, CheckCircle2, ChevronDown } from "lucide-react";
+import Image from "next/image";
+import Link from "next/link";
+import BookDemoModal from "../BookDemoModal";
 
 export const Hero = () => {
+  const [demoOpen, setDemoOpen] = useState(false);
+
   return (
-    <div className="relative w-full px-4 sm:px-6 lg:px-8 text-center pt-20 md:pt-32 pb-8 md:pb-12 overflow-hidden flex flex-col items-center">
+    <div className="relative w-full px-4 sm:px-6 lg:px-8 text-center pt-20 sm:pt-28 md:pt-36 pb-12 sm:pb-16 md:pb-20 overflow-hidden flex flex-col items-center">
+      {/* Subtle Background Pattern */}
       <GridPattern
         width={40}
         height={40}
@@ -12,78 +20,121 @@ export const Hero = () => {
         y={-1}
         strokeDasharray={"4 2"}
         className={cn(
-          "absolute inset-0 h-full w-full stroke-green-600/30 fill-green-600/30 dark:stroke-green-400/30 dark:fill-green-400/30 z-0",
+          "absolute inset-0 h-full w-full stroke-zinc-200/70 fill-zinc-100/40 dark:stroke-zinc-800/40 dark:fill-zinc-900/20 z-0",
           "[mask-image:linear-gradient(to_bottom,white,transparent_90%)]",
         )}
       />
-      <h1
-        className="relative z-10 w-full mx-auto pb-4 animate-in fade-in slide-in-from-top-4 duration-700"
-      >
-        <div className="flex justify-center mb-6">
-          <span className="inline-flex items-center rounded-full bg-green-100/80 dark:bg-green-900/30 px-4 py-1.5 text-sm font-medium text-green-800 dark:text-green-300 ring-1 ring-inset ring-green-600/20 shadow-sm">
-            🚀 Skyrocket Your Restaurant's Revenue
-          </span>
-        </div>
 
-        <div className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black tracking-tight leading-[1.2] md:leading-[1.1] text-gray-900 dark:text-white">
-          10x Your Orders on{" "}
-          <span className="text-transparent bg-clip-text bg-gradient-to-r from-red-500 to-green-600 drop-shadow-sm">
-            Zomato & Swiggy
+      {/* Book Demo Modal */}
+      <BookDemoModal open={demoOpen} onOpenChange={setDemoOpen} />
+
+      {/* Top Badge */}
+      <div className="relative z-10 flex justify-center mb-4 sm:mb-6 animate-in fade-in slide-in-from-top-3 duration-500">
+        <div className="inline-flex items-center gap-2 rounded-md bg-green-50 dark:bg-green-950/40 border border-green-200 dark:border-green-800/50 px-3 py-1 text-xs sm:text-sm font-bold text-green-700 dark:text-green-400 shadow-sm">
+          <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
+          <span>Zomato & Swiggy Growth Agency</span>
+        </div>
+      </div>
+
+      {/* Hero Headline */}
+      <h1 className="relative z-10 w-full mx-auto pb-1 sm:pb-2 animate-in fade-in slide-in-from-top-4 duration-700">
+        <div className="text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-black tracking-tight leading-[1.2] md:leading-[1.15] text-zinc-900 dark:text-white max-w-4xl mx-auto">
+          <span>Not getting orders on </span>
+          <span className="inline-block whitespace-nowrap">
+            <span className="text-[#FC8019]">Swiggy</span>
+            <span className="text-zinc-400 font-normal mx-1.5 sm:mx-2">&</span>
+            <span className="text-[#E23744]">Zomato?</span>
           </span>
-          <br />
-          <span className="mt-2 md:mt-4 flex flex-wrap justify-center items-center gap-x-4 gap-y-2">
-            <span>Guaranteed Results</span>
-            <span className="inline-block -rotate-2 transform transition-transform hover:rotate-0 duration-300">
-              <Highlighter action="highlight" color="#f97316">
-                <span className="text-white relative z-10 px-4 py-1 rounded-md">
-                  In 30 Days
-                </span>
-              </Highlighter>
+          
+          <div className="mt-3 sm:mt-5 flex flex-wrap justify-center items-center gap-x-2.5 sm:gap-x-3 gap-y-2">
+            <span className="text-zinc-900 dark:text-white">We know</span>
+            <span className="bg-[#22c55e] text-white px-3 sm:px-5 py-1 rounded-md inline-block font-black shadow-sm tracking-normal">
+              Exactly Why
             </span>
-          </span>
+          </div>
         </div>
       </h1>
 
-      <p
-        className="relative z-10 mt-6 text-sm md:text-lg lg:text-xl text-gray-500 dark:text-gray-400 max-w-3xl font-normal leading-relaxed mx-auto px-2 animate-in fade-in slide-in-from-bottom-4 duration-700 delay-200 fill-mode-both"
-      >
-        Expert menu optimization, CPC ad management, and organic ranking strategies designed to maximize your visibility and sales.
+      {/* Subheadline */}
+      <p className="relative z-10 mt-4 sm:mt-6 text-sm sm:text-lg md:text-xl text-zinc-600 dark:text-zinc-300 max-w-2xl font-medium leading-relaxed mx-auto px-2 animate-in fade-in slide-in-from-bottom-3 duration-700 delay-150">
+        We optimize your menu ranking, fix high-cost ads, and boost daily order volume systematically.
       </p>
 
-      <div className="relative z-10 mt-6 animate-in fade-in slide-in-from-bottom-4 duration-700 delay-300">
-        <div className="inline-flex flex-col sm:flex-row items-center justify-center gap-3 bg-green-50 dark:bg-green-900/20 px-6 py-3 rounded-2xl border border-green-100 dark:border-green-800/30">
-          <span className="text-green-700 dark:text-green-400 font-semibold text-lg flex items-center gap-2">
-            <span className="text-2xl font-black">₹999</span> /month
-          </span>
-          <span className="hidden sm:block text-green-300">|</span>
-          <span className="text-green-600 dark:text-green-500 font-medium text-sm sm:text-base">
-            Cancel Anytime • Transparent Reporting
-          </span>
+      {/* CTA Buttons */}
+      <div className="relative z-10 mt-6 sm:mt-8 mb-5 flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4 w-full max-w-sm sm:max-w-none animate-in fade-in slide-in-from-bottom-4 duration-700 delay-200">
+        <button
+          onClick={() => setDemoOpen(true)}
+          className="w-full sm:w-auto h-12 sm:h-14 px-6 sm:px-8 text-sm sm:text-base font-bold text-white bg-green-600 hover:bg-green-700 rounded-md shadow-lg shadow-green-600/25 transition-all hover:scale-105 active:scale-[0.98] flex items-center justify-center gap-2 group whitespace-nowrap"
+        >
+          <Video className="w-4 h-4 sm:w-5 sm:h-5 text-white shrink-0" />
+          <span>Book Free Strategy Call</span>
+          <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1 shrink-0" />
+        </button>
+
+        <Link
+          href="#pricing"
+          className="w-full sm:w-auto h-12 sm:h-14 px-6 sm:px-8 text-sm sm:text-base font-bold text-zinc-800 dark:text-zinc-200 bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-md shadow-sm transition-all hover:bg-zinc-50 dark:hover:bg-zinc-800 hover:scale-105 flex items-center justify-center gap-2 whitespace-nowrap"
+        >
+          <TrendingUp className="w-4 h-4 sm:w-5 sm:h-5 text-green-600 shrink-0" />
+          <span>View Growth Plans</span>
+        </Link>
+      </div>
+
+      {/* Trust Badges Row */}
+      <div className="relative z-10 flex flex-wrap items-center justify-center gap-x-4 sm:gap-x-6 gap-y-2 text-xs sm:text-sm font-semibold text-zinc-500 dark:text-zinc-400 mb-10 sm:mb-14 animate-in fade-in duration-700 delay-300">
+        <div className="flex items-center gap-1.5">
+          <CheckCircle2 className="w-4 h-4 text-green-600 shrink-0" />
+          <span>Free 30-Min Live Audit</span>
+        </div>
+        <div className="flex items-center gap-1.5">
+          <CheckCircle2 className="w-4 h-4 text-green-600 shrink-0" />
+          <span>Actionable Growth Plan</span>
+        </div>
+        <div className="flex items-center gap-1.5">
+          <CheckCircle2 className="w-4 h-4 text-green-600 shrink-0" />
+          <span>100% Free • No Card Needed</span>
         </div>
       </div>
 
-      <div
-        className="relative hidden z-10 md:flex flex-wrap items-center justify-center gap-x-6 gap-y-2 mt-12 mb-12 text-sm font-medium text-gray-500 dark:text-gray-400 animate-in fade-in duration-700 delay-500 fill-mode-both"
-      >
-        <span className="flex items-center gap-1.5"><span className="text-green-500 bg-green-100 dark:bg-green-900/40 rounded-full p-0.5">✓</span> Data-Driven Menu Curation</span>
-        <span className="flex items-center gap-1.5"><span className="text-green-500 bg-green-100 dark:bg-green-900/40 rounded-full p-0.5">✓</span> Optimized Ad Spend</span>
-        <span className="flex items-center gap-1.5"><span className="text-green-500 bg-green-100 dark:bg-green-900/40 rounded-full p-0.5">✓</span> 24/7 Account Manager</span>
-      </div>
+      {/* Dashboard Image Showcase */}
+      <div className="w-full max-w-5xl mx-auto px-2 sm:px-4 relative z-10 animate-in fade-in zoom-in-[0.99] duration-1000 delay-500 fill-mode-both">
+        <div className="group relative rounded-xl sm:rounded-2xl p-2 sm:p-2.5 bg-zinc-100 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 shadow-2xl shadow-zinc-900/10 dark:shadow-black/40">
 
-      <div className="w-full max-w-6xl mx-auto animate-in fade-in zoom-in-95 duration-700 delay-700 ">
-        <div className="group relative overflow-hidden rounded-2xl md:rounded-[24px] border border-zinc-200/80 dark:border-zinc-800 bg-white dark:bg-black shadow-[0_8px_30px_rgba(0,0,0,0.08)] transition-all duration-300 hover:shadow-[0_12px_40px_rgba(0,0,0,0.12)] p-2 sm:p-4">
-          <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none">
-            <div className="absolute -top-32 -right-32 h-64 w-64 rounded-full bg-green-500/10 blur-3xl" />
-            <div className="absolute -bottom-32 -left-32 h-64 w-64 rounded-full bg-red-500/10 blur-3xl" />
-          </div>
+          <div className="relative overflow-hidden rounded-lg sm:rounded-xl border border-zinc-200 dark:border-zinc-800 bg-white">
+            {/* Window Bar */}
+            <div className="flex items-center justify-between px-3 sm:px-4 py-2 sm:py-2.5 border-b border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-900">
+              <div className="flex items-center gap-1.5">
+                <div className="w-2.5 h-2.5 rounded-full bg-red-400" />
+                <div className="w-2.5 h-2.5 rounded-full bg-amber-400" />
+                <div className="w-2.5 h-2.5 rounded-full bg-green-400" />
+              </div>
+              <div className="flex items-center justify-center px-3 py-0.5 rounded-md bg-white dark:bg-black border border-zinc-200 dark:border-zinc-800 text-[11px] text-zinc-600 dark:text-zinc-400 font-semibold truncate max-w-[220px] sm:max-w-xs">
+                <span>zomato.com/merchant/sales-overview</span>
+              </div>
+              <div className="hidden sm:flex items-center gap-1.5 text-[11px] font-bold text-green-700 dark:text-green-400 bg-green-100 dark:bg-green-950/60 px-2.5 py-0.5 rounded-md">
+                <span className="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse" />
+                Live Client Growth (+38%)
+              </div>
+            </div>
 
-          <div className="relative z-10 overflow-hidden rounded-xl md:rounded-[16px] border border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-900/50 flex items-center justify-center p-8 md:p-16 min-h-[300px] md:min-h-[500px]">
-             {/* Placeholder for a generic growth dashboard image or generic illustration */}
-             <div className="text-center">
-               <h3 className="text-2xl font-bold text-gray-800 dark:text-gray-200 mb-4">Your Revenue Dashboard</h3>
-               <p className="text-gray-500 dark:text-gray-400">Placeholder for Swiggy/Zomato Growth Metrics</p>
-             </div>
+            {/* Real Merchant Report Image */}
+            <div className="relative w-full bg-white p-1 sm:p-2">
+              <Image
+                src="/assets/live-sales-growth.png"
+                alt="Zomato Real Sales Growth Overview"
+                width={1024}
+                height={490}
+                priority
+                className="w-full h-auto object-contain rounded-md"
+              />
+            </div>
           </div>
+        </div>
+
+        {/* Scroll prompt */}
+        <div className="mt-8 flex flex-col items-center justify-center gap-1 text-xs text-zinc-400 font-semibold animate-bounce">
+          <span>Scroll to explore our growth roadmap</span>
+          <ChevronDown className="w-4 h-4 text-green-600" />
         </div>
       </div>
     </div>

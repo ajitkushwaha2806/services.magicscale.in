@@ -4,18 +4,18 @@ import { Headset, ShieldCheck, Trash2 } from "lucide-react";
 export const metadata = {
   title: "Refund Policy | MagicScale",
   description:
-    "Read the refund policy for MagicScale FSSAI registration and compliance services.",
+    "Read the refund policy for MagicScale restaurant growth and account management services.",
   keywords: [
     "MagicScale Refund Policy",
     "No Refund Policy",
     "Service Refund Policy",
-    "FSSAI Licensing Service",
-    "consultation Refund",
+    "Account Management Refund",
+    "Marketing Agency Refund",
   ],
   openGraph: {
     title: "Refund Policy | MagicScale",
     description:
-      "MagicScale follows a strict no-refund policy for FSSAI registration services once processing has begun, except in cases where the error is on our side.",
+      "MagicScale follows a strict no-refund policy for restaurant growth services once onboarding has begun, except in cases where the billing error is on our side.",
     url: "https://magicscale.in/refund-policy",
     siteName: "MagicScale",
     type: "website",
@@ -25,25 +25,24 @@ export const metadata = {
 const cardData = [
   {
     title: "Strict No Refund Policy",
-    description: "Once your application processing begins, purchases are final.",
+    description: "Once your account onboarding begins, retainer fees are final.",
     icon: <ShieldCheck className="w-6 h-6 text-green-500" />,
     content: (
       <>
-        MagicScale provides FSSAI compliance guidance, consultation, and 
-        application processing services. <br /> <br />
-        Due to the nature of licensing services where professional time, effort, 
-        and government fees (if applicable) are immediately deployed upon payment, 
-        all purchases are final and non-refundable once our team starts processing 
-        your file. <br /> <br />
+        MagicScale provides expert restaurant marketing, Zomato/Swiggy account 
+        management, and menu optimization services. <br /> <br />
+        Due to the nature of our digital services where professional time, strategy, 
+        and onboarding efforts are immediately deployed upon payment, all purchases 
+        are final and non-refundable once our team begins working on your account. <br /> <br />
         By completing your purchase, you acknowledge and agree to this no-refund
-        policy.
+        policy for the monthly retainer fees.
       </>
     ),
   },
   {
     title: "Non-Refundable Scenarios",
     description:
-      "Refunds are not issued for application delays or government rejections.",
+      "Refunds are not issued for algorithm changes or third-party ad spend.",
     icon: <Trash2 className="w-6 h-6 text-green-500" />,
     content: (
       <>
@@ -51,14 +50,13 @@ const cardData = [
         <ul className="list-disc ml-5 mt-2">
           {" "}
           <li>You changed your mind after making the payment.</li>{" "}
-          <li>You fail to provide the required KYC or business documents.</li>{" "}
-          <li>Your application is delayed or rejected by the FSSAI department.</li>{" "}
-          <li>You cancel your food business plan.</li>{" "}
-          <li>You fail to respond to our agents requesting necessary documentation.</li>{" "}
+          <li>You fail to provide required platform login credentials or menu details.</li>{" "}
+          <li>Sales drop due to platform algorithm changes or seasonal trends outside our control.</li>{" "}
+          <li>You cancel or pause your restaurant operations.</li>{" "}
+          <li>Any direct ad spend (CPC wallet recharges) made to Zomato or Swiggy.</li>{" "}
         </ul>{" "}
         <br />
-        Government processing times and approval decisions are entirely outside 
-        our control.
+        Platform operations and delivery fulfillment are entirely outside our control.
       </>
     ),
   },
@@ -71,7 +69,7 @@ const cardData = [
         Refund requests may only be considered if:{" "}
         <ul className="list-disc ml-5 mt-2">
           {" "}
-          <li>You were charged multiple times for the same purchase.</li>{" "}
+          <li>You were charged multiple times for the same subscription.</li>{" "}
           <li>A verified technical or payment processing error occurred on our end.</li>{" "}
         </ul>{" "}
         <br />
@@ -117,8 +115,8 @@ const page = () => {
           Refund Policy <br className="hidden sm:block" />& Payment Terms{" "}
         </div>
       }
-      description="Please review our refund policy before purchasing any FSSAI registration or consultation services."
-      ctaDescription="All purchases made through MagicScale are final once processing begins. Refunds are only considered in rare cases where the issue was caused by a billing error on our end."
+      description="Please review our refund policy before purchasing any restaurant growth or account management services."
+      ctaDescription="All purchases made through MagicScale are final once onboarding begins. Refunds are only considered in rare cases where the issue was caused by a billing error on our end."
       ctaLink="mailto:support@magicscale.in"
       ctaButton={
         <span className="flex items-center gap-2">

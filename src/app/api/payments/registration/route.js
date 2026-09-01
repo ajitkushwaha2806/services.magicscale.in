@@ -35,7 +35,24 @@ export async function POST(req) {
     await dbConnect();
 
     const body = await req.json();
-    const { name, phone, email, address, businessName, businessActivity, agreedToPrivacy, profilePicUrl, aadharUrl, panUrl, planId } = body;
+    const {
+      name,
+      phone,
+      email,
+      address,
+      city,
+      restaurantName,
+      businessName,
+      businessActivity,
+      dailyOrders,
+      meetingDate,
+      meetingSlot,
+      agreedToPrivacy,
+      profilePicUrl,
+      aadharUrl,
+      panUrl,
+      planId
+    } = body;
 
     if (!name?.trim()) {
       return NextResponse.json(
@@ -57,17 +74,8 @@ export async function POST(req) {
       );
     }
 
-    if (!planId) {
-      return NextResponse.json(
-        {
-          success: false,
-          message: "Please select a plan.",
-        },
-        { status: 400 },
-      );
-    }
-
-    const plan = PLANS[planId];
+    const targetPlanId = planId || "growth-consultation";
+    const plan = PLANS[targetPlanId] || PLANS["growth-consultation"];
 
     if (!plan || !plan.isActive) {
       return NextResponse.json(
@@ -88,15 +96,20 @@ export async function POST(req) {
       phone: phone.trim(),
       email: email?.trim() || "",
       address: address?.trim() || "",
-      businessName: businessName?.trim() || "",
-      businessActivity: businessActivity?.trim() || "",
+      city: city?.trim() || "",
+      restaurantName: (restaurantName || businessName)?.trim() || "",
+      businessName: (restaurantName || businessName)?.trim() || "",
+      businessActivity: businessActivity?.trim() || "Google Meet Strategy Call",
+      dailyOrders: dailyOrders?.trim() || "",
+      meetingDate: meetingDate?.trim() || "",
+      meetingSlot: meetingSlot?.trim() || "",
       agreedToPrivacy: agreedToPrivacy || false,
       profilePicUrl: processedProfilePicUrl || "",
       aadharUrl: processedAadharUrl || "",
       panUrl: processedPanUrl || "",
       planId: plan._id,
       amount: plan.advancePrice || 100,
-      totalAmount: plan.price,
+      totalAmount: plan.price || 100,
       advanceAmount: plan.advancePrice || 100,
       paymentStatus: "PENDING",
     });

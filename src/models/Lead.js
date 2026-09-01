@@ -10,6 +10,30 @@ const leadSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+    email: {
+      type: String,
+      required: false,
+    },
+    restaurantName: {
+      type: String,
+      required: false,
+    },
+    city: {
+      type: String,
+      required: false,
+    },
+    dailyOrders: {
+      type: String,
+      required: false,
+    },
+    meetingDate: {
+      type: String,
+      required: false,
+    },
+    meetingSlot: {
+      type: String,
+      required: false,
+    },
     businessActivity: {
       type: String,
       required: false,
@@ -44,3 +68,4 @@ const leadSchema = new mongoose.Schema(
 );
 
 export const Lead = mongoose.models.Lead || mongoose.model("Lead", leadSchema);
+

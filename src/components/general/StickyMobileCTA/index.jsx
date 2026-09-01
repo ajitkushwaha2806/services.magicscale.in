@@ -1,40 +1,29 @@
 "use client";
-import { ShieldCheck } from "lucide-react";
+import { Video, Sparkles } from "lucide-react";
 import PayButton from "../Payment/PayButton";
-import { useAppConfigStore } from "@/stores/app-config.store";
 
 export default function StickyMobileCTA() {
-  const plan = useAppConfigStore((state) => state.plan);
-
   return (
-    <>
-      <div
-        className="fixed bottom-0 left-0 right-0 z-50 md:hidden animate-in slide-in-from-bottom-full duration-500"
-      >
-        <div className="border-t border-green-100 bg-white/95 backdrop-blur-xl supports-[backdrop-filter]:bg-white/80">
-          <div className="mx-auto max-w-lg px-4 py-3 pb-[calc(env(safe-area-inset-bottom)+12px)]">
-            <div className="flex items-center justify-between gap-2">
-              <div className="flex flex-col shrink-0">
-                <span className="text-2xl min-[375px]:text-3xl font-black tracking-tight text-green-600">
-                  ₹{plan?.advancePrice || 100}
-                </span>
-
-                <div className="mt-0.5 flex flex-col items-start gap-1">
-                  <span className="text-xs font-bold text-zinc-700">Advance</span>
-                  <div className="flex items-center gap-1 text-[10px] min-[375px]:text-xs text-zinc-500 font-medium">
-                    <ShieldCheck className="h-3 w-3 shrink-0 text-green-500" />
-                    <span className="whitespace-nowrap">Rest After Approval</span>
-                  </div>
-                </div>
+    <div className="fixed bottom-0 left-0 right-0 z-50 md:hidden animate-in slide-in-from-bottom-full duration-500">
+      <div className="border-t border-green-100 dark:border-zinc-800 bg-white/95 dark:bg-[#0c0c14]/95 backdrop-blur-xl">
+        <div className="mx-auto max-w-lg px-4 py-3 pb-[calc(env(safe-area-inset-bottom)+12px)]">
+          <div className="flex items-center justify-between gap-3">
+            <div className="flex flex-col">
+              <div className="flex items-center gap-1 text-xs font-extrabold text-green-600 dark:text-green-400">
+                <Video className="w-3.5 h-3.5" />
+                <span>1-on-1 Strategy Call</span>
               </div>
+              <span className="text-[11px] text-zinc-500 font-medium">Free 30-min Google Meet</span>
+            </div>
 
-              <div className="w-full max-w-[160px] min-[375px]:max-w-[180px] ml-auto">
-                <PayButton className="w-full text-sm h-10 min-[375px]:h-11 shadow-lg shadow-green-500/25" />
-              </div>
+            <div className="w-full max-w-[170px]">
+              <PayButton className="w-full text-xs h-10 shadow-lg shadow-green-500/25">
+                Book Demo
+              </PayButton>
             </div>
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 }

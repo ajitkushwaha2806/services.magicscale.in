@@ -21,40 +21,48 @@ const formatCurrency = (amount) => {
 
 export async function sendPaymentSuccessEmails(lead, registration, paymentDetails) {
   try {
-    const whatsappLink = PLANS["fssai-food-license"]?.whatsappSupportLink || "https://wa.me/918826073117";
+    const whatsappLink = "https://wa.me/918826073117";
     const amountPaid = paymentDetails?.amount || registration?.advanceAmount || 0;
 
     // 1. Send Email to Customer
     const customerHtml = `
       <div style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; max-width: 600px; margin: 0 auto; background-color: #ffffff; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 12px rgba(0,0,0,0.05); border: 1px solid #e2e8f0;">
-        <div style="background-color: #2563eb; padding: 32px 20px; text-align: center;">
-          <h1 style="color: #ffffff; margin: 0; font-size: 24px; font-weight: 700;">Payment Successful! 🎉</h1>
-          <p style="color: #bfdbfe; margin: 8px 0 0 0; font-size: 15px;">Your registration is confirmed</p>
+        <div style="background-color: #16a34a; padding: 32px 20px; text-align: center;">
+          <h1 style="color: #ffffff; margin: 0; font-size: 24px; font-weight: 700;">Meeting Confirmed! 🎉</h1>
+          <p style="color: #dcfce7; margin: 8px 0 0 0; font-size: 15px;">Your Google Meet Strategy Session is Booked</p>
         </div>
         
         <div style="padding: 32px 40px;">
           <p style="color: #334155; font-size: 16px; margin-top: 0;">Dear <strong style="color: #0f172a;">${registration.name}</strong>,</p>
-          <p style="color: #475569; font-size: 15px; line-height: 1.6;">Thank you for choosing MagicScale! We have successfully received your payment of <strong style="color: #059669; font-size: 16px;">${formatCurrency(amountPaid)}</strong> for your FSSAI License Registration.</p>
+          <p style="color: #475569; font-size: 15px; line-height: 1.6;">Thank you for booking with MagicScale! We have successfully received your payment of <strong style="color: #059669; font-size: 16px;">${formatCurrency(amountPaid)}</strong> for your 1-on-1 Growth Strategy Session.</p>
           
           <div style="background-color: #f8fafc; border-radius: 8px; padding: 20px; margin: 24px 0; border: 1px solid #e2e8f0;">
-            <h3 style="margin: 0 0 12px 0; color: #0f172a; font-size: 15px;">Transaction Details</h3>
+            <h3 style="margin: 0 0 12px 0; color: #0f172a; font-size: 15px;">Meeting Details</h3>
             <table style="width: 100%; border-collapse: collapse;">
               <tr>
-                <td style="padding: 6px 0; color: #64748b; font-size: 14px;">Business Name:</td>
-                <td style="padding: 6px 0; color: #0f172a; font-size: 14px; text-align: right; font-weight: 600;">${registration.businessName || 'N/A'}</td>
+                <td style="padding: 6px 0; color: #64748b; font-size: 14px;">Restaurant Name:</td>
+                <td style="padding: 6px 0; color: #0f172a; font-size: 14px; text-align: right; font-weight: 600;">${registration.restaurantName || registration.businessName || 'N/A'}</td>
+              </tr>
+              <tr>
+                <td style="padding: 6px 0; color: #64748b; font-size: 14px;">Meeting Date:</td>
+                <td style="padding: 6px 0; color: #0f172a; font-size: 14px; text-align: right; font-weight: 600;">${registration.meetingDate || 'As scheduled'}</td>
+              </tr>
+              <tr>
+                <td style="padding: 6px 0; color: #64748b; font-size: 14px;">Time Slot:</td>
+                <td style="padding: 6px 0; color: #0f172a; font-size: 14px; text-align: right; font-weight: 600;">${registration.meetingSlot || '11:00 AM – 6:00 PM'}</td>
               </tr>
               <tr>
                 <td style="padding: 6px 0; color: #64748b; font-size: 14px;">Service:</td>
-                <td style="padding: 6px 0; color: #0f172a; font-size: 14px; text-align: right; font-weight: 600;">FSSAI Registration</td>
+                <td style="padding: 6px 0; color: #0f172a; font-size: 14px; text-align: right; font-weight: 600;">1-on-1 Google Meet Growth Audit</td>
               </tr>
             </table>
           </div>
 
-          <p style="color: #475569; font-size: 15px; line-height: 1.6; margin-bottom: 24px;">Our team will review your submitted documents and initiate the application process shortly. We will keep you updated on the progress.</p>
+          <p style="color: #475569; font-size: 15px; line-height: 1.6; margin-bottom: 24px;">Our Growth Specialist will send the Google Meet invitation link directly to your WhatsApp & Email before the session.</p>
           
           <div style="text-align: center; margin: 32px 0;">
             <a href="${whatsappLink}" target="_blank" style="display: inline-block; background-color: #25D366; color: #ffffff; text-decoration: none; padding: 14px 28px; border-radius: 50px; font-weight: 600; font-size: 15px; box-shadow: 0 4px 6px rgba(37, 211, 102, 0.2);">
-              <span style="display: inline-block; vertical-align: middle;">💬 Contact Us on WhatsApp</span>
+              <span style="display: inline-block; vertical-align: middle;">💬 WhatsApp Our Team</span>
             </a>
           </div>
         </div>

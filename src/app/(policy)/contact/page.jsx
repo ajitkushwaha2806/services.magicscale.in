@@ -1,23 +1,22 @@
 import Template from "@/components/global/template";
-import { Headset, Mail, MapPin, ShieldCheck, FileCheck } from "lucide-react";
+import { Headset, Mail, MapPin, ShieldCheck, TrendingUp } from "lucide-react";
 
 export const metadata = {
   title: "Contact Us | MagicScale",
   description:
-    "Get in touch with MagicScale. We provide fast, secure, and hassle-free FSSAI Registration and licensing services for food businesses across India.",
+    "Get in touch with MagicScale. We provide end-to-end Zomato and Swiggy account management and growth services for restaurants.",
   keywords: [
     "MagicScale",
-    "FSSAI Registration Support",
-    "food license help",
-    "FSSAI Licensing Service",
-    "food business compliance",
-    "cloud kitchen license",
-    "restaurant registration support",
+    "Zomato Account Management",
+    "Swiggy Growth Agency",
+    "restaurant marketing",
+    "cloud kitchen growth",
+    "food delivery optimization",
   ],
   openGraph: {
     title: "Contact Us | MagicScale",
     description:
-      "Get in touch with MagicScale. We help you secure your FSSAI license quickly and easily.",
+      "Get in touch with MagicScale. We help you scale your Zomato and Swiggy orders quickly and profitably.",
     url: "https://magicscale.in/contact",
     siteName: "MagicScale",
     locale: "en_IN",
@@ -27,20 +26,20 @@ export const metadata = {
     card: "summary_large_image",
     title: "Contact Us | MagicScale",
     description:
-      "Need help with your FSSAI registration? Contact MagicScale today.",
+      "Need help growing your restaurant on delivery apps? Contact MagicScale today.",
   },
 };
 
 const cardData = [
   {
-    title: "Application Support",
+    title: "Growth Support",
     description:
-      "Need help with FSSAI registration, documentation, or compliance?",
+      "Need help with your existing Zomato or Swiggy growth campaigns?",
     icon: <Headset className="w-6 h-6 text-green-500" />,
     content: (
       <>
-        Whether you are starting a new application, need help uploading documents, 
-        or have questions about your FSSAI license status, our team is here to help. <br /> <br />
+        Whether you want to adjust your ad spend, update your menu photography,
+        or check your monthly performance report, our dedicated account managers are here. <br /> <br />
         Reach us at{" "}
         <a
           href="mailto:support@magicscale.in"
@@ -53,13 +52,13 @@ const cardData = [
     ),
   },
   {
-    title: "Expert Guidance",
-    description: "Questions about which FSSAI license is right for you?",
-    icon: <ShieldCheck className="w-6 h-6 text-green-500" />,
+    title: "Expert Strategy",
+    description: "Questions about which growth plan is right for your restaurant?",
+    icon: <TrendingUp className="w-6 h-6 text-green-500" />,
     content: (
       <>
-        Get guidance on Basic, State, and Central FSSAI licenses. We help restaurants, 
-        cloud kitchens, retailers, and food manufacturers stay 100% compliant.
+        Get guidance on our Basic and Premium Growth plans. We help dine-in restaurants,
+        cloud kitchens, and bakeries optimize their menus and dominate local searches.
       </>
     ),
   },
@@ -72,23 +71,23 @@ const cardData = [
         {" "}
         <strong>MagicScale</strong> <br />
         New Delhi, India <br /> <br />
-        We proudly provide online FSSAI registration and business compliance services nationwide.
+        We proudly provide online restaurant growth and account management services nationwide.
       </>
     ),
   },
 ];
 
 const contactData = {
-  title: "Let's Get You Licensed",
+  title: "Let's Scale Your Orders",
   description:
-    "Questions about our FSSAI registration process?",
+    "Questions about our 90-day growth roadmap?",
   content: (
     <div>
       {" "}
       <p className="mb-4">
-        Whether you're planning to launch your first food brand, start a cloud
-        kitchen, or ensure your existing restaurant is compliant, we're
-        here to secure your license quickly and affordably.{" "}
+        Whether you're planning to launch your first cloud kitchen, or want to
+        scale your existing restaurant's daily orders, we have the data-driven
+        strategies to make it happen.{" "}
       </p>
       <p>
         Primary Support:{" "}
@@ -112,11 +111,11 @@ const page = () => {
       heading={
         <div>
           Get Expert Help With Your <br className="hidden sm:block" />
-          FSSAI Registration{" "}
+          Restaurant Growth{" "}
         </div>
       }
-      description="Questions about securing your food license? We're here to help."
-      ctaDescription="Reach out to our team for support, guidance, and answers to your compliance questions. Whether you're just starting or renewing, we're happy to assist."
+      description="Questions about scaling your food delivery orders? We're here to help."
+      ctaDescription="Reach out to our team for support, guidance, and answers to your marketing questions. Whether you're a new listing or an established brand, we're happy to assist."
       ctaLink="mailto:support@magicscale.in"
       ctaButton={
         <span className="flex items-center gap-2">

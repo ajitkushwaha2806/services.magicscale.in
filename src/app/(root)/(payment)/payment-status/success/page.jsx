@@ -67,9 +67,9 @@ function SuccessPageContent() {
         window.fbq("track", "Purchase", {
           value: purchaseValue,
           currency: "INR",
-          content_name: "FSSAI License Registration",
+          content_name: "Google Meet Strategy Session",
           content_type: "product",
-          content_ids: [reg.planId || registrationDetails?.plan?._id || "fssai_plan"],
+          content_ids: [reg.planId || registrationDetails?.plan?._id || "growth-consultation"],
           order_id: reg.orderId
         });
       }
@@ -92,8 +92,11 @@ function SuccessPageContent() {
 
   const sessionDetails = {
     orderId: registration?.orderId || "N/A",
-    amount: registration?.amount || "999",
-    serviceName: "FSSAI License Registration",
+    amount: registration?.amount || "100",
+    serviceName: "1-on-1 Growth Strategy Session (Google Meet)",
+    meetingDate: registration?.meetingDate || "Scheduled Date",
+    meetingSlot: registration?.meetingSlot || "11:00 AM – 6:00 PM",
+    restaurantName: registration?.restaurantName || registration?.businessName || "Your Restaurant",
     whatsappSupportLink: plan?.whatsappSupportLink || "https://wa.me/918826073117",
   };
 
@@ -112,26 +115,26 @@ function SuccessPageContent() {
             <div className="space-y-6 text-center md:text-left mt-4 md:mt-12">
               <div className="inline-flex items-center gap-2 bg-emerald-50 text-emerald-700 px-3 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider mx-auto md:mx-0">
                 <CheckCircle2 className="h-4 w-4" />
-                Payment Successful
+                Slot Confirmed 🎉
               </div>
 
               <h1 className="text-3xl sm:text-4xl font-black text-slate-900 tracking-tight leading-tight">
-                Your Application is <br className="hidden sm:inline" />
-                Being Processed!
+                Your Strategy Session is <br className="hidden sm:inline" />
+                Successfully Booked!
               </h1>
 
               <p className="text-base text-slate-600">
-                Thank you for choosing MagicScale! We have received your payment and FSSAI License application details successfully.
+                Thank you for booking with MagicScale! We have reserved your Google Meet session for <strong className="text-slate-900">{sessionDetails.restaurantName}</strong>.
               </p>
 
               <div className="hidden md:block border-t border-slate-200/80 pt-6">
                 <h4 className="text-xs font-bold text-slate-400 uppercase tracking-widest mb-3">
-                  Next Steps
+                  What Happens Next?
                 </h4>
                 <div className="flex items-start gap-2.5 text-xs text-slate-500 leading-relaxed">
                   <Clock className="h-4 w-4 text-emerald-500 shrink-0 mt-0.5" />
                   <span>
-                    Our experts are reviewing your documents. Your FSSAI Registration Certificate will be generated and sent to you via WhatsApp & Email within 24 hours.
+                    Our Growth Consultant will review your Swiggy and Zomato profiles before the call and share your custom Google Meet link on WhatsApp and Email.
                   </span>
                 </div>
               </div>
@@ -144,7 +147,7 @@ function SuccessPageContent() {
                 <div className="p-6 pb-4">
                   <div className="flex justify-between items-center">
                     <div className="flex items-center gap-1.5 text-xs font-bold text-emerald-600 uppercase tracking-wider bg-emerald-50 px-2.5 py-1 rounded-md">
-                      <FileText className="h-3.5 w-3.5" /> APPLICATION RECEIVED
+                      <FileText className="h-3.5 w-3.5" /> SLOT RESERVED
                     </div>
                   </div>
 
@@ -157,10 +160,10 @@ function SuccessPageContent() {
                       <ShieldCheck className="h-4 w-4 text-slate-400 shrink-0" />
                       <div>
                         <span className="text-slate-400 block font-medium uppercase tracking-wider text-[10px]">
-                          STATUS
+                          SLOT TIME
                         </span>
                         <span className="font-bold text-emerald-600">
-                          In Progress
+                          {sessionDetails.meetingSlot}
                         </span>
                       </div>
                     </div>
@@ -185,19 +188,19 @@ function SuccessPageContent() {
                 </div>
 
                 <div className="p-6 pt-2 bg-slate-50/60 rounded-b-[24px]">
-                  <div className="text-center bg-blue-50/80 border border-blue-100/70 p-3 rounded-xl mb-4">
-                    <div className="flex items-center justify-center gap-1.5 text-blue-800 font-bold text-[11px] uppercase tracking-wide">
-                      <AlertCircle className="h-3.5 w-3.5 text-blue-500" />
-                      Important Notice
+                  <div className="text-center bg-green-50/80 border border-green-100/70 p-3 rounded-xl mb-4">
+                    <div className="flex items-center justify-center gap-1.5 text-green-800 font-bold text-[11px] uppercase tracking-wide">
+                      <AlertCircle className="h-3.5 w-3.5 text-green-500" />
+                      Google Meet Info
                     </div>
-                    <p className="text-[11px] text-blue-700/90 mt-1 font-medium leading-normal">
-                      If any further documents are required (like NOC or modified layout), our team will reach out directly on your WhatsApp number.
+                    <p className="text-[11px] text-green-700/90 mt-1 font-medium leading-normal">
+                      We'll ping you on WhatsApp with the direct Google Meet invite link prior to your scheduled time.
                     </p>
                   </div>
 
                   <div className="text-center">
                     <span className="text-[10px] text-slate-400 font-bold uppercase tracking-widest block">
-                      Application Reference ID
+                      Booking Reference ID
                     </span>
 
                     <div className="mt-1.5 flex items-center justify-center gap-2">

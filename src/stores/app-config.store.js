@@ -3,8 +3,8 @@ import { create } from "zustand";
 import { PLANS } from "@/constants/plans";
 
 const initialState = {
-  planId: "fssai-food-license",
-  plan: PLANS["fssai-food-license"],
+  planId: "growth-consultation",
+  plan: PLANS["growth-consultation"],
 };
 
 export const useAppConfigStore = create((set) => ({

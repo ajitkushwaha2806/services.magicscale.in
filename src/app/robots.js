@@ -4,6 +4,6 @@ export default function robots() {
       userAgent: "*",
       allow: "/",
     },
-    sitemap: "https://fssai.magicscale.in/sitemap.xml",
+    sitemap: "https://magicscale.in/sitemap.xml",
   };
 }

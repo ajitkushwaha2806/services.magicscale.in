@@ -4,19 +4,19 @@ import { Bug, Headset, Mail, MapPin } from "lucide-react";
 export const metadata = {
   title: "Support & Issue Reporting | MagicScale",
   description:
-    "Need help with your FSSAI application, document uploads, or payments? Contact the MagicScale support team.",
+    "Need help with your restaurant growth account, menu uploads, or payments? Contact the MagicScale support team.",
   keywords: [
     "MagicScale Support",
     "Service Support",
-    "FSSAI Application Support",
-    "consultation Support",
+    "Account Management Support",
+    "Growth Strategy Support",
     "Payment Issue",
-    "Document Upload Help",
+    "Menu Upload Help",
   ],
   openGraph: {
     title: "Support & Issue Reporting | MagicScale",
     description:
-      "Need help with your FSSAI application processing, document uploads, or payments? Contact our support team.",
+      "Need help with your restaurant growth account onboarding, menu uploads, or payments? Contact our support team.",
     url: "https://magicscale.in/report-issue",
     siteName: "MagicScale",
     locale: "en_IN",
@@ -26,14 +26,13 @@ export const metadata = {
 
 const cardData = [
   {
-    title: "Application Issues",
-    description: "Unable to complete your FSSAI registration process?",
+    title: "Account & Onboarding Issues",
+    description: "Unable to complete your account onboarding process?",
     icon: <Bug className="w-6 h-6 text-red-500" />,
     content: (
       <>
-        If you're unable to complete your FSSAI registration form, upload KYC 
-        documents, or check the status of your application, our team is ready to
-        help. <br /> <br />
+        If you're unable to complete your onboarding form, upload your menu details, 
+        or provide platform credentials to our team, we are ready to help. <br /> <br />
         Please email your registered phone number, email address, and issue details to{" "}
         <a
           href="mailto:support@magicscale.in"
@@ -60,13 +59,13 @@ const cardData = [
     ),
   },
   {
-    title: "Consultation Support",
-    description: "Need assistance regarding consultation or legal guidance?",
+    title: "Strategy & Growth Support",
+    description: "Need assistance regarding your ad campaigns or growth roadmap?",
     icon: <MapPin className="w-6 h-6 text-green-500" />,
     content: (
       <>
-        For questions regarding consultation calls, documentation requirements,
-        or specific compliance queries for your food business, contact our
+        For questions regarding strategy calls, ad spend allocations, menu optimization,
+        or specific growth queries for your food business, contact our
         expert team. <br /> <br />
         MagicScale operates online and serves food entrepreneurs
         across India.
@@ -78,13 +77,13 @@ const cardData = [
 const contactData = {
   title: "Need Help? We're Here For You",
   description:
-    "Whether it's FSSAI registration, payment concerns, or document uploads, our team is ready to assist.",
+    "Whether it's account onboarding, payment concerns, or growth strategies, our team is ready to assist.",
   content: (
     <div>
       {" "}
       <p className="mb-4">
-        If you're facing any issue related to our FSSAI registration services, 
-        consultation calls, document uploads, or payments, please reach out
+        If you're facing any issue related to our restaurant growth services, 
+        strategy calls, menu uploads, or payments, please reach out
         with complete details so we can assist you efficiently.{" "}
       </p>
       <p>
@@ -98,7 +97,7 @@ const contactData = {
         <br />
         📍 Location: New Delhi, India
         <br />
-        🛡️ MagicScale – FSSAI Licensing & Compliance Support
+        🛡️ MagicScale – Restaurant Growth & Management
       </p>
     </div>
   ),
@@ -114,8 +113,8 @@ const page = () => {
           Contact Our Support Team{" "}
         </div>
       }
-      description="Facing an issue with FSSAI application processing, document uploads, or payments? Let us know and we'll help resolve it."
-      ctaDescription="Our team is committed to providing a smooth licensing experience. If you encounter any technical or processing issues, we're just an email away."
+      description="Facing an issue with your account onboarding, menu uploads, or payments? Let us know and we'll help resolve it."
+      ctaDescription="Our team is committed to providing a smooth growth experience. If you encounter any technical or processing issues, we're just an email away."
       ctaLink="/contact"
       ctaButton={
         <span className="flex items-center gap-2">

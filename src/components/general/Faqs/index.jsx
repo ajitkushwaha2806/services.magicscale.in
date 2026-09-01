@@ -28,7 +28,7 @@ export default function Faqs() {
             title={
               <span className="text-3xl md:text-6xl">
                 Frequently Asked <br />
-                <Highlighter action="highlight" color="#f97316">
+                <Highlighter action="highlight" color="#22c55e">
                   <span className="text-white relative z-10 px-2 py-1">
                     Questions
                   </span>

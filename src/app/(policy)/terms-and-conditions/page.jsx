@@ -4,14 +4,14 @@ import { Headset, Rows, ShieldCheck, Trash2, Zap } from "lucide-react";
 export const metadata = {
   title: "Terms & Conditions | MagicScale",
   description:
-    "Review the Terms & Conditions governing your use of MagicScale's FSSAI registration and related services.",
+    "Review the Terms & Conditions governing your use of MagicScale's restaurant growth and account management services.",
   keywords: [
     "MagicScale",
     "Terms and Conditions",
-    "FSSAI Licensing Service",
+    "Account Management Service",
     "Service Terms",
-    "consultation",
-    "Food Business Compliance",
+    "Marketing Agency",
+    "Restaurant Growth",
   ],
   authors: [
     { name: "MagicScale", url: "https://magicscale.in" },
@@ -19,7 +19,7 @@ export const metadata = {
   openGraph: {
     title: "Terms & Conditions | MagicScale",
     description:
-      "Review the Terms & Conditions governing your use of MagicScale's FSSAI registration and related services.",
+      "Review the Terms & Conditions governing your use of MagicScale's restaurant growth and account management services.",
     url: "https://magicscale.in/terms-and-conditions",
     siteName: "MagicScale",
     type: "website",
@@ -28,54 +28,54 @@ export const metadata = {
 
 const cardData = [
   {
-    title: "Client Responsibilities & KYC Accuracy",
-    description: "Clients must provide accurate and lawful business documents.",
+    title: "Platform Credentials & Menu Accuracy",
+    description: "Clients must provide accurate menu details and platform access.",
     icon: <Rows className="w-6 h-6 text-green-500" />,
     content: (
       <>
-        By engaging MagicScale for FSSAI registration services, 
-        you agree that all documents (KYC, business proofs, rent agreements, etc.) 
-        provided by you are 100% authentic and legally valid. <br /> <br />
-        You are solely responsible for any legal repercussions, penalties, or 
-        application rejections that arise from submitting forged, expired, or 
-        incorrect documents to the government authorities through our platform.
+        By engaging MagicScale for restaurant growth services, 
+        you agree that all menu prices, food descriptions, and branding assets 
+        provided by you are 100% accurate and authentic. <br /> <br />
+        You are solely responsible for any legal repercussions, customer complaints, 
+        or account suspensions that arise from submitting incorrect menu details, 
+        expired licenses, or violating the terms of service of food delivery platforms.
       </>
     ),
   },
   {
-    title: "Independent Consultancy Status",
+    title: "Independent Growth Agency Status",
     description:
-      "We are a private agency assisting with government compliance.",
+      "We are a private marketing agency assisting with digital growth.",
     icon: <Zap className="w-6 h-6 text-green-500" />,
     content: (
       <>
-        MagicScale operates as an independent private consultancy. 
-        We are not a government body, and we do not issue the FSSAI license 
-        directly. <br /> <br />
-        Our professional fees cover the cost of consultation, document preparation, 
-        and application processing. Government fees (if applicable) are paid directly 
-        to the FSSAI department on your behalf as part of the service structure.
+        MagicScale operates as an independent digital marketing agency. 
+        We are not affiliated with, endorsed by, or partnered with Zomato, Swiggy, 
+        or any other third-party food delivery platform. <br /> <br />
+        Our professional fees cover the cost of account management, ad optimization, 
+        and strategic consultation. Advertising budgets (CPC wallet recharges) 
+        are separate and must be paid directly to the respective platforms.
       </>
     ),
   },
   {
-    title: "No Guarantee of Final Approval",
-    description: "Final licensing decisions rest with the FSSAI authorities.",
+    title: "No Guarantee of Fixed Sales Volume",
+    description: "Final sales and visibility rest with the platform algorithms.",
     icon: <ShieldCheck className="w-6 h-6 text-green-500" />,
     content: (
       <>
-        While our experts ensure your application is submitted correctly, 
-        we do not and cannot guarantee the final approval, issuance, or processing 
-        timeline of your FSSAI license. <br /> <br />
-        The respective government department may request additional documents, 
-        conduct physical premises inspections, or reject applications based on their 
-        own criteria. MagicScale holds no liability for government rejections.
+        While our experts ensure your account is optimized for maximum conversions, 
+        we do not and cannot guarantee a specific fixed amount of daily orders, 
+        revenue numbers, or search rankings. <br /> <br />
+        The respective delivery platforms may change their algorithms, adjust delivery radii, 
+        or experience downtime. MagicScale holds no liability for order drops caused by 
+        factors outside our control, including poor food quality or late dispatch.
       </>
     ),
   },
   {
     title: "Termination & Fraud Policy",
-    description: "Services may be revoked for fraudulent activities.",
+    description: "Services may be revoked for violating platform policies.",
     icon: <Trash2 className="w-6 h-6 text-green-500" />,
     content: (
       <>
@@ -83,9 +83,9 @@ const cardData = [
         without refund if a client:{" "}
         <ul className="list-disc pl-5 mt-2">
           {" "}
-          <li>Submits deliberately falsified or forged KYC documents.</li>{" "}
-          <li>Engages in abusive or threatening behavior toward our staff.</li>{" "}
-          <li>Attempts to use our services for unlawful food business activities.</li>{" "}
+          <li>Has their account suspended for severe food safety/hygiene violations.</li>{" "}
+          <li>Engages in abusive or threatening behavior toward our account managers.</li>{" "}
+          <li>Refuses to pay direct ad budgets or honor platform commissions.</li>{" "}
           <li>Violates these Terms & Conditions.</li>{" "}
         </ul>{" "}
         <br />
@@ -102,7 +102,7 @@ const contactData = {
     <div>
       {" "}
       <p className="mb-4">
-        By accessing or purchasing any MagicScale FSSAI registration 
+        By accessing or purchasing any MagicScale restaurant growth 
         service or consultation, you legally agree to these Terms & Conditions.{" "}
       </p>
       <p className="mb-2">
@@ -119,7 +119,7 @@ const contactData = {
         <br />
         New Delhi, India
         <br />
-        FSSAI Registration & Compliance Services
+        Restaurant Growth & Management
       </p>
     </div>
   ),
@@ -135,7 +135,7 @@ const page = () => {
           For Clients{" "}
         </div>
       }
-      description="Please review the terms governing your use of MagicScale's FSSAI registration services and compliance consultations."
+      description="Please review the terms governing your use of MagicScale's restaurant growth and account management services."
       ctaDescription="By engaging our services, you agree to these Terms & Conditions, ensuring a transparent and legally compliant service experience."
       ctaLink="mailto:support@magicscale.in"
       ctaButton={

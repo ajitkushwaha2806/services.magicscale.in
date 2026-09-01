@@ -5,19 +5,19 @@ import { Headset, ShieldCheck, AlertTriangle } from "lucide-react";
 export const metadata = {
   title: "Disclaimer | MagicScale",
   description:
-    "Understand the scope, limitations, and responsibilities associated with the FSSAI registration and licensing services provided by MagicScale.",
+    "Understand the scope, limitations, and responsibilities associated with the restaurant growth services provided by MagicScale.",
   keywords: [
     "MagicScale Disclaimer",
-    "FSSAI Licensing Service",
-    "Food Business Registration",
-    "FSSAI Compliance Services",
-    "Business Licensing Disclaimer",
+    "Restaurant Growth Service",
+    "Zomato Account Management",
+    "Swiggy Compliance",
+    "Business Marketing Disclaimer",
   ],
   authors: [{ name: "MagicScale", url: "https://magicscale.in" }],
   openGraph: {
     title: "Disclaimer | MagicScale",
     description:
-      "Important information regarding the FSSAI registration and compliance services provided by MagicScale.",
+      "Important information regarding the restaurant growth and marketing services provided by MagicScale.",
     url: "https://magicscale.in/disclaimer",
     siteName: "MagicScale",
     type: "website",
@@ -26,7 +26,7 @@ export const metadata = {
     card: "summary_large_image",
     title: "Disclaimer | MagicScale",
     description:
-      "Important information regarding the FSSAI registration and compliance services provided by MagicScale.",
+      "Important information regarding the restaurant growth and marketing services provided by MagicScale.",
   },
 };
 
@@ -34,66 +34,59 @@ const cardData = [
   {
     title: "Independent Consultancy",
     description:
-      "We are a private consultancy and not a government body.",
+      "We are a private growth agency, not affiliated with Zomato or Swiggy.",
     icon: <AlertTriangle className="w-6 h-6 text-yellow-500" />,
     content: (
       <>
-        MagicScale operates as an independent, private consultancy firm. We provide 
-        assistance and support services to food businesses for obtaining their 
-        FSSAI registration and compliance. <br /> <br />
-        We are <strong>not</strong> a government agency, nor are we affiliated 
-        with the Food Safety and Standards Authority of India (FSSAI) or any other 
-        government department. We charge a professional service fee for our 
-        consulting, application processing, and support services.
+        MagicScale operates as an independent, private growth consultancy. We provide 
+        account management, marketing, and operational optimization for food businesses. <br /> <br />
+        We are <strong>not</strong> officially affiliated with, endorsed by, or partnered 
+        with Zomato, Swiggy, or any other delivery platform. We operate as an external 
+        marketing agency hired by the restaurant owner.
       </>
     ),
   },
   {
-    title: "No Guarantee of Approval",
+    title: "No Guarantee of Exact Results",
     description:
-      "Final approval of licenses rests solely with the government authorities.",
+      "Sales targets depend on multiple factors, including platform algorithms.",
     icon: <ShieldCheck className="w-6 h-6 text-green-500" />,
     content: (
       <>
-        While we strive to ensure every application is filled out accurately and 
-        submitted promptly, MagicScale does not guarantee the approval, issuance, 
-        or timeline of any FSSAI license or registration. <br /> <br />
-        The final decision, processing time, and approval of the license rest 
-        strictly with the respective government authorities. Rejections due to 
-        incomplete documents provided by the applicant are not our responsibility.
+        While we target a 25% to 30% month-over-month growth for existing restaurants 
+        using proven strategies, MagicScale does not guarantee specific revenue figures, 
+        exact order counts, or fixed ROI. <br /> <br />
+        Customer behavior, platform algorithms, local competition, and seasonal demand 
+        all affect final outcomes. We do not control the internal workings of Zomato or Swiggy.
       </>
     ),
   },
   {
-    title: "Accuracy of Information",
+    title: "Restaurant Responsibility",
     description:
-      "Applicants are responsible for the authenticity of provided documents.",
-    icon: <ShieldCheck className="w-6 h-6 text-green-500" />,
-    content: (
-      <>
-        MagicScale processes applications based solely on the documents and 
-        information provided by the applicant. We do not verify the legal 
-        authenticity of these documents. <br /> <br />
-        You are solely responsible for ensuring that all business details, 
-        identities, and addresses provided to us are accurate, truthful, and 
-        legally valid. MagicScale holds no liability for penalties arising 
-        from falsified information.
-      </>
-    ),
-  },
-  {
-    title: "Your Business Responsibility",
-    description:
-      "You remain fully responsible for your food business operations and compliance.",
+      "Food quality, packaging, and timely dispatch remain your responsibility.",
     icon: <AlertTriangle className="w-6 h-6 text-yellow-500" />,
     content: (
       <>
-        Acquiring an FSSAI registration through our service does not exempt your 
-        business from adhering to ongoing food safety standards, hygiene practices, 
-        or local municipal laws. <br /> <br />
-        MagicScale shall not be liable for any legal actions, business closures, 
-        or damages resulting from your failure to maintain compliance with FSSAI 
-        regulations during your business operations.
+        MagicScale manages your digital presence, advertising, and profile optimization. 
+        However, the actual preparation of food, hygiene, packaging, taste, and timely 
+        dispatch of orders remain strictly the responsibility of the restaurant. <br /> <br />
+        We cannot prevent bad reviews caused by poor food quality, missing items, or 
+        late preparation times.
+      </>
+    ),
+  },
+  {
+    title: "Ad Spend Budgets",
+    description:
+      "Ad budgets are paid directly to the platforms, separate from our fees.",
+    icon: <ShieldCheck className="w-6 h-6 text-green-500" />,
+    content: (
+      <>
+        The monthly management fee paid to MagicScale does not include the actual 
+        advertising budget (CPC wallet recharges) for Zomato or Swiggy. <br /> <br />
+        Restaurant owners must recharge their own platform ad wallets. We manage and 
+        optimize the spending of those funds to maximize your Return on Ad Spend (ROAS).
       </>
     ),
   },
@@ -102,7 +95,7 @@ const cardData = [
 const contactData = {
   title: "Questions About This Disclaimer?",
   description:
-    "We're happy to clarify any concerns regarding our FSSAI registration services.",
+    "We're happy to clarify any concerns regarding our growth services.",
   content: (
     <div>
       {" "}
@@ -122,7 +115,7 @@ const contactData = {
         <br />
         New Delhi, India
         <br />
-        FSSAI Licensing & Compliance Support
+        Restaurant Growth & Management
       </p>
     </div>
   ),
@@ -138,8 +131,8 @@ const page = () => {
           Information{" "}
         </div>
       }
-      description="Please review the limitations, responsibilities, and terms associated with using the FSSAI registration and licensing services provided by MagicScale."
-      ctaDescription="Our mission is to help food entrepreneurs secure their business compliance smoothly. Please note that we are a private consulting firm, and ultimate licensing authority rests with the government."
+      description="Please review the limitations, responsibilities, and terms associated with using the restaurant growth services provided by MagicScale."
+      ctaDescription="Our mission is to help food entrepreneurs scale their orders profitably. Please note that we are a private marketing agency and do not control the platform algorithms."
       ctaLink="mailto:support@magicscale.in"
       ctaButton={
         <span className="flex items-center gap-2">

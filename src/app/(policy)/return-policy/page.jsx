@@ -4,14 +4,14 @@ import { Headset, ShieldCheck, Trash2 } from "lucide-react";
 export const metadata = {
   title: "Service Delivery & Cancellation Policy | MagicScale",
   description:
-    "Learn about service delivery timelines, application processing, cancellations, and refund policies for MagicScale FSSAI registration services.",
+    "Learn about service delivery timelines, account onboarding, cancellations, and refund policies for MagicScale restaurant growth services.",
   keywords: [
     "MagicScale",
     "Refund Policy",
     "Cancellation Policy",
     "Service Delivery",
-    "FSSAI Processing",
-    "FSSAI Licensing",
+    "Account Management",
+    "Restaurant Growth",
     "No Refund Policy",
   ],
   robots: "index, follow",
@@ -20,35 +20,36 @@ export const metadata = {
 const cardData = [
   {
     title: "Service Delivery & Timelines",
-    description: "Application processing times vary based on government authorities.",
+    description: "Account optimization times vary based on platform approvals.",
     icon: <ShieldCheck className="w-6 h-6 text-green-500" />,
     content: (
       <>
-        MagicScale provides FSSAI registration services, compliance consultation, 
-        and application processing. <br /> <br />
+        MagicScale provides restaurant growth marketing, Zomato & Swiggy account 
+        management, and menu optimization services. <br /> <br />
         Service delivery begins immediately upon successful payment and submission 
-        of all required KYC documents by the applicant. Our team will review and 
-        submit your application to the FSSAI portal. <br /> <br />
-        Please note that the final issuance of the license depends entirely on 
-        the FSSAI government processing timelines. We do not guarantee a specific 
-        number of days for license approval, as delays may occur at the government level.
+        of all required menu details and platform credentials by the restaurant owner. 
+        Our team will review and optimize your digital presence. <br /> <br />
+        Please note that the final visibility of menu changes or ad approvals depends 
+        entirely on the Zomato/Swiggy internal review timelines. We do not guarantee 
+        a specific number of hours for these updates to reflect live, as delays may 
+        occur at the platform level.
       </>
     ),
   },
   {
     title: "Cancellation & Document Policy",
-    description: "Please ensure you have valid KYC documents before purchasing.",
+    description: "Please ensure you have valid platform access before purchasing.",
     icon: <Trash2 className="w-6 h-6 text-green-500" />,
     content: (
       <>
-        Applicants are responsible for providing authentic and complete KYC 
-        and business documents required for processing. <br /> <br />
-        Failure to provide necessary documents, or providing falsified documents, 
+        Restaurant owners are responsible for providing authentic and complete 
+        menu details, pricing, and platform credentials required for management. <br /> <br />
+        Failure to provide necessary access, or providing incorrect details, 
         does not qualify for cancellation, refund, credit, or transfer.{" "}
         <br /> <br />
-        If your application is rejected by the government due to discrepancies 
-        in your provided documents, the service is considered fulfilled, and no 
-        refunds will be issued.
+        If your account is suspended by the platform due to discrepancies 
+        in your provided documents (like licensing expiry or hygiene issues), the service 
+        is considered fulfilled for the month, and no refunds will be issued.
       </>
     ),
   },
@@ -59,15 +60,15 @@ const cardData = [
     content: (
       <>
         All purchases made through MagicScale are final and non-refundable 
-        once the application processing has begun. <br /> <br />
+        once the account onboarding has begun. <br /> <br />
         Refunds will not be provided because:{" "}
         <ul className="list-disc pl-5 mt-2">
           {" "}
           <li>You changed your mind after purchase.</li>{" "}
-          <li>You failed to provide required documents.</li>{" "}
-          <li>Your application was delayed by government authorities.</li>{" "}
-          <li>Your application was rejected by the FSSAI department.</li>{" "}
-          <li>You decided not to launch your food business.</li>{" "}
+          <li>You failed to provide required credentials or menus.</li>{" "}
+          <li>Your menu updates were delayed by platform reviewers.</li>{" "}
+          <li>Your orders dropped due to platform algorithm changes.</li>{" "}
+          <li>You decided to shut down your food business.</li>{" "}
         </ul>{" "}
         <br />
         Refunds may only be considered in exceptional situations where:{" "}
@@ -87,7 +88,7 @@ const cardData = [
 const contactData = {
   title: "Questions About Processing or Access?",
   description:
-    "Contact our team if you experience a billing issue or processing problem.",
+    "Contact our team if you experience a billing issue or onboarding problem.",
   content: (
     <div>
       {" "}
@@ -110,7 +111,7 @@ const contactData = {
         <br />
         New Delhi, India
         <br />
-        FSSAI Registration & Compliance Services
+        Restaurant Growth & Management
       </p>
     </div>
   ),
@@ -126,8 +127,8 @@ const page = () => {
           Policy{" "}
         </div>
       }
-      description="Please review our policies regarding service delivery, document processing, cancellations, and refunds before making a purchase."
-      ctaDescription="All MagicScale application processing services begin immediately upon document submission. Purchases are final and refunds are only considered in rare situations where a billing error is caused by our systems."
+      description="Please review our policies regarding service delivery, account onboarding, cancellations, and refunds before making a purchase."
+      ctaDescription="All MagicScale account management services begin immediately upon onboarding. Purchases are final and refunds are only considered in rare situations where a billing error is caused by our systems."
       ctaLink="mailto:support@magicscale.in"
       ctaButton={
         <span className="flex items-center gap-2">

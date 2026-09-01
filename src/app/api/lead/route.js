@@ -7,7 +7,19 @@ export async function POST(req) {
     await dbConnect();
 
     const body = await req.json();
-    const { name, phone, businessActivity, turnover, planId } = body;
+    const {
+      name,
+      phone,
+      email,
+      restaurantName,
+      city,
+      dailyOrders,
+      meetingDate,
+      meetingSlot,
+      businessActivity,
+      turnover,
+      planId
+    } = body;
 
     if (!name?.trim() || !phone?.trim()) {
       return NextResponse.json(
@@ -21,9 +33,16 @@ export async function POST(req) {
       { phone: phone.trim() },
       {
         name: name.trim(),
+        phone: phone.trim(),
+        email: email?.trim() || "",
+        restaurantName: restaurantName?.trim() || "",
+        city: city?.trim() || "",
+        dailyOrders: dailyOrders?.trim() || "",
+        meetingDate: meetingDate?.trim() || "",
+        meetingSlot: meetingSlot?.trim() || "",
         businessActivity: businessActivity?.trim() || "",
         turnover: turnover?.trim() || "",
-        planId: planId || null,
+        planId: planId || "growth-consultation",
       },
       { new: true, upsert: true }
     );
@@ -44,3 +63,4 @@ export async function POST(req) {
     );
   }
 }
+
