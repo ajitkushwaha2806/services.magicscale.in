@@ -187,23 +187,6 @@ export default function PlanPaymentModal({ open, onOpenChange, selectedPlan }) {
               </div>
             </div>
 
-            {/* Email */}
-            <div className="space-y-1.5">
-              <label className="text-xs font-bold text-zinc-800 dark:text-zinc-200 uppercase tracking-wide">
-                Email Address (Optional)
-              </label>
-              <div className="relative">
-                <Mail className="w-4 h-4 text-zinc-400 absolute left-3.5 top-3.5 pointer-events-none" />
-                <input
-                  type="email"
-                  placeholder="rahul@example.com"
-                  value={formData.email}
-                  onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                  className="w-full h-11 pl-10 pr-3 text-sm rounded-md border border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-900 focus:bg-white focus:ring-2 focus:ring-green-500/20 focus:border-green-500 outline-none text-zinc-900 dark:text-white font-medium"
-                />
-              </div>
-            </div>
-
             {/* Submit / Pay Button */}
             <div className="pt-4">
               <Button

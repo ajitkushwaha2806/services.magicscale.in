@@ -30,29 +30,27 @@ export default function Header() {
           </div>
         </Link>
 
-        <nav className="hidden md:flex items-center space-x-8">
-          <nav className="hidden md:flex items-center space-x-8">
-            {navLinks?.map((link, i) => (
-              <div
-                key={i}
-                className="animate-in fade-in slide-in-from-top-2 duration-500 fill-mode-both"
-                style={{ animationDelay: `${i * 100}ms` }}
+        <nav className="hidden md:flex items-center space-x-6 lg:space-x-8">
+          {navLinks?.map((link, i) => (
+            <div
+              key={i}
+              className="animate-in fade-in slide-in-from-top-2 duration-500 fill-mode-both"
+              style={{ animationDelay: `${i * 80}ms` }}
+            >
+              <Link
+                href={link.href}
+                className="relative text-sm font-semibold text-zinc-700 dark:text-zinc-200 transition-colors hover:text-green-600 dark:hover:text-green-400 group py-1"
               >
-                <Link
-                  href={link.href}
-                  className="relative text-sm font-medium text-gray-700 dark:text-gray-200 transition-colors group"
-                >
-                  {link.title}
-                  <span className="absolute left-0 -bottom-1 w-0 h-0.5 bg-green-500 transition-all duration-300 group-hover:w-full"></span>
-                </Link>
-              </div>
-            ))}
-          </nav>
+                {link.title}
+                <span className="absolute left-0 -bottom-0.5 w-0 h-0.5 bg-green-500 transition-all duration-300 group-hover:w-full"></span>
+              </Link>
+            </div>
+          ))}
         </nav>
 
         <div className="flex items-center gap-3 md:gap-4">
           <div className="hidden md:block">
-            <PayButton />
+            <PayButton>Book Free Call</PayButton>
           </div>
 
           <button

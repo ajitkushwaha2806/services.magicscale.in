@@ -1,7 +1,7 @@
 "use client";
 import React from "react";
 import Head from "next/head";
-import Title from "../Title";
+import Title from "@/components/general/Title";
 import { motion } from "framer-motion";
 import { Clock } from "lucide-react";
 import { GradientText } from "../GradientTextButton/GradientText";
@@ -15,11 +15,11 @@ const Template = ({ title = "", heading = "", description = "", ctaDescription =
   return (
     <>
       <Head>
-        <title>{heading ? `${heading} | FoodSnap` : "FoodSnap"}</title>
-        <meta name="description" content={description || "FoodSnap - Smart restaurant menu processing and automation."} />
+        <title>{heading ? `${heading} | MagicScale` : "MagicScale"}</title>
+        <meta name="description" content={description || "MagicScale - Restaurant Growth Agency for Swiggy & Zomato."} />
         <meta name="robots" content="index, follow" />
         <link rel="canonical" href={pageUrl} />
-        <meta property="og:title" content={heading || "FoodSnap"} />
+        <meta property="og:title" content={heading || "MagicScale"} />
         <meta property="og:description" content={description} />
         <meta property="og:url" content={pageUrl} />
         <meta property="og:type" content="website" />

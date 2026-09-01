@@ -23,6 +23,7 @@ export default function Deliverables() {
 
   return (
     <SectionWrapper
+      id="services"
       title={
         <div className="mx-auto mb-16 text-center max-w-4xl">
           <Title

@@ -21,7 +21,9 @@ const cardVariants = {
 
 export default function Testimonials() {
   return (
-    <SectionWrapper title={
+    <SectionWrapper 
+      id="reviews"
+      title={
       <motion.div
         initial={{ opacity: 0, y: 40 }}
         whileInView={{ opacity: 1, y: 0 }}

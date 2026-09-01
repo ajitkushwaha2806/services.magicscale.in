@@ -36,6 +36,7 @@ export default function WhyChooseUs() {
 
   return (
     <SectionWrapper
+      id="why-us"
       title={
         <div className="mx-auto mb-16 text-center">
           <Title

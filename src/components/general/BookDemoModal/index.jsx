@@ -1,15 +1,14 @@
 "use client";
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { toast } from "react-hot-toast";
-import { Video, Calendar, Clock, User, Phone, Mail, Store, MapPin, CheckCircle2, Loader2, Sparkles, ArrowRight, ArrowLeft, ShieldCheck, ChevronDown, Check, ShoppingBag, Edit2 } from "lucide-react";
+import { Video, Calendar, Clock, User, Phone, Store, CheckCircle2, Loader2, Sparkles, ArrowRight, ArrowLeft, ShieldCheck, Edit2 } from "lucide-react";
 import posthog from "posthog-js";
 
 export default function BookDemoModal({ open, onOpenChange }) {
   const [step, setStep] = useState(1);
 
-  // Generate next 7 days starting today
   const getDates = () => {
     const dates = [];
     const today = new Date();
@@ -37,40 +36,16 @@ export default function BookDemoModal({ open, onOpenChange }) {
     "05:30 PM – 06:00 PM"
   ];
 
-  const orderOptions = [
-    { value: "0-10 orders/day", label: "0 – 10 orders / day" },
-    { value: "10-30 orders/day", label: "10 – 30 orders / day" },
-    { value: "30-80 orders/day", label: "30 – 80 orders / day" },
-    { value: "80+ orders/day", label: "80+ orders / day" },
-    { value: "New Outlet", label: "New Outlet (Not live yet)" },
-  ];
-
   const [formData, setFormData] = useState({
     name: "",
     restaurantName: "",
     phone: "",
-    email: "",
-    city: "",
-    dailyOrders: "10-30 orders/day",
     meetingDate: dates[0]?.value || "",
     meetingSlot: "12:00 PM – 12:30 PM",
   });
 
-  const [ordersDropdownOpen, setOrdersDropdownOpen] = useState(false);
-  const dropdownRef = useRef(null);
   const [isProcessing, setIsProcessing] = useState(false);
   const [submitted, setSubmitted] = useState(false);
-
-  // Close dropdown on click outside
-  useEffect(() => {
-    const handleClickOutside = (event) => {
-      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
-        setOrdersDropdownOpen(false);
-      }
-    };
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => document.removeEventListener("mousedown", handleClickOutside);
-  }, []);
 
   // Reset to step 1 whenever modal opens
   useEffect(() => {
@@ -92,8 +67,8 @@ export default function BookDemoModal({ open, onOpenChange }) {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (!formData.name.trim() || !formData.phone.trim() || !formData.restaurantName.trim()) {
-      toast.error("Please fill in your restaurant name, your name, and WhatsApp number.");
+    if (!formData.restaurantName.trim() || !formData.name.trim() || !formData.phone.trim()) {
+      toast.error("Please fill in your restaurant name, full name, and WhatsApp number.");
       return;
     }
 
@@ -112,10 +87,7 @@ export default function BookDemoModal({ open, onOpenChange }) {
         body: JSON.stringify({
           name: formData.name.trim(),
           phone: cleanPhone,
-          email: formData.email.trim(),
           restaurantName: formData.restaurantName.trim(),
-          city: formData.city.trim(),
-          dailyOrders: formData.dailyOrders,
           meetingDate: formData.meetingDate,
           meetingSlot: formData.meetingSlot,
           businessActivity: `Free Google Meet Demo: ${formData.restaurantName} | Slot: ${formData.meetingDate} ${formData.meetingSlot}`,
@@ -159,13 +131,9 @@ export default function BookDemoModal({ open, onOpenChange }) {
     }, 300);
   };
 
-  const selectedOrderLabel = orderOptions.find((o) => o.value === formData.dailyOrders)?.label || formData.dailyOrders;
-
   return (
     <Dialog open={open} onOpenChange={(val) => { if (!isProcessing) onOpenChange(val); }}>
-      <DialogContent className="z-[100] border border-zinc-200 dark:border-zinc-800 p-0 w-[95vw] max-w-[500px] bg-white dark:bg-[#0c0c14] rounded-md shadow-2xl overflow-hidden max-h-[94vh] flex flex-col">
-        
-        {/* Header with Step Indicator */}
+      <DialogContent className="z-[100] border border-zinc-200 dark:border-zinc-800 p-0 w-[95vw] max-w-[480px] bg-white dark:bg-[#0c0c14] rounded-md shadow-2xl overflow-hidden max-h-[94vh] flex flex-col">
         <div className="px-5 pt-5 pb-3 sm:px-6 bg-zinc-50 dark:bg-zinc-900/60 border-b border-zinc-100 dark:border-zinc-800">
           <div className="flex items-center justify-between mb-2">
             <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-md bg-green-500/10 border border-green-500/20 text-green-700 dark:text-green-300 text-[11px] font-bold uppercase tracking-wider">
@@ -182,33 +150,15 @@ export default function BookDemoModal({ open, onOpenChange }) {
 
           <DialogHeader>
             <DialogTitle className="text-left text-xl sm:text-2xl font-black text-zinc-900 dark:text-white tracking-tight">
-              {submitted 
-                ? "Slot Confirmed 🎉" 
-                : step === 1 
-                ? "Select Date & Time Slot" 
-                : "Restaurant & Contact Details"}
-            </DialogTitle>
-            <DialogDescription className="text-left text-zinc-600 dark:text-zinc-400 text-xs sm:text-sm mt-0.5 font-medium leading-relaxed">
               {submitted
-                ? `We have reserved your slot for ${formData.restaurantName}.`
-                : step === 1 
-                ? "Choose your convenient slot between 11:00 AM to 6:00 PM."
-                : "Where should we send your Google Meet invite & live audit?"}
-            </DialogDescription>
+                ? "Slot Confirmed 🎉"
+                : step === 1
+                  ? "Select Date & Time Slot"
+                  : "Restaurant & Contact Details"}
+            </DialogTitle>
           </DialogHeader>
-
-          {/* Progress Bar */}
-          {!submitted && (
-            <div className="w-full bg-zinc-200 dark:bg-zinc-800 h-1 rounded-full mt-3 overflow-hidden">
-              <div 
-                className="bg-green-600 h-full transition-all duration-300 rounded-full"
-                style={{ width: step === 1 ? "50%" : "100%" }}
-              />
-            </div>
-          )}
         </div>
 
-        {/* Modal Body */}
         <div className="overflow-y-auto px-5 py-4 sm:px-6 flex-1">
           {submitted ? (
             <div className="py-4 flex flex-col items-center text-center space-y-4">
@@ -228,7 +178,7 @@ export default function BookDemoModal({ open, onOpenChange }) {
               <div className="bg-zinc-50 dark:bg-zinc-900/80 border border-zinc-200 dark:border-zinc-800 rounded-md p-3.5 text-left w-full text-xs space-y-2 text-zinc-600 dark:text-zinc-300">
                 <div className="flex items-center gap-2">
                   <Video className="w-4 h-4 text-green-500 shrink-0" />
-                  <span>Google Meet invite sent to WhatsApp <strong>{formData.phone}</strong> & <strong>{formData.email || "Email"}</strong></span>
+                  <span>Google Meet invite will be sent to WhatsApp <strong>{formData.phone}</strong></span>
                 </div>
                 <div className="flex items-center gap-2">
                   <Sparkles className="w-4 h-4 text-green-500 shrink-0" />
@@ -246,10 +196,8 @@ export default function BookDemoModal({ open, onOpenChange }) {
               </div>
             </div>
           ) : step === 1 ? (
-            /* STEP 1: DATE & TIME SELECTION */
             <form onSubmit={handleNextStep} className="space-y-4">
-              
-              {/* Date Selection */}
+
               <div className="space-y-1.5">
                 <div className="flex items-center justify-between">
                   <label className="text-xs font-bold text-zinc-800 dark:text-zinc-200 uppercase tracking-wide flex items-center gap-1.5">
@@ -258,7 +206,7 @@ export default function BookDemoModal({ open, onOpenChange }) {
                   </label>
                   <span className="text-[10px] text-zinc-400 font-medium">Scroll horizontally &rarr;</span>
                 </div>
-                
+
                 <div className="flex items-center gap-2 overflow-x-auto pb-1.5 pt-0.5 no-scrollbar snap-x -mx-1 px-1">
                   {dates.map((d, i) => {
                     const isSelected = formData.meetingDate === d.value;
@@ -267,11 +215,10 @@ export default function BookDemoModal({ open, onOpenChange }) {
                         type="button"
                         key={i}
                         onClick={() => setFormData({ ...formData, meetingDate: d.value })}
-                        className={`shrink-0 min-w-[76px] sm:min-w-[80px] py-2 px-2 rounded-md border text-center transition-all flex flex-col items-center justify-center snap-start ${
-                          isSelected
-                            ? "border-green-500 bg-green-500 text-white shadow-md shadow-green-500/25 scale-[1.02]"
-                            : "border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-900 text-zinc-700 dark:text-zinc-300 hover:border-green-400"
-                        }`}
+                        className={`shrink-0 min-w-[76px] sm:min-w-[80px] py-2 px-2 rounded-md border text-center transition-all flex flex-col items-center justify-center snap-start ${isSelected
+                          ? "border-green-500 bg-green-500 text-white shadow-md shadow-green-500/25 scale-[1.02]"
+                          : "border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-900 text-zinc-700 dark:text-zinc-300 hover:border-green-400"
+                          }`}
                       >
                         <span className="text-xs font-bold leading-tight">{d.dayName}</span>
                         <span className={`text-[11px] font-medium leading-tight mt-0.5 ${isSelected ? "text-green-100" : "text-zinc-400"}`}>
@@ -297,11 +244,10 @@ export default function BookDemoModal({ open, onOpenChange }) {
                         type="button"
                         key={i}
                         onClick={() => setFormData({ ...formData, meetingSlot: slot })}
-                        className={`p-2.5 text-center rounded-md border text-xs font-bold transition-all ${
-                          isSelected
-                            ? "border-green-500 bg-green-50 text-green-800 dark:bg-green-950/60 dark:text-green-300 shadow-sm"
-                            : "border-zinc-200 dark:border-zinc-800 bg-zinc-50/50 dark:bg-zinc-900/50 text-zinc-700 dark:text-zinc-300 hover:border-green-300"
-                        }`}
+                        className={`p-2.5 text-center rounded-md border text-xs font-bold transition-all ${isSelected
+                          ? "border-green-500 bg-green-50 text-green-800 dark:bg-green-950/60 dark:text-green-300 shadow-sm"
+                          : "border-zinc-200 dark:border-zinc-800 bg-zinc-50/50 dark:bg-zinc-900/50 text-zinc-700 dark:text-zinc-300 hover:border-green-300"
+                          }`}
                       >
                         {slot}
                       </button>
@@ -310,7 +256,6 @@ export default function BookDemoModal({ open, onOpenChange }) {
                 </div>
               </div>
 
-              {/* Selected Slot Preview Pill */}
               <div className="bg-green-50 dark:bg-green-950/40 border border-green-200 dark:border-green-800/60 rounded-md p-2.5 flex items-center justify-between text-xs text-green-800 dark:text-green-300">
                 <div className="flex items-center gap-2 font-bold">
                   <Video className="w-4 h-4 text-green-600" />
@@ -319,7 +264,6 @@ export default function BookDemoModal({ open, onOpenChange }) {
                 <span className="text-[10px] font-extrabold uppercase bg-green-600 text-white px-2 py-0.5 rounded">Free</span>
               </div>
 
-              {/* Next Step Button */}
               <div className="pt-2">
                 <Button
                   type="submit"
@@ -328,7 +272,7 @@ export default function BookDemoModal({ open, onOpenChange }) {
                   <span>Next: Restaurant Details</span>
                   <ArrowRight className="w-4 h-4" />
                 </Button>
-                
+
                 <div className="flex items-center justify-center gap-2 text-center text-[11px] text-zinc-500 dark:text-zinc-400 mt-2">
                   <ShieldCheck className="w-3.5 h-3.5 text-green-600" />
                   <span>100% Free 1-on-1 Consultation</span>
@@ -337,10 +281,7 @@ export default function BookDemoModal({ open, onOpenChange }) {
 
             </form>
           ) : (
-            /* STEP 2: RESTAURANT & CONTACT DETAILS */
-            <form onSubmit={handleSubmit} className="space-y-3.5">
-              
-              {/* Selected Slot Summary with Edit Button */}
+            <form onSubmit={handleSubmit} className="space-y-4">
               <div className="bg-zinc-50 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-md p-2.5 flex items-center justify-between text-xs">
                 <div className="flex items-center gap-2 text-zinc-800 dark:text-zinc-200 font-semibold truncate">
                   <Calendar className="w-3.5 h-3.5 text-green-600 shrink-0" />
@@ -356,125 +297,59 @@ export default function BookDemoModal({ open, onOpenChange }) {
                 </button>
               </div>
 
-              <div className="space-y-1">
-                <span className="text-[11px] font-bold text-zinc-700 dark:text-zinc-300">Restaurant / Brand Name *</span>
+              {/* Restaurant / Brand Name */}
+              <div className="space-y-1.5">
+                <label className="text-xs font-bold text-zinc-800 dark:text-zinc-200 uppercase tracking-wide">
+                  Restaurant / Brand Name *
+                </label>
                 <div className="relative">
-                  <Store className="w-4 h-4 text-zinc-400 absolute left-3 top-3 pointer-events-none" />
+                  <Store className="w-4 h-4 text-zinc-400 absolute left-3 top-3.5 pointer-events-none" />
                   <input
                     type="text"
                     required
                     placeholder="e.g. Fatkong Chinese"
                     value={formData.restaurantName}
                     onChange={(e) => setFormData({ ...formData, restaurantName: e.target.value })}
-                    className="w-full h-10 pl-9 pr-3 text-xs sm:text-sm rounded-md border border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-900 focus:bg-white focus:ring-2 focus:ring-green-500/20 focus:border-green-500 outline-none text-zinc-900 dark:text-white font-medium"
+                    className="w-full h-11 pl-9 pr-3 text-sm rounded-md border border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-900 focus:bg-white focus:ring-2 focus:ring-green-500/20 focus:border-green-500 outline-none text-zinc-900 dark:text-white font-medium"
                   />
                 </div>
               </div>
 
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                <div className="space-y-1">
-                  <span className="text-[11px] font-bold text-zinc-700 dark:text-zinc-300">Your Full Name *</span>
-                  <div className="relative">
-                    <User className="w-4 h-4 text-zinc-400 absolute left-3 top-3 pointer-events-none" />
-                    <input
-                      type="text"
-                      required
-                      placeholder="e.g. Rahul Sharma"
-                      value={formData.name}
-                      onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                      className="w-full h-10 pl-9 pr-3 text-xs sm:text-sm rounded-md border border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-900 focus:bg-white focus:ring-2 focus:ring-green-500/20 focus:border-green-500 outline-none text-zinc-900 dark:text-white font-medium"
-                    />
-                  </div>
-                </div>
-
-                <div className="space-y-1">
-                  <span className="text-[11px] font-bold text-zinc-700 dark:text-zinc-300">WhatsApp Number *</span>
-                  <div className="relative">
-                    <Phone className="w-4 h-4 text-zinc-400 absolute left-3 top-3 pointer-events-none" />
-                    <input
-                      type="tel"
-                      required
-                      maxLength={10}
-                      placeholder="9876543210"
-                      value={formData.phone}
-                      onChange={(e) => setFormData({ ...formData, phone: e.target.value.replace(/\D/g, "") })}
-                      className="w-full h-10 pl-9 pr-3 text-xs sm:text-sm rounded-md border border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-900 focus:bg-white focus:ring-2 focus:ring-green-500/20 focus:border-green-500 outline-none text-zinc-900 dark:text-white font-medium"
-                    />
-                  </div>
+              {/* Full Name */}
+              <div className="space-y-1.5">
+                <label className="text-xs font-bold text-zinc-800 dark:text-zinc-200 uppercase tracking-wide">
+                  Your Full Name *
+                </label>
+                <div className="relative">
+                  <User className="w-4 h-4 text-zinc-400 absolute left-3 top-3.5 pointer-events-none" />
+                  <input
+                    type="text"
+                    required
+                    placeholder="e.g. Rahul Sharma"
+                    value={formData.name}
+                    onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                    className="w-full h-11 pl-9 pr-3 text-sm rounded-md border border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-900 focus:bg-white focus:ring-2 focus:ring-green-500/20 focus:border-green-500 outline-none text-zinc-900 dark:text-white font-medium"
+                  />
                 </div>
               </div>
 
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                <div className="space-y-1">
-                  <span className="text-[11px] font-bold text-zinc-700 dark:text-zinc-300">Email (for Calendar Invite)</span>
-                  <div className="relative">
-                    <Mail className="w-4 h-4 text-zinc-400 absolute left-3 top-3 pointer-events-none" />
-                    <input
-                      type="email"
-                      placeholder="rahul@gmail.com"
-                      value={formData.email}
-                      onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                      className="w-full h-10 pl-9 pr-3 text-xs sm:text-sm rounded-md border border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-900 focus:bg-white focus:ring-2 focus:ring-green-500/20 focus:border-green-500 outline-none text-zinc-900 dark:text-white font-medium"
-                    />
-                  </div>
+              {/* WhatsApp Number */}
+              <div className="space-y-1.5">
+                <label className="text-xs font-bold text-zinc-800 dark:text-zinc-200 uppercase tracking-wide">
+                  WhatsApp Phone Number *
+                </label>
+                <div className="relative">
+                  <Phone className="w-4 h-4 text-zinc-400 absolute left-3 top-3.5 pointer-events-none" />
+                  <input
+                    type="tel"
+                    required
+                    maxLength={10}
+                    placeholder="9876543210"
+                    value={formData.phone}
+                    onChange={(e) => setFormData({ ...formData, phone: e.target.value.replace(/\D/g, "") })}
+                    className="w-full h-11 pl-9 pr-3 text-sm rounded-md border border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-900 focus:bg-white focus:ring-2 focus:ring-green-500/20 focus:border-green-500 outline-none text-zinc-900 dark:text-white font-medium"
+                  />
                 </div>
-
-                <div className="space-y-1">
-                  <span className="text-[11px] font-bold text-zinc-700 dark:text-zinc-300">City / Location</span>
-                  <div className="relative">
-                    <MapPin className="w-4 h-4 text-zinc-400 absolute left-3 top-3 pointer-events-none" />
-                    <input
-                      type="text"
-                      placeholder="e.g. Mumbai / Delhi NCR"
-                      value={formData.city}
-                      onChange={(e) => setFormData({ ...formData, city: e.target.value })}
-                      className="w-full h-10 pl-9 pr-3 text-xs sm:text-sm rounded-md border border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-900 focus:bg-white focus:ring-2 focus:ring-green-500/20 focus:border-green-500 outline-none text-zinc-900 dark:text-white font-medium"
-                    />
-                  </div>
-                </div>
-              </div>
-
-              {/* Custom Daily Orders Dropdown */}
-              <div className="space-y-1 relative" ref={dropdownRef}>
-                <span className="text-[11px] font-bold text-zinc-700 dark:text-zinc-300">Daily Orders on Zomato/Swiggy</span>
-                
-                <button
-                  type="button"
-                  onClick={() => setOrdersDropdownOpen(!ordersDropdownOpen)}
-                  className="w-full h-10 px-3 text-xs rounded-md border border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-900 focus:bg-white focus:ring-2 focus:ring-green-500/20 focus:border-green-500 outline-none text-zinc-900 dark:text-white font-medium flex items-center justify-between transition-all"
-                >
-                  <div className="flex items-center gap-2 truncate">
-                    <ShoppingBag className="w-3.5 h-3.5 text-zinc-400 shrink-0" />
-                    <span className="truncate">{selectedOrderLabel}</span>
-                  </div>
-                  <ChevronDown className={`w-4 h-4 text-zinc-400 transition-transform duration-200 shrink-0 ${ordersDropdownOpen ? "rotate-180" : ""}`} />
-                </button>
-
-                {ordersDropdownOpen && (
-                  <div className="absolute left-0 right-0 bottom-full mb-1 sm:bottom-auto sm:top-full sm:mt-1 z-50 bg-white dark:bg-[#14141e] border border-zinc-200 dark:border-zinc-800 rounded-md shadow-2xl p-1.5 space-y-1 animate-in fade-in zoom-in-95 duration-150">
-                    {orderOptions.map((opt) => {
-                      const isSelected = formData.dailyOrders === opt.value;
-                      return (
-                        <button
-                          type="button"
-                          key={opt.value}
-                          onClick={() => {
-                            setFormData({ ...formData, dailyOrders: opt.value });
-                            setOrdersDropdownOpen(false);
-                          }}
-                          className={`w-full text-left px-3 py-2 rounded-md text-xs font-semibold flex items-center justify-between transition-colors ${
-                            isSelected
-                              ? "bg-green-50 text-green-700 dark:bg-green-950/60 dark:text-green-300 font-bold"
-                              : "text-zinc-700 dark:text-zinc-300 hover:bg-zinc-100 dark:hover:bg-zinc-800/80"
-                          }`}
-                        >
-                          <span>{opt.label}</span>
-                          {isSelected && <Check className="w-3.5 h-3.5 text-green-600 dark:text-green-400" />}
-                        </button>
-                      );
-                    })}
-                  </div>
-                )}
               </div>
 
               {/* Action Buttons: Back + Submit */}
