@@ -7,8 +7,8 @@ const PAYTM_WEBSITE_NAME = process.env.PAYTM_WEBSITE_NAME || (PAYTM_ENV === "pro
 
 const BASE_URL =
   PAYTM_ENV === "production"
-    ? "https://secure.paytmpayments.com"
-    : "https://securestage.paytmpayments.com";
+    ? "https://securegw.paytm.in"
+    : "https://securegw-stage.paytm.in";
 
 export async function initiatePaytmTransaction(orderId, amount, customerId) {
   if (!PAYTM_MID || !PAYTM_MERCHANT_KEY) {
@@ -61,7 +61,7 @@ export async function initiatePaytmTransaction(orderId, amount, customerId) {
 
   const responseData = await response.json();
 
-  if (responseData.body.resultInfo.resultStatus === "S") {
+  if (responseData?.body?.resultInfo?.resultStatus === "S") {
     return {
       txnToken: responseData.body.txnToken,
       orderId: orderId,
@@ -69,8 +69,9 @@ export async function initiatePaytmTransaction(orderId, amount, customerId) {
       amount: amount,
     };
   } else {
+    console.error("Paytm InitiateTransaction Failed Response:", JSON.stringify(responseData, null, 2));
     throw new Error(
-      responseData.body.resultInfo.resultMsg || "Failed to initiate Paytm transaction"
+      responseData?.body?.resultInfo?.resultMsg || "Failed to initiate Paytm transaction"
     );
   }
 }

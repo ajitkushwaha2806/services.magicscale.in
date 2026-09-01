@@ -7,8 +7,8 @@ const PAYTM_ENV = process.env.NEXT_PUBLIC_PAYTM_ENV || "staging";
 
 const getPaytmCheckoutUrl = (mid) => {
   return PAYTM_ENV === "production"
-    ? `https://secure.paytmpayments.com/merchantpgpui/checkoutjs/merchants/${mid}.js`
-    : `https://securestage.paytmpayments.com/merchantpgpui/checkoutjs/merchants/${mid}.js`;
+    ? `https://securegw.paytm.in/merchantpgpui/checkoutjs/merchants/${mid}.js`
+    : `https://securegw-stage.paytm.in/merchantpgpui/checkoutjs/merchants/${mid}.js`;
 };
 
 const loadPaytmScript = (mid) => {
