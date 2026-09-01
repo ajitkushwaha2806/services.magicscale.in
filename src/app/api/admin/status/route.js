@@ -12,7 +12,7 @@ export async function POST(req) {
 
     await dbConnect();
 
-    const { id, type, status } = await req.json();
+    const { id, type, status, callbackDate } = await req.json();
 
     if (!id || !type || !status) {
       return NextResponse.json({ success: false, message: "Missing required fields" }, { status: 400 });
@@ -23,11 +23,16 @@ export async function POST(req) {
       return NextResponse.json({ success: false, message: "Invalid status" }, { status: 400 });
     }
 
+    let updateData = { status };
+    if (status === "CALLBACK" && callbackDate) {
+      updateData.callbackDate = new Date(callbackDate);
+    }
+
     let updatedDoc = null;
     if (type === "lead") {
-      updatedDoc = await Lead.findByIdAndUpdate(id, { status }, { returnDocument: 'after' });
+      updatedDoc = await Lead.findByIdAndUpdate(id, updateData, { returnDocument: 'after' });
     } else if (type === "registration") {
-      updatedDoc = await Registration.findByIdAndUpdate(id, { status }, { returnDocument: 'after' });
+      updatedDoc = await Registration.findByIdAndUpdate(id, updateData, { returnDocument: 'after' });
     } else {
       return NextResponse.json({ success: false, message: "Invalid type" }, { status: 400 });
     }

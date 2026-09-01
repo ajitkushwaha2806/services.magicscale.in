@@ -1,7 +1,6 @@
 "use client";
 import Title from "../Title";
-import Image from "next/image";
-import { Star } from "lucide-react";
+import { Star, MoreVertical } from "lucide-react";
 import { motion } from "framer-motion";
 import SectionWrapper from "../SectionWrapper";
 import { TESTIMONIALS } from "./helper/constants";
@@ -52,86 +51,46 @@ export default function Testimonials() {
             whileInView="visible"
             viewport={{ once: true, margin: "200px" }}
             variants={cardVariants}
-            className="rounded-2xl border border-neutral-200 dark:border-neutral-700 p-4 md:p-8 backdrop-blur-lg shadow-lg dark:shadow-black/20 bg-white/60 dark:bg-[#10101a]/70 transition-colors"
+            className="rounded-lg border border-[#e8eaed] bg-white p-5 shadow-sm transition-shadow hover:shadow-md dark:border-neutral-800 dark:bg-[#10101a]"
           >
-            <div className="flex items-center gap-1 text-yellow-500 mb-3">
-              {[...Array(5)].map((_, idx) => (
-                <Star key={idx} size={16} fill="currentColor" />
-              ))}
-            </div>
-            <p className="text-neutral-800 dark:text-neutral-200 text-sm leading-relaxed mb-6 italic">
-              “{t.quote}”
-            </p>
-            <div className="flex items-center gap-3">
-              <Image
-                src={t.img}
-                alt={t.name}
-                width={40}
-                height={40}
-                className="rounded-full object-cover border border-neutral-300 dark:border-neutral-600"
-              />
-              <div>
-                <div className="text-sm font-semibold text-neutral-800 dark:text-white">
-                  {t.name}
-                </div>
-                <div className="text-xs text-neutral-500 dark:text-neutral-400">
-                  {t.title}
+            <div className="flex items-start justify-between mb-3">
+              <div className="flex items-center gap-3">
+                <img
+                  src={t.img}
+                  alt={t.name}
+                  className="w-10 h-10 rounded-full object-cover"
+                />
+                <div className="flex flex-col">
+                  <span className="text-[15px] font-medium text-[#202124] dark:text-neutral-100 leading-tight">
+                    {t.name}
+                  </span>
+                  <span className="text-[13px] text-[#70757a] dark:text-neutral-400 mt-0.5">
+                    {t.reviewsCount}
+                  </span>
                 </div>
               </div>
+              <button aria-label="More options" className="p-1 -mr-1 rounded-full hover:bg-neutral-100 dark:hover:bg-neutral-800 transition-colors">
+                <MoreVertical className="w-5 h-5 text-[#70757a] dark:text-neutral-400" />
+              </button>
             </div>
+
+            <div className="flex items-center gap-2 mb-2">
+              <div className="flex items-center gap-0.5 text-[#fbbc04]">
+                {[...Array(5)].map((_, idx) => (
+                  <Star key={idx} size={14} fill="currentColor" strokeWidth={0} />
+                ))}
+              </div>
+              <span className="text-[13px] text-[#70757a] dark:text-neutral-400">
+                {t.time}
+              </span>
+            </div>
+
+            <p className="text-[14px] leading-[1.6] text-[#202124] dark:text-neutral-300 line-clamp-4">
+              {t.quote}
+            </p>
           </motion.div>
         ))}
       </div>
-    </SectionWrapper >
-    // <section className="mt-20 px-4 md:px-0 max-w-6xl mx-auto">
-    //   <div className="text-center mb-12">
-    //     <h2 className="text-3xl md:text-4xl font-bold text-neutral-800 dark:text-white">
-    //       Khud Suno Hamare Clients Se 💬
-    //     </h2>
-    //     <p className="text-neutral-600 dark:text-neutral-400 mt-2">
-    //       100+ Restaurants already love it 🚀
-    //     </p>
-    //   </div>
-
-    // <div className="grid md:grid-cols-3 gap-6">
-    //   {TESTIMONIALS.map((t, i) => (
-    //     <motion.div
-    //       key={i}
-    //       custom={i}
-    //       initial="hidden"
-    //       whileInView="visible"
-    //       viewport={{ once: true, margin: "200px" }}
-    //       variants={cardVariants}
-    //       className="rounded-2xl border border-neutral-200 dark:border-neutral-700 p-4 md:p-8 backdrop-blur-lg shadow-lg dark:shadow-black/20 bg-white/60 dark:bg-[#10101a]/70 transition-colors"
-    //     >
-    //       <div className="flex items-center gap-1 text-yellow-500 mb-3">
-    //         {[...Array(5)].map((_, idx) => (
-    //           <Star key={idx} size={16} fill="currentColor" />
-    //         ))}
-    //       </div>
-    //       <p className="text-neutral-800 dark:text-neutral-200 text-sm leading-relaxed mb-6 italic">
-    //         “{t.quote}”
-    //       </p>
-    //       <div className="flex items-center gap-3">
-    //         <Image
-    //           src={t.img}
-    //           alt={t.name}
-    //           width={40}
-    //           height={40}
-    //           className="rounded-full object-cover border border-neutral-300 dark:border-neutral-600"
-    //         />
-    //         <div>
-    //           <div className="text-sm font-semibold text-neutral-800 dark:text-white">
-    //             {t.name}
-    //           </div>
-    //           <div className="text-xs text-neutral-500 dark:text-neutral-400">
-    //             {t.title}
-    //           </div>
-    //         </div>
-    //       </div>
-    //     </motion.div>
-    //   ))}
-    //   </div>
-    // </section>
+    </SectionWrapper>
   );
 }

@@ -4,12 +4,19 @@ import { useEffect, useState } from "react";
 import { Loader2, Users, Search, CheckCircle2, ChevronLeft, ChevronRight, FileCheck, FileX, CreditCard, FileText, X, ChevronDown } from "lucide-react";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import toast from "react-hot-toast";
-
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import { Calendar } from "@/components/ui/calendar";
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter } from "@/components/ui/dialog";
+import { format } from "date-fns";
+import { Calendar as CalendarIcon } from "lucide-react";
 export default function AdminDashboard() {
   const [data, setData] = useState({ items: [], totalRecords: 0, totalPages: 1, currentPage: 1 });
+  const [activeDates, setActiveDates] = useState([]);
   const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState("");
   const [statusFilter, setStatusFilter] = useState("ALL");
+  const [typeFilter, setTypeFilter] = useState("BOTH");
+  const [dateFilter, setDateFilter] = useState(() => new Intl.DateTimeFormat('en-CA', { timeZone: 'Asia/Kolkata', year: 'numeric', month: '2-digit', day: '2-digit' }).format(new Date()));
   const [savingRemark, setSavingRemark] = useState(null);
   const [savingStatus, setSavingStatus] = useState(null);
   const [savingWaTag, setSavingWaTag] = useState(null);
@@ -32,15 +39,18 @@ export default function AdminDashboard() {
       }
     }, 400);
     return () => clearTimeout(handler);
-  }, [searchTerm, statusFilter]);
+  }, [searchTerm, statusFilter, typeFilter, dateFilter]);
 
   const fetchData = async () => {
     try {
       setLoading(true);
-      const res = await fetch(`/api/admin/data?page=${currentPage}&limit=${itemsPerPage}&search=${encodeURIComponent(searchTerm)}&status=${encodeURIComponent(statusFilter)}`);
+      const res = await fetch(`/api/admin/data?page=${currentPage}&limit=${itemsPerPage}&search=${encodeURIComponent(searchTerm)}&status=${encodeURIComponent(statusFilter)}&type=${encodeURIComponent(typeFilter)}&date=${encodeURIComponent(dateFilter)}`);
       if (res.ok) {
         const result = await res.json();
         setData(result.data);
+        if (result.data.activeDates) {
+          setActiveDates(result.data.activeDates);
+        }
       } else {
         toast.error("Failed to fetch data");
       }
@@ -82,27 +92,19 @@ export default function AdminDashboard() {
     }
   };
 
-  const handleSaveStatus = async (id, type, newStatus) => {
+  const handleSaveStatus = async (id, type, newStatus, callbackDate = null) => {
     setSavingStatus(id);
     try {
       const res = await fetch("/api/admin/status", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ id, type, status: newStatus }),
+        body: JSON.stringify({ id, type, status: newStatus, callbackDate }),
       });
 
       if (res.ok) {
         toast.success("Status updated!");
-        setData((prev) => {
-          const newData = { ...prev };
-          const items = [...newData.items];
-          const index = items.findIndex(
-            (item) => (item.registrationId || item.leadId) === id
-          );
-          if (index !== -1) items[index].status = newStatus;
-          newData.items = items;
-          return newData;
-        });
+        // Re-fetch data from server to ensure it is correctly placed on the right date tab
+        fetchData();
       } else {
         toast.error("Failed to update status");
       }
@@ -206,6 +208,44 @@ export default function AdminDashboard() {
             </Select>
           </div>
         </div>
+
+        {/* Horizontal Dates Scroll */}
+        {activeDates.length > 0 && (
+          <div className="mx-auto px-4 sm:px-6 lg:px-8 py-2.5 border-t border-zinc-100 bg-zinc-50/80 backdrop-blur-sm">
+            <div 
+              className="flex items-center gap-2.5 overflow-x-auto pb-1.5 snap-x"
+              style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
+            >
+              <button
+                onClick={() => setDateFilter("ALL")}
+                className={`snap-start whitespace-nowrap px-4 py-1.5 rounded-md text-[11px] uppercase tracking-wider font-extrabold transition-all border shrink-0 ${
+                  dateFilter === "ALL" 
+                    ? "bg-zinc-900 text-white border-zinc-900 shadow-md" 
+                    : "bg-white text-zinc-600 border-zinc-200 hover:bg-zinc-100"
+                }`}
+              >
+                All Dates
+              </button>
+              {activeDates.map((dateStr) => {
+                const dateObj = new Date(dateStr);
+                const displayDate = dateObj.toLocaleDateString(undefined, { weekday: 'short', month: 'short', day: 'numeric' });
+                return (
+                  <button
+                    key={dateStr}
+                    onClick={() => setDateFilter(dateStr)}
+                    className={`snap-start whitespace-nowrap px-4 py-1.5 rounded-md text-xs font-bold transition-all border shrink-0 ${
+                      dateFilter === dateStr 
+                        ? "bg-blue-600 text-white border-blue-600 shadow-md shadow-blue-500/20" 
+                        : "bg-white text-zinc-600 border-zinc-200 hover:bg-blue-50 hover:text-blue-600 hover:border-blue-200"
+                    }`}
+                  >
+                    {displayDate}
+                  </button>
+                );
+              })}
+            </div>
+          </div>
+        )}
       </header>
 
       <main className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 mt-8">
@@ -214,8 +254,30 @@ export default function AdminDashboard() {
             <h2 className="text-2xl font-bold text-zinc-900">All Leads & Registrations</h2>
             <p className="text-sm text-zinc-500 mt-1">Track customer progress from initial lead to payment success.</p>
           </div>
-          <div className="bg-white px-4 py-2 rounded-xl shadow-sm border border-zinc-200 text-sm font-semibold text-zinc-700">
-            Total Records: <span className="text-blue-600">{totalRecords}</span>
+          <div className="flex items-center gap-4">
+            <div className="flex bg-zinc-100/80 p-1 rounded-xl border border-zinc-200/50">
+              <button 
+                onClick={() => setTypeFilter("REGISTRATION")}
+                className={`px-4 py-1.5 rounded-lg text-sm font-semibold transition-all ${typeFilter === 'REGISTRATION' ? 'bg-white text-blue-600 shadow-sm border border-zinc-200/50' : 'text-zinc-500 hover:text-zinc-700'}`}
+              >
+                Registrations
+              </button>
+              <button 
+                onClick={() => setTypeFilter("BOTH")}
+                className={`px-4 py-1.5 rounded-lg text-sm font-semibold transition-all ${typeFilter === 'BOTH' ? 'bg-white text-blue-600 shadow-sm border border-zinc-200/50' : 'text-zinc-500 hover:text-zinc-700'}`}
+              >
+                LEADS
+              </button>
+              <button 
+                onClick={() => setTypeFilter("USERS")}
+                className={`px-4 py-1.5 rounded-lg text-sm font-semibold transition-all ${typeFilter === 'USERS' ? 'bg-white text-blue-600 shadow-sm border border-zinc-200/50' : 'text-zinc-500 hover:text-zinc-700'}`}
+              >
+                USERS
+              </button>
+            </div>
+            <div className="bg-white px-4 py-2 rounded-xl shadow-sm border border-zinc-200 text-sm font-semibold text-zinc-700">
+              Total Records: <span className="text-blue-600">{totalRecords}</span>
+            </div>
           </div>
         </div>
 
@@ -230,27 +292,41 @@ export default function AdminDashboard() {
           <div className="overflow-x-auto min-h-[500px]">
             <table className="w-full text-left text-sm text-zinc-600">
               <thead className="bg-zinc-50/80 text-xs uppercase text-zinc-500 border-b border-zinc-200 font-bold tracking-wider">
-                <tr>
-                  <th className="px-6 py-4 w-40">Date</th>
-                  <th className="px-6 py-4 w-48">Name / Phone</th>
-                  <th className="px-6 py-4">Documents</th>
-                  <th className="px-6 py-4">Payment</th>
-                  <th className="px-6 py-4 w-48">Status & Info</th>
-                  <th className="px-6 py-4 w-1/4">Remarks</th>
-                </tr>
+                {typeFilter === "USERS" ? (
+                  <tr>
+                    <th className="px-6 py-4 w-40">Joined Date</th>
+                    <th className="px-6 py-4 w-48">User Info</th>
+                    <th className="px-6 py-4">Subscription</th>
+                    <th className="px-6 py-4">Usage</th>
+                    <th className="px-6 py-4">Role</th>
+                  </tr>
+                ) : (
+                  <tr>
+                    <th className="px-6 py-4 w-40">Date</th>
+                    <th className="px-6 py-4 w-48">Name / Phone</th>
+                    <th className="px-6 py-4">Documents</th>
+                    <th className="px-6 py-4">Payment</th>
+                    <th className="px-6 py-4 w-48">Status & Info</th>
+                    <th className="px-6 py-4 w-1/4">Remarks</th>
+                  </tr>
+                )}
               </thead>
               <tbody className="divide-y divide-zinc-100">
                 {paginatedData.map((item) => (
-                  <TableRow
-                    key={item.registrationId || item.leadId}
-                    item={item}
-                    savingRemark={savingRemark}
-                    onSaveRemark={handleSaveRemark}
-                    savingStatus={savingStatus}
-                    onSaveStatus={handleSaveStatus}
-                    savingWaTag={savingWaTag}
-                    onWaTag={handleWaTag}
-                  />
+                  item._isUser ? (
+                    <UserTableRow key={item._id} item={item} />
+                  ) : (
+                    <TableRow
+                      key={item.registrationId || item.leadId}
+                      item={item}
+                      savingRemark={savingRemark}
+                      onSaveRemark={handleSaveRemark}
+                      savingStatus={savingStatus}
+                      onSaveStatus={handleSaveStatus}
+                      savingWaTag={savingWaTag}
+                      onWaTag={handleWaTag}
+                    />
+                  )
                 ))}
                 
                 {paginatedData.length === 0 ? (
@@ -323,6 +399,8 @@ export default function AdminDashboard() {
 function TableRow({ item, savingRemark, onSaveRemark, savingStatus, onSaveStatus, savingWaTag, onWaTag }) {
   const [localRemark, setLocalRemark] = useState(item.remarks || "");
   const isChanged = localRemark !== (item.remarks || "");
+  const [callbackModalOpen, setCallbackModalOpen] = useState(false);
+  const [callbackDate, setCallbackDate] = useState(item.callbackDate ? new Date(item.callbackDate) : null);
 
   // Use the relevant ID and Type for saving remarks
   const targetId = item.registrationId || item.leadId;
@@ -338,8 +416,18 @@ function TableRow({ item, savingRemark, onSaveRemark, savingStatus, onSaveStatus
     }
   };
 
-  const handleStatusChange = (e) => {
-    onSaveStatus(targetId, targetType, e.target.value);
+  const handleStatusChange = (val) => {
+    if (val === "CALLBACK") {
+      setCallbackModalOpen(true);
+    } else {
+      onSaveStatus(targetId, targetType, val);
+    }
+  };
+
+  const handleCallbackSave = () => {
+    if (!callbackDate) return toast.error("Please select a follow-up date!");
+    onSaveStatus(targetId, targetType, "CALLBACK", callbackDate);
+    setCallbackModalOpen(false);
   };
 
   const statusColors = {
@@ -356,11 +444,12 @@ function TableRow({ item, savingRemark, onSaveRemark, savingStatus, onSaveStatus
         {isNew && (
           <div className="absolute top-1/2 -translate-y-1/2 left-0 w-1 h-8 bg-blue-500 rounded-r-full"></div>
         )}
-        <div className="flex items-center gap-2">
+        <div className="flex flex-wrap items-center gap-2">
           <div className="font-semibold text-zinc-900">
             {new Date(dateToUse).toLocaleDateString(undefined, { month: 'short', day: 'numeric', year: 'numeric' })}
           </div>
           {isNew && <span className="bg-blue-100 text-blue-700 text-[10px] font-bold px-1.5 py-0.5 rounded uppercase tracking-wider">New</span>}
+          {item.status === "CALLBACK" && <span className="bg-purple-100 text-purple-700 text-[10px] font-bold px-1.5 py-0.5 rounded uppercase tracking-wider">Follow Up</span>}
         </div>
         <div className="text-xs text-zinc-500 mt-1 font-medium">
           {new Date(dateToUse).toLocaleTimeString(undefined, { hour: '2-digit', minute: '2-digit' })}
@@ -462,7 +551,7 @@ function TableRow({ item, savingRemark, onSaveRemark, savingStatus, onSaveStatus
           <div className="relative group/select">
             <Select 
               value={item.status || "NEW"} 
-              onValueChange={(val) => onSaveStatus(targetId, targetType, val)}
+              onValueChange={handleStatusChange}
               disabled={savingStatus === targetId}
             >
               <SelectTrigger className={`w-full h-9 rounded-md border-0 text-[11px] font-extrabold tracking-wider uppercase transition-all duration-300 focus:ring-4 focus:ring-opacity-50 shadow-md [&>span]:text-white [&>svg]:text-white [&>svg]:drop-shadow-sm ${statusColors[item.status || "NEW"]} disabled:opacity-50`}>
@@ -480,6 +569,16 @@ function TableRow({ item, savingRemark, onSaveRemark, savingStatus, onSaveStatus
               <Loader2 className="w-4 h-4 absolute right-8 top-1/2 -translate-y-1/2 animate-spin text-white drop-shadow-sm pointer-events-none" />
             )}
           </div>
+          
+          {item.status === "CALLBACK" && (
+             <button 
+               onClick={() => setCallbackModalOpen(true)}
+               className="text-[10px] font-semibold text-purple-600 bg-purple-50 hover:bg-purple-100 px-1.5 py-0.5 rounded mt-1 inline-flex w-fit items-center gap-1 border border-purple-100 transition-colors cursor-pointer text-left"
+             >
+               <CalendarIcon className="w-2.5 h-2.5 shrink-0" />
+               {item.callbackDate ? new Date(item.callbackDate).toLocaleDateString(undefined, { month: 'short', day: 'numeric', year: 'numeric' }) : "Set Follow-up Date"}
+             </button>
+          )}
           
           <div className="flex items-center gap-1.5 mt-1">
             {item.isRegistered ? (
@@ -521,6 +620,101 @@ function TableRow({ item, savingRemark, onSaveRemark, savingStatus, onSaveStatus
             </button>
           )}
         </div>
+        
+        <Dialog open={callbackModalOpen} onOpenChange={setCallbackModalOpen}>
+          <DialogContent className="sm:max-w-[425px] bg-white border border-zinc-200 shadow-2xl rounded-2xl z-[200]">
+            <DialogHeader className="border-b border-zinc-100 pb-4">
+              <DialogTitle className="text-xl font-bold text-zinc-900">Set Follow-up Date</DialogTitle>
+              <DialogDescription className="text-sm text-zinc-500 mt-1">
+                Select a date for the callback follow-up with <span className="font-semibold text-zinc-800">{item.name}</span>.
+              </DialogDescription>
+            </DialogHeader>
+            <div className="flex flex-col gap-4 py-6">
+              <Popover>
+                <PopoverTrigger asChild>
+                  <button
+                    className={`w-full justify-start text-left font-semibold flex items-center gap-3 border border-zinc-200 hover:border-blue-400 hover:bg-blue-50 focus:ring-4 focus:ring-blue-100 px-4 py-3 rounded-xl transition-all ${
+                      !callbackDate ? "text-zinc-400" : "text-blue-700 bg-blue-50/50 border-blue-200"
+                    }`}
+                  >
+                    <CalendarIcon className={`h-5 w-5 ${callbackDate ? "text-blue-600" : "text-zinc-400"}`} />
+                    {callbackDate ? format(callbackDate, "PPP") : <span>Select a date from calendar</span>}
+                  </button>
+                </PopoverTrigger>
+                <PopoverContent className="w-auto p-2 z-[250] bg-white border border-zinc-200 shadow-2xl rounded-2xl" align="center">
+                  <Calendar
+                    mode="single"
+                    selected={callbackDate}
+                    onSelect={setCallbackDate}
+                    initialFocus
+                    className="bg-white rounded-xl"
+                  />
+                </PopoverContent>
+              </Popover>
+            </div>
+            <DialogFooter className="border-t border-zinc-100 pt-4">
+              <button
+                onClick={handleCallbackSave}
+                className="bg-blue-600 text-white px-6 py-2.5 rounded-xl font-semibold hover:bg-blue-700 hover:shadow-lg hover:shadow-blue-500/30 active:scale-[0.98] w-full transition-all flex justify-center items-center gap-2"
+              >
+                Confirm Date & Save
+              </button>
+            </DialogFooter>
+          </DialogContent>
+        </Dialog>
+      </td>
+    </tr>
+  );
+}
+
+function UserTableRow({ item }) {
+  const dateStr = item.createdAt ? new Date(item.createdAt).toLocaleDateString(undefined, { month: 'short', day: 'numeric', year: 'numeric' }) : "-";
+  return (
+    <tr className="transition-colors hover:bg-zinc-50/80">
+      <td className="px-6 py-5 whitespace-nowrap relative">
+        <div className="font-semibold text-zinc-900">{dateStr}</div>
+      </td>
+      
+      <td className="px-6 py-5 whitespace-nowrap">
+        <div className="font-bold text-zinc-900 text-base">{item.name}</div>
+        <a 
+          href={`https://wa.me/91${item.phone?.replace(/\D/g, "")}?text=${encodeURIComponent("hi sir aapne haamri website par registration kiya tha foodsnap.in apko zomato approved food photos chiye kya")}`} 
+          target="_blank" 
+          rel="noreferrer" 
+          className="text-blue-600 hover:text-blue-700 font-medium hover:underline mt-1 block"
+        >
+          {item.phone}
+        </a>
+      </td>
+
+      <td className="px-6 py-5 whitespace-nowrap">
+        <div className="flex flex-col gap-1.5">
+          <span className={`inline-flex w-fit px-2.5 py-1 rounded-full text-[11px] font-bold tracking-wide uppercase ${item.subscription?.isActive ? 'bg-green-100 text-green-700 border border-green-200' : 'bg-zinc-100 text-zinc-700 border border-zinc-200'}`}>
+            Plan: {item.subscription?.plan || 'free'}
+          </span>
+          <div className="flex items-center gap-1 text-xs text-zinc-700 font-semibold mt-0.5">
+            Credits: <span className="text-blue-600">{item.credits}</span>
+          </div>
+        </div>
+      </td>
+      
+      <td className="px-6 py-5 whitespace-nowrap">
+        <div className="text-xs text-zinc-600 font-medium space-y-1">
+          <div>Searches: <span className="font-bold text-zinc-900">{item.totalSearches}</span></div>
+          <div>Downloads: <span className="font-bold text-zinc-900">{item.totalImagesDownloaded}</span></div>
+        </div>
+      </td>
+
+      <td className="px-6 py-5 whitespace-nowrap">
+        {item.isAdmin ? (
+          <span className="inline-flex items-center gap-1 text-[11px] font-bold text-purple-700 bg-purple-100 border border-purple-200 px-2 py-1 rounded">
+            Admin
+          </span>
+        ) : (
+          <span className="inline-flex items-center gap-1 text-[11px] font-bold text-zinc-600 bg-zinc-100 border border-zinc-200 px-2 py-1 rounded">
+            User
+          </span>
+        )}
       </td>
     </tr>
   );

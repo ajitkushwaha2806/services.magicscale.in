@@ -28,7 +28,7 @@ export default function Faqs() {
             title={
               <span className="text-3xl md:text-6xl">
                 Frequently Asked <br />
-                <Highlighter action="highlight" color="#22c55e">
+                <Highlighter action="highlight" color="#f97316">
                   <span className="text-white relative z-10 px-2 py-1">
                     Questions
                   </span>
@@ -54,8 +54,8 @@ export default function Faqs() {
               <button
                 onClick={() => toggle(i)}
                 className={`w-full flex items-center justify-between px-5 py-4 text-left font-medium text-md md:text-lg transition-all duration-300 ${isOpen
-                  ? "bg-green-100 dark:bg-[#1a183b]/60"
-                  : "hover:bg-green-50 dark:hover:bg-[#16142f]/40"
+                  ? "bg-green-100 dark:bg-green-900/30"
+                  : "hover:bg-green-50 dark:hover:bg-green-900/10"
                   }`}
               >
                 <div className="flex items-center gap-3">

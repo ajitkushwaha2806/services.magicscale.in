@@ -3,30 +3,30 @@ import Home from "@/components/global/Home";
 
 export const metadata = {
   title: {
-    absolute: "Apply for FSSAI License Online | MagicScale",
+    absolute: "Grow Your Swiggy & Zomato Orders | MagicScale",
   },
-  description: "Get your Basic, State, or Central FSSAI License online starting at ₹999. Expert support, hassle-free processing, and secure platform.",
+  description: "Maximize your restaurant's revenue on Swiggy and Zomato. We offer expert menu optimization, ad management, and onboarding services starting at ₹999.",
 };
 
 export default function Page() {
   const webPageSchema = {
     "@context": "https://schema.org",
     "@type": "WebPage",
-    name: "FSSAI License Online",
+    name: "Swiggy & Zomato Growth Services",
     url: "https://fssai.magicscale.in",
-    description: "Apply online for FSSAI License starting at ₹999.",
+    description: "Expert growth management for restaurants on Swiggy and Zomato.",
   };
 
   const serviceSchema = {
     "@context": "https://schema.org",
     "@type": "Service",
-    name: "FSSAI License Registration",
+    name: "Restaurant Growth Management",
     provider: {
       "@type": "Organization",
       name: "MagicScale",
     },
     areaServed: "India",
-    serviceType: "Food License Registration",
+    serviceType: "Digital Marketing for Restaurants",
     offers: {
       "@type": "Offer",
       price: "999",
@@ -40,34 +40,26 @@ export default function Page() {
     mainEntity: [
       {
         "@type": "Question",
-        name: "What is an FSSAI License?",
+        name: "How can you help increase my Swiggy and Zomato orders?",
         acceptedAnswer: {
           "@type": "Answer",
-          text: "An FSSAI License is a mandatory food safety registration issued by the Food Safety and Standards Authority of India (FSSAI). It is required for anyone involved in manufacturing, storing, distributing, transporting, or selling food products.",
+          text: "We optimize your menu with appetizing descriptions, manage your CPC ads efficiently, and improve your restaurant's visibility algorithmically.",
         },
       },
       {
         "@type": "Question",
-        name: "Who needs an FSSAI License?",
+        name: "Who can benefit from this service?",
         acceptedAnswer: {
           "@type": "Answer",
-          text: "If you run any food-related business, you need an FSSAI License, including: Restaurants, Cloud Kitchens, Home Kitchens, Cafés, Bakeries, Grocery Stores, Sweet Shops, Food Manufacturers, Food Delivery Businesses, Caterers, Food Traders.",
+          text: "Any food business listed or wanting to list on Swiggy and Zomato, including Cloud Kitchens, Dine-in Restaurants, Cafés, and Bakeries.",
         },
       },
       {
         "@type": "Question",
-        name: "How long does it take to get the license?",
+        name: "Do you help with initial onboarding?",
         acceptedAnswer: {
           "@type": "Answer",
-          text: "We process most 1-Year FSSAI Registration applications within 24 hours, provided all required documents are submitted correctly.",
-        },
-      },
-      {
-        "@type": "Question",
-        name: "What documents are required?",
-        acceptedAnswer: {
-          "@type": "Answer",
-          text: "You'll need: Aadhaar Card, PAN Card, Phone Number, Email ID, Shop/Business Name, Business Address, and a Selfie Photo.",
+          text: "Yes, we handle complete onboarding on both platforms, ensuring your profile is set up for success from day one.",
         },
       },
       {
@@ -75,7 +67,7 @@ export default function Page() {
         name: "What are your charges?",
         acceptedAnswer: {
           "@type": "Answer",
-          text: "Our pricing is transparent: 1 Year: ₹999, 3 Years: ₹1,500, 5 Years: ₹2,500. No hidden charges.",
+          text: "Our plans start at just ₹999 for basic optimization, and scale based on your specific growth requirements.",
         },
       },
     ],
@@ -94,7 +86,7 @@ export default function Page() {
       {
         "@type": "ListItem",
         position: 2,
-        name: "FSSAI License Registration",
+        name: "Swiggy & Zomato Growth",
         item: "https://fssai.magicscale.in/#pricing",
       },
     ],
@@ -102,13 +94,13 @@ export default function Page() {
 
   const localBusinessSchema = {
     "@context": "https://schema.org",
-    "@type": "LegalService",
-    name: "MagicScale FSSAI Licensing",
+    "@type": "ProfessionalService",
+    name: "MagicScale Restaurant Growth",
     image: "https://fssai.magicscale.in/og-image.png",
     "@id": "https://fssai.magicscale.in",
     url: "https://fssai.magicscale.in",
     telephone: "+918826073117",
-    priceRange: "₹999 - ₹2500",
+    priceRange: "₹999 - ₹4999",
     address: {
       "@type": "PostalAddress",
       streetAddress: "New Delhi",
@@ -160,7 +152,7 @@ export default function Page() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(localBusinessSchema) }}
       />
       <div className="relative bg-white dark:bg-[#0a0a1a] flex flex-col items-center justify-center overflow-hidden">
-        <div className="relative z-10 max-w-7xl w-full mx-auto px-2 md:px-4">
+        <div className="relative z-10 w-full mx-auto px-2 md:px-4">
           <Home />
         </div>
       </div>

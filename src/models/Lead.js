@@ -33,6 +33,9 @@ const leadSchema = new mongoose.Schema(
     waMessaged: {
       type: Boolean,
       default: false
+    },
+    callbackDate: {
+      type: Date
     }
   },
   {

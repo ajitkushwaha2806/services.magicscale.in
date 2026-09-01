@@ -3,33 +3,33 @@ import React from "react";
 import Title from "../Title";
 import { motion } from "framer-motion";
 import SectionWrapper from "../SectionWrapper";
-import { Store, Building2, Globe2 } from "lucide-react";
+import { Store, TrendingUp, Rocket } from "lucide-react";
 import { Highlighter } from "@/components/ui/highlighter";
 
 export default function LicenseTypes() {
   const types = [
     {
-      level: "TIER 1",
-      title: "Basic Registration",
-      turnover: "Upto ₹12 Lakhs",
-      detail: "Ideal for small startups, home bakers, street vendors, and small-scale manufacturers.",
+      level: "ESSENTIAL",
+      title: "Menu Optimization",
+      turnover: "One-Time Fix",
+      detail: "Focuses on menu re-engineering, appetizing descriptions, and high-converting item names.",
       icon: Store,
-      popular: true,
-    },
-    {
-      level: "TIER 2",
-      title: "State License",
-      turnover: "₹12 Lakhs - ₹20 Crores",
-      detail: "Required for mid-sized businesses, hotels, restaurants, and standard manufacturers.",
-      icon: Building2,
       popular: false,
     },
     {
-      level: "TIER 3",
-      title: "Central License",
-      turnover: "Above ₹20 Crores",
-      detail: "Mandatory for large-scale manufacturers, importers, and multi-state operations.",
-      icon: Globe2,
+      level: "GROWTH",
+      title: "CPC Ad Management",
+      turnover: "Monthly Management",
+      detail: "We run and optimize your ads on Swiggy and Zomato to get the best ROI and maximize visibility.",
+      icon: TrendingUp,
+      popular: true,
+    },
+    {
+      level: "SCALE",
+      title: "Complete Growth Management",
+      turnover: "All-Inclusive",
+      detail: "End-to-end handling of your profile, ad spend, customer reviews, and organic ranking algorithms.",
+      icon: Rocket,
       popular: false,
     },
   ];
@@ -41,15 +41,15 @@ export default function LicenseTypes() {
           <Title
             title={
               <>
-                Which FSSAI License <br />{" "}
-                <Highlighter action="highlight" color={"#22c55e"}>
+                Which Growth Service <br />{" "}
+                <Highlighter action="highlight" color={"#f97316"}>
                   <span className="relative z-10 px-2 text-white">
                     Do You Need?
                   </span>
                 </Highlighter>
               </>
             }
-            description="3 distinct license types based on your business scale and annual turnover."
+            description="3 distinct packages based on your restaurant's current stage and goals."
           />
         </div>
       }
@@ -75,25 +75,25 @@ export default function LicenseTypes() {
                 whileHover={{ y: -6 }}
                 className={`group relative overflow-hidden rounded-3xl border p-6 transition-all duration-300 ${
                   type.popular
-                    ? "border-[#22c55e] bg-gradient-to-br from-[#e8f2ec]/80 to-white shadow-xl"
+                    ? "border-green-500 bg-gradient-to-br from-green-50/80 to-white shadow-xl"
                     : "border-neutral-200 bg-white hover:shadow-xl"
                 }`}
               >
                 {type.popular && (
                   <div className="absolute right-4 top-4">
-                    <span className="rounded-full bg-[#22c55e] px-3 py-1 text-[10px] font-bold tracking-widest uppercase text-white">
-                      Common
+                    <span className="rounded-full bg-green-500 px-3 py-1 text-[10px] font-bold tracking-widest uppercase text-white">
+                      Popular
                     </span>
                   </div>
                 )}
 
                 <div className="flex items-center justify-between">
-                  <span className="rounded-full bg-[#e8f2ec] px-3 py-1 text-xs font-bold text-[#22c55e]">
+                  <span className="rounded-full bg-green-100 px-3 py-1 text-xs font-bold text-green-600">
                     {type.level}
                   </span>
 
-                  <div className="rounded-2xl bg-[#e8f2ec] p-3">
-                    <Icon className="h-5 w-5 text-[#22c55e]" />
+                  <div className="rounded-2xl bg-green-100 p-3">
+                    <Icon className="h-5 w-5 text-green-600" />
                   </div>
                 </div>
 
@@ -106,8 +106,8 @@ export default function LicenseTypes() {
                 </p>
 
                 <div className="mt-6 flex flex-wrap gap-2">
-                  <span className="inline-flex items-center rounded-full bg-[#e8f2ec] px-3 py-1 text-xs font-semibold text-[#22c55e] ring-1 ring-inset ring-[#22c55e]/20">
-                    Turnover: {type.turnover}
+                  <span className="inline-flex items-center rounded-full bg-green-100 px-3 py-1 text-xs font-semibold text-green-600 ring-1 ring-inset ring-green-500/20">
+                    Model: {type.turnover}
                   </span>
                 </div>
               </motion.div>

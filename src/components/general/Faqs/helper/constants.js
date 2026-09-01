@@ -1,79 +1,49 @@
-import { HelpCircle, Sparkles, ShieldCheck, Globe, CalendarClock, XCircle, ImagePlus, FileText, IndianRupee, Store, CheckCircle } from "lucide-react";
+import { HelpCircle, Sparkles, ShieldCheck, TrendingUp, CalendarClock, XCircle, ImagePlus, IndianRupee, Store, CheckCircle } from "lucide-react";
 
 export const FAQS = [
     {
         icon: HelpCircle,
-        question: "What is an FSSAI License?",
-        answer: "An FSSAI License is a mandatory food safety registration issued by the Food Safety and Standards Authority of India (FSSAI). It is required for anyone involved in manufacturing, storing, distributing, transporting, or selling food products."
+        question: "What exactly do you do to grow my Swiggy/Zomato orders?",
+        answer: "We take over your entire digital presence on food delivery apps. This includes menu curation, SEO optimization, running high-ROI ad campaigns, automated robotic rating calls, and providing a dedicated growth manager to scale your sales."
     },
     {
         icon: Store,
-        question: "Who needs an FSSAI License?",
-        answer: "If you run any food-related business, you need an FSSAI License, including: Restaurants, Cloud Kitchens, Home Kitchens, Cafés, Bakeries, Grocery Stores, Sweet Shops, Food Manufacturers, Food Delivery Businesses, Caterers, Food Traders."
+        question: "Is this for new or existing restaurants?",
+        answer: "Both! We help new restaurants achieve a flawless launch with 100% menu scores and initial traction. For existing restaurants, we typically target a 25% to 30% month-over-month sales improvement."
     },
     {
         icon: CalendarClock,
-        question: "How long does it take to get the license?",
-        answer: "We process most 1-Year FSSAI Registration applications within 24 hours, provided all required documents are submitted correctly."
-    },
-    {
-        icon: FileText,
-        question: "What documents are required?",
-        answer: "You'll need: Aadhaar Card, PAN Card, Phone Number, Email ID, Shop/Business Name, Business Address, and a Selfie Photo."
+        question: "Why do you recommend a 3-month commitment?",
+        answer: "Sustainable growth takes time. Month 1 focuses on branding and new customer acquisition. Month 2 focuses on repeat customers and ratings. By Month 3, we optimize profit margins and scale aggressive ads."
     },
     {
         icon: IndianRupee,
-        question: "What are your charges?",
-        answer: "Our pricing is transparent: 1 Year: ₹999, 3 Years: ₹1,500, 5 Years: ₹2,500. No hidden charges."
+        question: "How much does the service cost?",
+        answer: "We have two transparent tiers: Basic Growth at ₹9,999/month and Premium Growth at ₹14,999/month. We highly recommend our 3-month plans, which include a 20% discount!"
     },
     {
-        icon: ShieldCheck,
-        question: "Is the license genuine?",
-        answer: "Yes. We assist you in obtaining an official FSSAI Registration issued through the Government's FSSAI portal."
+        icon: TrendingUp,
+        question: "How do you improve my restaurant's rating?",
+        answer: "Our Premium plan includes automated 'Robotic Rating Calls' for live orders. We proactively engage with happy diners to secure 5-star ratings and intercept negative feedback before it hits your public profile."
     },
     {
         icon: Store,
-        question: "Can I apply if I run a home kitchen?",
-        answer: "Absolutely. Home kitchens, home bakers, cloud kitchens, and small food businesses can all apply for FSSAI Registration."
+        question: "Do I still need to manage the order tablet?",
+        answer: "Yes, you and your staff will continue to accept, prepare, and hand over the food to the delivery partners. We handle all the backend digital optimization, marketing, and profile management."
     },
     {
         icon: XCircle,
-        question: "Do I need to visit your office?",
-        answer: "No. The entire process is online. Simply share your documents via WhatsApp or email, and we'll handle the rest."
-    },
-    {
-        icon: ShieldCheck,
-        question: "Will you help if my application is rejected?",
-        answer: "Yes. If any corrections or additional information are required during the application process, our team will guide you and assist in resolving them."
-    },
-    {
-        icon: ImagePlus,
-        question: "How will I receive my license?",
-        answer: "Once approved, you'll receive your FSSAI License digitally as a PDF via WhatsApp and email."
-    },
-    {
-        icon: CalendarClock,
-        question: "Can I renew my FSSAI License through MagicScale?",
-        answer: "Yes. We also provide FSSAI License renewal services before your license expires."
-    },
-    {
-        icon: XCircle,
-        question: "Is there any hidden fee?",
-        answer: "No. Our pricing is transparent, and we'll inform you upfront if any additional government fee applies based on your business category or turnover."
-    },
-    {
-        icon: HelpCircle,
-        question: "What if I don't have a shop?",
-        answer: "You can still apply if you're operating from home or a cloud kitchen, as long as you have a valid business address."
+        question: "Are there any hidden fees or commissions?",
+        answer: "No hidden fees, and we do not take a percentage of your sales! You simply pay the flat monthly retainer for our management services."
     },
     {
         icon: Sparkles,
-        question: "Why choose MagicScale?",
-        answer: "Fast processing (24 hours*), Affordable pricing starting at ₹999, Complete documentation support, Dedicated application experts, Easy online process, and End-to-end assistance until your license is issued."
+        question: "Why should I choose MagicScale over a freelancer?",
+        answer: "Unlike freelancers, we have a structured 90-day roadmap. You get a dedicated growth consultant, professional menu designers, and advanced AI systems (like robotic calls) all working together for your restaurant."
     },
     {
         icon: CheckCircle,
-        question: "How can I get started?",
-        answer: "Click the 'Apply Now' button, fill out the enquiry form, or contact us on WhatsApp. Our team will guide you through the complete process and help you get your FSSAI License quickly. (Note: Processing within 24 hours applies to eligible applications with complete and accurate documentation. Government approval timelines may vary in some cases.)"
+        question: "How quickly can we get started?",
+        answer: "Select your preferred plan from our Pricing section and complete the payment. Your dedicated Account Manager will reach out within 24 hours to begin the onboarding audit!"
     }
 ];

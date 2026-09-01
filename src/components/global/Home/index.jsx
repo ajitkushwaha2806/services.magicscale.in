@@ -5,7 +5,9 @@ import WhyChooseUs from "@/components/general/WhyChooseUs";
 import PainSection from "@/components/general/PainSection";
 import LicenseTypes from "@/components/general/LicenseTypes";
 import HowItWorks from "@/components/general/HowItWorks";
+import Deliverables from "@/components/general/Deliverables";
 import Pricing from "@/components/general/Pricing";
+import Lifecycle from "@/components/general/Lifecycle";
 import MasonryGallery from "@/components/general/galllery";
 import Testimonials from "@/components/general/Reviews";
 import Faqs from "@/components/general/Faqs";
@@ -19,7 +21,9 @@ export default function Home() {
       <LicenseTypes />
       <HowItWorks />
       <StickyMobileCTA />
+      <Deliverables />
       <Pricing />
+      <Lifecycle />
       <MasonryGallery />
       <Testimonials />
       <Faqs />
