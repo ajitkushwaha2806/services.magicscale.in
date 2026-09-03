@@ -63,7 +63,15 @@ export const Hero = () => {
       {/* CTA Buttons */}
       <div className="relative z-10 mt-6 sm:mt-8 mb-5 flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4 w-full max-w-sm sm:max-w-none animate-in fade-in slide-in-from-bottom-4 duration-700 delay-200">
         <button
-          onClick={() => setDemoOpen(true)}
+          onClick={() => {
+            if (typeof window !== "undefined" && window.fbq) {
+              window.fbq("track", "InitiateCheckout", {
+                content_name: "Hero Free Strategy Call",
+                content_category: "Demo Booking",
+              });
+            }
+            setDemoOpen(true);
+          }}
           className="w-full sm:w-auto h-12 sm:h-14 px-6 sm:px-8 text-sm sm:text-base font-bold text-white bg-green-600 hover:bg-green-700 rounded-md shadow-lg shadow-green-600/25 transition-all hover:scale-105 active:scale-[0.98] flex items-center justify-center gap-2 group whitespace-nowrap"
         >
           <Video className="w-4 h-4 sm:w-5 sm:h-5 text-white shrink-0" />

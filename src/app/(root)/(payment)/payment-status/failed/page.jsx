@@ -71,6 +71,14 @@ const FailedContent = () => {
 
               <a
                 href={plan?.whatsappSupportLink}
+                onClick={() => {
+                  if (typeof window !== "undefined" && window.fbq) {
+                    window.fbq("track", "Contact", {
+                      content_name: "Failed Payment Help Clicked",
+                      order_id: orderId,
+                    });
+                  }
+                }}
                 className="w-full bg-white border border-slate-200 hover:bg-slate-50 text-slate-600 font-medium py-2.5 px-4 rounded-xl transition-all flex items-center justify-center gap-1.5 text-sm"
               >
                 <HelpCircle className="h-4 w-4" />

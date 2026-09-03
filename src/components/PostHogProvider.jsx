@@ -16,6 +16,10 @@ function PostHogPageView() {
       const search = searchParams.toString()
       if (search) url += '?' + search
       ph.capture('$pageview', { '$current_url': url })
+
+      if (typeof window !== "undefined" && window.fbq) {
+        window.fbq('track', 'PageView');
+      }
     }
   }, [pathname, searchParams, ph])
 

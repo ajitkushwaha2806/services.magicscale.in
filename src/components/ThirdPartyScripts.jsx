@@ -5,7 +5,7 @@ import { useEffect } from "react";
 // Easily manage multiple tracking IDs here
 const CONFIG = {
   googleAnalyticsIds: ["G-XVLEDXG07G"], // You can add multiple GA IDs here in the future
-  metaPixelIds: ["1223249586587487"], // Add or remove Meta Pixel IDs here
+  metaPixelIds: ["1739589510499095"], // Add or remove Meta Pixel IDs here
 };
 
 // Initialize the window objects and stubs synchronously if in browser

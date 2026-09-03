@@ -44,6 +44,15 @@ export default function Pricing() {
   const handleSelectPlan = (planKey) => {
     const plan = PLANS[planKey];
     if (plan) {
+      if (typeof window !== "undefined" && window.fbq) {
+        window.fbq("track", "ViewContent", {
+          content_name: plan.title,
+          content_ids: [plan._id],
+          content_type: "product",
+          value: plan.price,
+          currency: "INR",
+        });
+      }
       setSelectedPlan(plan);
       setModalOpen(true);
     }

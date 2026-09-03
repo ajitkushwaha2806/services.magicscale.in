@@ -67,10 +67,11 @@ function SuccessPageContent() {
         window.fbq("track", "Purchase", {
           value: purchaseValue,
           currency: "INR",
-          content_name: "Google Meet Strategy Session",
+          content_name: registrationDetails?.plan?.title || "Growth Strategy Consultation Plan",
           content_type: "product",
           content_ids: [reg.planId || registrationDetails?.plan?._id || "growth-consultation"],
-          order_id: reg.orderId
+          order_id: reg.orderId,
+          num_items: 1,
         });
       }
     }
@@ -236,7 +237,15 @@ function SuccessPageContent() {
                   href={sessionDetails.whatsappSupportLink}
                   target="_blank"
                   rel="noopener noreferrer"
-                  onClick={() => posthog.capture("whatsapp_support_clicked", { order_id: sessionDetails.orderId })}
+                  onClick={() => {
+                    posthog.capture("whatsapp_support_clicked", { order_id: sessionDetails.orderId });
+                    if (typeof window !== "undefined" && window.fbq) {
+                      window.fbq("track", "Contact", {
+                        content_name: "WhatsApp Support Clicked",
+                        order_id: sessionDetails.orderId,
+                      });
+                    }
+                  }}
                   className="w-full bg-[#25D366] hover:bg-[#20bd5a] text-white font-semibold py-3 px-4 rounded-xl active:bg-[#1da850] transition flex items-center justify-center gap-2 group shadow-md shadow-slate-900/5 text-sm"
                 >
                   WhatsApp Support

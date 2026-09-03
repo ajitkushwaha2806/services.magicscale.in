@@ -141,8 +141,14 @@ export default function BookDemoModal({ open, onOpenChange }) {
         });
 
         if (window.fbq) {
+          window.fbq("track", "Lead", {
+            content_name: "Google Meet Growth Strategy Session",
+            content_category: "Demo Booking",
+          });
           window.fbq("track", "Schedule", {
             content_name: "Google Meet Growth Demo",
+            date: formData.meetingDate,
+            slot: formData.meetingSlot,
           });
         }
       }

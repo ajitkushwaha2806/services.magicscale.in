@@ -101,6 +101,14 @@ export default function PlanPaymentModal({ open, onOpenChange, selectedPlan }) {
           if (window.fbq) {
             window.fbq("track", "InitiateCheckout", {
               content_name: selectedPlan.title,
+              content_category: "Growth Plan",
+              content_ids: [selectedPlan._id],
+              value: selectedPlan.price,
+              currency: "INR",
+              num_items: 1,
+            });
+            window.fbq("track", "AddPaymentInfo", {
+              content_name: selectedPlan.title,
               value: selectedPlan.price,
               currency: "INR",
             });
