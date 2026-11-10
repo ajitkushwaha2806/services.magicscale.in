@@ -11,7 +11,7 @@ export default function Footer() {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="w-full border-t border-zinc-200 dark:border-zinc-800 bg-white dark:bg-[#0c0c14] pt-8 pb-24 sm:pb-28 md:py-8 px-4 sm:px-6 md:px-12 text-sm text-zinc-600 dark:text-zinc-400">
+    <footer className="w-full border-t border-zinc-200 dark:border-zinc-800 bg-white dark:bg-[#0c0c14] pt-5 pb-20 sm:pb-24 md:py-6 px-4 sm:px-6 md:px-12 text-sm text-zinc-600 dark:text-zinc-400">
       <div className="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6">
         
         {/* Brand & Legal Info */}

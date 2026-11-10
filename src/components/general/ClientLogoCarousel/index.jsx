@@ -4,14 +4,14 @@ import Image from "next/image";
 
 export const CLIENT_LOGOS = [
   {
-    name: "La Pino'z Pizza",
-    src: "/assets/clients/la-pinoz-pizza-v2.png",
-    width: 180,
-    height: 80,
-  },
-  {
     name: "Chai Sutta Bar",
     src: "/assets/clients/chai-sutta-bar-v2.png",
+    width: 180,
+    height: 120,
+  },
+  {
+    name: "La Pino'z Pizza",
+    src: "/assets/clients/la-pinoz-pizza-v2.png",
     width: 180,
     height: 80,
   },
@@ -28,21 +28,9 @@ export const CLIENT_LOGOS = [
     height: 80,
   },
   {
-    name: "Mr. Sandwich",
-    src: "/assets/clients/mr-sandwich-v2.png",
-    width: 180,
-    height: 80,
-  },
-  {
     name: "Kulcha Kulture",
     src: "/assets/clients/kulcha-kulture-v2.png",
     width: 200,
-    height: 80,
-  },
-  {
-    name: "Dosa Diaries",
-    src: "/assets/case-studies/dosa-diaries-logo.jpg",
-    width: 140,
     height: 80,
   },
 ];
@@ -72,7 +60,7 @@ export default function ClientLogoCarousel({ className = "" }) {
               alt={client.name}
               width={client.width}
               height={client.height}
-              className="h-12 sm:h-15 md:h-17 w-auto max-w-[130px] sm:max-w-[160px] md:max-w-[185px] object-contain select-none transition-transform group-hover:scale-105 duration-200"
+              className="h-12 sm:h-15 md:h-17 w-auto max-w-[130px] sm:max-w-[160px] md:max-w-[185px] object-contain rounded-xs select-none transition-transform group-hover:scale-105 duration-200"
             />
           </div>
         ))}

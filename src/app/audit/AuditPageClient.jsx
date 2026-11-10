@@ -2,7 +2,6 @@
 import React, { useState } from "react";
 import AuditHero from "@/components/audit/AuditHero";
 import AuditSuccessStory from "@/components/audit/AuditSuccessStory";
-import AuditCaseStudies from "@/components/audit/AuditCaseStudies";
 import Testimonials from "@/components/general/Reviews";
 import MasonryGallery from "@/components/general/galllery";
 import Faqs from "@/components/general/Faqs";
@@ -27,17 +26,14 @@ export default function AuditPageClient() {
       {/* SECTION 2: FLAGSHIP SUCCESS STORY (Dosa Diaries ₹5k -> ₹1 Lakh+) */}
       <AuditSuccessStory onOpenForm={handleOpenModal} />
 
-      {/* SECTION 4: SOCIAL PROOF & QUICK WINS */}
-      <AuditCaseStudies />
-
-      {/* SECTION 4: OUR CUSTOMERS */}
+      {/* SECTION 3: OUR CUSTOMERS */}
       <Testimonials />
 
       {/* SECTION 5: OUR TEAM */}
       <MasonryGallery />
 
       {/* SECTION 6: FAQS */}
-      <Faqs />
+      <Faqs onOpenForm={handleOpenModal} />
 
       {/* Mobile Sticky Action Bar */}
       <div className="fixed bottom-0 left-0 right-0 z-40 md:hidden animate-in slide-in-from-bottom-full duration-500">
