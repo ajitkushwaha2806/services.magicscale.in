@@ -9,7 +9,6 @@ import { PLANS } from "@/constants/plans";
 import PlanPaymentModal from "./PlanPaymentModal";
 
 export default function Pricing() {
-  const [isQuarterly, setIsQuarterly] = useState(false);
   const [modalOpen, setModalOpen] = useState(false);
   const [selectedPlan, setSelectedPlan] = useState(null);
 
@@ -84,37 +83,7 @@ export default function Pricing() {
         selectedPlan={selectedPlan}
       />
       
-      {/* Toggle */}
-      <div className="flex justify-center items-center mb-16">
-        <div className="relative flex items-center p-1 bg-neutral-100 dark:bg-neutral-900 rounded-full border border-neutral-200 dark:border-neutral-800 shadow-sm">
-          <button
-            onClick={() => setIsQuarterly(false)}
-            className={`relative w-40 py-2.5 text-sm font-bold rounded-full transition-all duration-300 z-10 ${
-              !isQuarterly ? "text-white" : "text-neutral-500 hover:text-neutral-700 dark:hover:text-neutral-300"
-            }`}
-          >
-            1 Month
-          </button>
-          <button
-            onClick={() => setIsQuarterly(true)}
-            className={`relative w-48 py-2.5 text-sm font-bold rounded-full transition-all duration-300 z-10 flex items-center justify-center gap-2 ${
-              isQuarterly ? "text-white" : "text-neutral-500 hover:text-neutral-700 dark:hover:text-neutral-300"
-            }`}
-          >
-            3 Months <span className="px-2 py-0.5 rounded bg-green-500/20 text-green-500 text-[10px] uppercase tracking-wider">Save 20%</span>
-          </button>
-          
-          <motion.div
-            className="absolute h-[calc(100%-8px)] bg-green-500 rounded-full shadow-md z-0 top-1"
-            initial={false}
-            animate={{
-              left: isQuarterly ? "164px" : "4px",
-              width: isQuarterly ? "188px" : "156px"
-            }}
-            transition={{ type: "spring", stiffness: 300, damping: 30 }}
-          />
-        </div>
-      </div>
+
 
       <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8 relative z-10">
         
@@ -124,30 +93,41 @@ export default function Pricing() {
             <h3 className="text-2xl font-black text-neutral-900 dark:text-white">Basic Growth</h3>
             <p className="text-sm text-neutral-500 mt-2 font-medium">For essential visibility & optimization.</p>
             
-            <div className="flex flex-col gap-1 my-6">
-              <div className="flex items-end gap-2">
-                <span className="text-5xl font-black text-neutral-900 dark:text-white tracking-tight">
-                  ₹{isQuarterly ? "23,999" : "9,999"}
-                </span>
-                <span className="text-neutral-500 font-bold mb-1">
-                  / {isQuarterly ? "3 months" : "month"}
-                </span>
-              </div>
-              {isQuarterly && (
-                <div className="flex items-center gap-2 mt-1">
-                  <span className="text-sm text-neutral-400 line-through font-medium">₹29,997</span>
-                  <span className="text-sm text-green-500 font-bold">Save ₹5,998</span>
+            <div className="grid grid-cols-2 gap-4 my-6">
+              {/* 1 Month Option */}
+              <div className="flex flex-col p-4 rounded-xl border border-neutral-200 dark:border-neutral-800 bg-neutral-50 dark:bg-neutral-900/50 hover:border-neutral-300 dark:hover:border-neutral-700 transition-colors">
+                <span className="text-sm font-bold text-neutral-500 mb-2">1 Month</span>
+                <div className="flex items-end gap-1 mb-4">
+                  <span className="text-3xl font-black text-neutral-900 dark:text-white">₹9,999</span>
                 </div>
-              )}
-            </div>
+                <button
+                  onClick={() => handleSelectPlan("basic-growth-1m")}
+                  className="w-full py-2.5 bg-neutral-900 hover:bg-neutral-800 dark:bg-white dark:hover:bg-neutral-200 text-white dark:text-neutral-900 text-sm rounded-lg font-bold transition-all active:scale-[0.98] mt-auto"
+                >
+                  Choose 1 Month
+                </button>
+              </div>
 
-            <button
-              onClick={() => handleSelectPlan(isQuarterly ? "basic-growth-3m" : "basic-growth-1m")}
-              className="w-full bg-neutral-900 hover:bg-neutral-800 dark:bg-white dark:hover:bg-neutral-200 text-white dark:text-neutral-900 h-14 text-lg rounded-md shadow-lg transition-all font-bold flex items-center justify-center gap-2 group active:scale-[0.98]"
-            >
-              <span>Choose Basic</span>
-              <ArrowRight className="w-5 h-5 transition-transform group-hover:translate-x-1" />
-            </button>
+              {/* 3 Months Option */}
+              <div className="flex flex-col p-4 rounded-xl border-2 border-green-500/50 bg-green-50/50 dark:bg-green-500/5 relative hover:border-green-500 transition-colors">
+                <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-green-500 text-white text-[10px] font-bold px-2 py-0.5 rounded-full uppercase tracking-wider whitespace-nowrap shadow-sm">
+                  Save ₹5,998
+                </div>
+                <span className="text-sm font-bold text-neutral-500 mb-2">3 Months</span>
+                <div className="flex flex-col mb-4">
+                  <div className="flex items-end gap-1">
+                    <span className="text-3xl font-black text-neutral-900 dark:text-white">₹23,999</span>
+                  </div>
+                  <span className="text-xs text-neutral-400 font-medium line-through mt-1">₹29,997 total</span>
+                </div>
+                <button
+                  onClick={() => handleSelectPlan("basic-growth-3m")}
+                  className="w-full py-2.5 bg-green-500 hover:bg-green-600 text-white text-sm rounded-lg font-bold transition-all shadow-md active:scale-[0.98] mt-auto"
+                >
+                  Choose 3 Months
+                </button>
+              </div>
+            </div>
 
             <p className="text-center text-xs text-neutral-400 mt-3 font-semibold flex items-center justify-center gap-1">
               <Shield className="w-3.5 h-3.5" /> Safe & Secure Payment via Paytm
@@ -180,30 +160,41 @@ export default function Pricing() {
             </h3>
             <p className="text-sm text-neutral-500 mt-2 font-medium">Advanced growth solution for maximum scale.</p>
             
-            <div className="flex flex-col gap-1 my-6">
-              <div className="flex items-end gap-2">
-                <span className="text-5xl font-black text-green-600 dark:text-green-500 tracking-tight">
-                  ₹{isQuarterly ? "35,999" : "14,999"}
-                </span>
-                <span className="text-neutral-500 font-bold mb-1">
-                  / {isQuarterly ? "3 months" : "month"}
-                </span>
-              </div>
-              {isQuarterly && (
-                <div className="flex items-center gap-2 mt-1">
-                  <span className="text-sm text-neutral-400 line-through font-medium">₹44,997</span>
-                  <span className="text-sm text-green-500 font-bold">Save ₹8,998</span>
+            <div className="grid grid-cols-2 gap-4 my-6">
+              {/* 1 Month Option */}
+              <div className="flex flex-col p-4 rounded-xl border border-neutral-200 dark:border-neutral-800 bg-neutral-50 dark:bg-neutral-900/50 hover:border-neutral-300 dark:hover:border-neutral-700 transition-colors">
+                <span className="text-sm font-bold text-neutral-500 mb-2">1 Month</span>
+                <div className="flex items-end gap-1 mb-4">
+                  <span className="text-3xl font-black text-green-600 dark:text-green-500">₹14,999</span>
                 </div>
-              )}
-            </div>
+                <button
+                  onClick={() => handleSelectPlan("premium-growth-1m")}
+                  className="w-full py-2.5 bg-neutral-900 hover:bg-neutral-800 dark:bg-white dark:hover:bg-neutral-200 text-white dark:text-neutral-900 text-sm rounded-lg font-bold transition-all active:scale-[0.98] mt-auto"
+                >
+                  Choose 1 Month
+                </button>
+              </div>
 
-            <button
-              onClick={() => handleSelectPlan(isQuarterly ? "premium-growth-3m" : "premium-growth-1m")}
-              className="w-full bg-green-500 hover:bg-green-600 text-white h-14 text-lg rounded-md shadow-[0_8px_20px_rgba(34,197,94,0.3)] transition-all font-bold flex items-center justify-center gap-2 group active:scale-[0.98]"
-            >
-              <span>Choose Premium</span>
-              <ArrowRight className="w-5 h-5 transition-transform group-hover:translate-x-1" />
-            </button>
+              {/* 3 Months Option */}
+              <div className="flex flex-col p-4 rounded-xl border-2 border-green-500/50 bg-green-50/50 dark:bg-green-500/5 relative hover:border-green-500 transition-colors">
+                <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-green-500 text-white text-[10px] font-bold px-2 py-0.5 rounded-full uppercase tracking-wider whitespace-nowrap shadow-sm">
+                  Save ₹8,998
+                </div>
+                <span className="text-sm font-bold text-neutral-500 mb-2">3 Months</span>
+                <div className="flex flex-col mb-4">
+                  <div className="flex items-end gap-1">
+                    <span className="text-3xl font-black text-green-600 dark:text-green-500">₹35,999</span>
+                  </div>
+                  <span className="text-xs text-neutral-400 font-medium line-through mt-1">₹44,997 total</span>
+                </div>
+                <button
+                  onClick={() => handleSelectPlan("premium-growth-3m")}
+                  className="w-full py-2.5 bg-green-500 hover:bg-green-600 text-white text-sm rounded-lg font-bold transition-all shadow-md active:scale-[0.98] mt-auto"
+                >
+                  Choose 3 Months
+                </button>
+              </div>
+            </div>
 
             <p className="text-center text-xs text-neutral-400 mt-3 font-semibold flex items-center justify-center gap-1">
               <Shield className="w-3.5 h-3.5" /> Safe & Secure Payment via Paytm

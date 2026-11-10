@@ -16,7 +16,7 @@ export default function Header() {
   }, [isOpen]);
 
   return (
-    <header className="fixed top-4 left-1/2 -translate-x-1/2 z-50 w-[95%] max-w-6xl px-3 rounded-xl backdrop-blur-md bg-white/70 dark:bg-darkBackground/40 border border-gray-200 dark:border-gray-500 shadow-lg transition-all duration-300">
+    <header className="fixed top-4 left-1/2 -translate-x-1/2 z-50 w-[95%] max-w-6xl px-3 rounded-md backdrop-blur-md bg-white/70 dark:bg-darkBackground/40 border border-gray-200 dark:border-gray-500 shadow-lg transition-all duration-300">
       <div className="flex items-center justify-between py-3">
         <Link href="/" className="group flex items-center gap-2.5">
           <Logo />
@@ -30,7 +30,7 @@ export default function Header() {
           </div>
         </Link>
 
-        <nav className="hidden md:flex items-center space-x-6 lg:space-x-8">
+        <nav className="hidden md:flex items-center space-x-3.5 lg:space-x-6">
           {navLinks?.map((link, i) => (
             <div
               key={i}
@@ -50,7 +50,7 @@ export default function Header() {
 
         <div className="flex items-center gap-3 md:gap-4">
           <div className="hidden md:block">
-            <PayButton>Book Free Call</PayButton>
+            <PayButton>Enquire Now</PayButton>
           </div>
 
           <button

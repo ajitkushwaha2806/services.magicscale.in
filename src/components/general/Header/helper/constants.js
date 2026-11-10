@@ -1,17 +1,16 @@
 export const navLinks = [
-  { title: "Services", href: "/#services" },
-  { title: "Why Us", href: "/#why-us" },
-  { title: "Roadmap", href: "/#roadmap" },
-  { title: "Pricing", href: "/#pricing" },
+  { title: "Features", href: "/#features" },
+  { title: "How It Works", href: "/#how-it-works" },
+  { title: "Results", href: "/#results" },
   { title: "Reviews", href: "/#reviews" },
   { title: "FAQs", href: "/#faqs" },
 ];
 
 export const navMobileLinks = [
-  { title: "Services", href: "/#services" },
-  { title: "Why Us", href: "/#why-us" },
-  { title: "Growth Roadmap", href: "/#roadmap" },
-  { title: "Pricing Plans", href: "/#pricing" },
+  { title: "Free Menu Audit", href: "/" },
+  { title: "Features", href: "/#features" },
+  { title: "How It Works", href: "/#how-it-works" },
+  { title: "Results & Wins", href: "/#results" },
   { title: "Customer Reviews", href: "/#reviews" },
   { title: "FAQs", href: "/#faqs" },
   { title: "Contact Us", href: "/contact" },

@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 import { cn } from "@/lib/utils";
 import { GridPattern } from "@/components/ui/grid-pattern";
-import { ArrowRight, TrendingUp, Video, ChevronDown } from "lucide-react";
+import { ArrowRight, TrendingUp, Send, ChevronDown } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import BookDemoModal from "../BookDemoModal";
@@ -25,18 +25,14 @@ export const Hero = () => {
         )}
       />
 
-      {/* Book Demo Modal */}
       <BookDemoModal open={demoOpen} onOpenChange={setDemoOpen} />
 
-      {/* Top Badge */}
       <div className="relative z-10 flex justify-center mb-4 sm:mb-6 animate-in fade-in slide-in-from-top-3 duration-500">
         <div className="inline-flex items-center gap-2 rounded-md bg-green-50 dark:bg-green-950/40 border border-green-200 dark:border-green-800/50 px-3 py-1 text-xs sm:text-sm font-bold text-green-700 dark:text-green-400 shadow-sm">
-          <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
           <span>Zomato & Swiggy Growth Agency</span>
         </div>
       </div>
 
-      {/* Hero Headline */}
       <h1 className="relative z-10 w-full mx-auto pb-1 sm:pb-2 animate-in fade-in slide-in-from-top-4 duration-700">
         <div className="text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-black tracking-tight leading-[1.2] md:leading-[1.15] text-zinc-900 dark:text-white max-w-4xl mx-auto">
           <span>Not getting orders on </span>
@@ -55,27 +51,25 @@ export const Hero = () => {
         </div>
       </h1>
 
-      {/* Subheadline */}
       <p className="relative z-10 mt-4 sm:mt-6 text-sm sm:text-lg md:text-xl text-zinc-600 dark:text-zinc-300 max-w-2xl font-medium leading-relaxed mx-auto px-2 animate-in fade-in slide-in-from-bottom-3 duration-700 delay-150">
         We optimize your menu ranking, fix high-cost ads, and boost daily order volume systematically.
       </p>
 
-      {/* CTA Buttons */}
       <div className="relative z-10 mt-6 sm:mt-8 mb-5 flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4 w-full max-w-sm sm:max-w-none animate-in fade-in slide-in-from-bottom-4 duration-700 delay-200">
         <button
           onClick={() => {
             if (typeof window !== "undefined" && window.fbq) {
               window.fbq("track", "InitiateCheckout", {
-                content_name: "Hero Free Strategy Call",
-                content_category: "Demo Booking",
+                content_name: "Hero Enquiry Form",
+                content_category: "Enquiry",
               });
             }
             setDemoOpen(true);
           }}
           className="w-full sm:w-auto h-12 sm:h-14 px-6 sm:px-8 text-sm sm:text-base font-bold text-white bg-green-600 hover:bg-green-700 rounded-md shadow-lg shadow-green-600/25 transition-all hover:scale-105 active:scale-[0.98] flex items-center justify-center gap-2 group whitespace-nowrap"
         >
-          <Video className="w-4 h-4 sm:w-5 sm:h-5 text-white shrink-0" />
-          <span>Book Free Strategy Call</span>
+          <Send className="w-4 h-4 sm:w-5 sm:h-5 text-white shrink-0" />
+          <span>Enquire Now</span>
           <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1 shrink-0" />
         </button>
 

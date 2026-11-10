@@ -268,8 +268,8 @@ export default function AdminDashboard() {
         {/* Navigation / Filter Bar */}
         <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-5">
           <div>
-            <h2 className="text-2xl font-black text-zinc-900 dark:text-white tracking-tight">Leads & Strategy Bookings</h2>
-            <p className="text-xs text-zinc-500 font-medium mt-0.5">Manage incoming restaurant leads, 1-on-1 strategy meetings, and growth plan subscriptions.</p>
+            <h2 className="text-2xl font-black text-zinc-900 dark:text-white tracking-tight">Leads & Enquiries</h2>
+            <p className="text-xs text-zinc-500 font-medium mt-0.5">Manage incoming restaurant leads, customer enquiries, and growth plan subscriptions.</p>
           </div>
 
           <div className="flex items-center gap-3">

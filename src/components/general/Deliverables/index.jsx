@@ -40,32 +40,46 @@ export default function Deliverables() {
         </div>
       }
     >
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 relative z-10 mx-auto max-w-7xl">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 relative z-10 mx-auto max-w-[1400px]">
         {features.map((feature, idx) => {
           const stepNumber = (idx + 1).toString().padStart(2, '0');
           return (
             <motion.div
               key={idx}
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "100px" }}
               transition={{ delay: idx * 0.05, duration: 0.5 }}
-              className="group relative flex flex-col bg-white dark:bg-[#10101a] p-2 sm:p-3.5 rounded-md border border-neutral-200 dark:border-neutral-800 shadow-sm transition-all duration-300 hover:shadow-lg"
+              className="group relative flex flex-col bg-white dark:bg-[#10101a] rounded-xl border border-neutral-200 dark:border-neutral-800 shadow-sm transition-all duration-300 hover:shadow-xl overflow-hidden hover:-translate-y-1"
             >
-              <div className="relative w-full aspect-[4/3] bg-neutral-100 dark:bg-neutral-900/50 rounded-md overflow-hidden flex items-center justify-center">
-                <div className="absolute inset-0 flex items-center justify-center z-10 pointer-events-none">
-                  <span className="text-8xl font-black text-[#ff6b00]/10 dark:text-[#ff6b00]/5 select-none">
+              <div className="relative w-full aspect-[4/3] bg-neutral-100 dark:bg-neutral-900/50 overflow-hidden flex items-center justify-center p-6 border-b border-neutral-100 dark:border-neutral-800">
+                <div className="absolute top-4 right-4 z-20 pointer-events-none">
+                  <span className="text-5xl font-black text-[#22c55e]/20 dark:text-[#22c55e]/10 select-none transition-transform group-hover:scale-110 duration-300">
                     {stepNumber}
                   </span>
                 </div>
                 <img
                   src={feature?.img || `/assets/features/${feature.id}.jpg`}
                   alt={feature.title}
-                  className="absolute inset-0 w-full h-full object-cover z-10"
+                  className="w-full h-full object-contain z-10 transition-transform duration-500 group-hover:scale-105"
                   onError={(e) => {
                     e.target.style.display = 'none';
                   }}
                 />
+              </div>
+              <div className="p-6 flex-1 flex flex-col">
+                <h3 className="text-xl font-bold text-neutral-900 dark:text-white mb-3 group-hover:text-[#22c55e] transition-colors duration-300">
+                  {feature.title}
+                </h3>
+                <p className="text-neutral-600 dark:text-neutral-400 text-sm leading-relaxed flex-1">
+                  {feature.desc}
+                </p>
+                <div className="mt-6 pt-4 border-t border-neutral-100 dark:border-neutral-800/50">
+                  <span className="text-xs font-semibold text-[#22c55e] tracking-wider uppercase flex items-center gap-2">
+                    <span className="w-1.5 h-1.5 rounded-full bg-[#22c55e]"></span>
+                    Included in Plan
+                  </span>
+                </div>
               </div>
             </motion.div>
           );

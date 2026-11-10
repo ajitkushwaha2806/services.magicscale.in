@@ -53,20 +53,21 @@ export default function Faqs() {
             >
               <button
                 onClick={() => toggle(i)}
-                className={`w-full flex items-center justify-between px-5 py-4 text-left font-medium text-md md:text-lg transition-all duration-300 ${isOpen
+                className={`w-full flex items-start justify-between gap-3 px-5 py-4 text-left font-medium text-md md:text-lg transition-all duration-300 ${isOpen
                   ? "bg-green-100 dark:bg-green-900/30"
                   : "hover:bg-green-50 dark:hover:bg-green-900/10"
                   }`}
               >
-                <div className="flex items-center gap-3">
-                  <Icon className="w-5 h-5 text-green-500 dark:text-green-400 shrink-0" />
-                  <span className="text-neutral-900 dark:text-white">
+                <div className="flex items-start gap-3 flex-1 min-w-0">
+                  <Icon className="w-5 h-5 text-green-500 dark:text-green-400 shrink-0 mt-0.5 sm:mt-1" />
+                  <span className="text-neutral-900 dark:text-white leading-snug">
                     {faq.question}
                   </span>
                 </div>
                 <motion.div
                   animate={{ rotate: isOpen ? 180 : 0 }}
                   transition={{ duration: 0.3 }}
+                  className="shrink-0 mt-0.5 sm:mt-1"
                 >
                   <ChevronDown className="w-5 h-5 text-gray-500 dark:text-gray-400" />
                 </motion.div>
