@@ -1,8 +1,7 @@
 "use client";
 import React, { useState } from "react";
 import AuditHero from "@/components/audit/AuditHero";
-import AuditFeaturesShowcase from "@/components/audit/AuditFeaturesShowcase";
-import AuditSolution from "@/components/audit/AuditSolution";
+import AuditSuccessStory from "@/components/audit/AuditSuccessStory";
 import AuditCaseStudies from "@/components/audit/AuditCaseStudies";
 import Testimonials from "@/components/general/Reviews";
 import MasonryGallery from "@/components/general/galllery";
@@ -25,13 +24,10 @@ export default function AuditPageClient() {
       {/* SECTION 1: HERO, COMPARISON & CLIENT LOGOS */}
       <AuditHero onOpenForm={handleOpenModal} />
 
-      {/* SECTION 2: FEATURES 02 & 03 (SOLID DESCRIPTIONS & SMART UPSELLING) */}
-      <AuditFeaturesShowcase />
+      {/* SECTION 2: FLAGSHIP SUCCESS STORY (Dosa Diaries ₹5k -> ₹1 Lakh+) */}
+      <AuditSuccessStory onOpenForm={handleOpenModal} />
 
-      {/* SECTION 3: THE MAGICSCALE SOLUTION (How We Fix It in 48 Hours) */}
-      <AuditSolution onOpenForm={handleOpenModal} />
-
-      {/* SECTION 3: SOCIAL PROOF & QUICK WINS */}
+      {/* SECTION 4: SOCIAL PROOF & QUICK WINS */}
       <AuditCaseStudies />
 
       {/* SECTION 4: OUR CUSTOMERS */}

@@ -1,38 +1,13 @@
 "use client";
 import React from "react";
 import Image from "next/image";
-import { Sparkles } from "lucide-react";
-import { Highlighter } from "@/components/ui/highlighter";
 
 export default function AuditFeaturesShowcase() {
   return (
-    <section id="features" className="py-14 sm:py-20 bg-gradient-to-b from-zinc-50/80 via-white to-zinc-50/50 dark:from-zinc-950/80 dark:via-[#0c0c14] dark:to-zinc-950/50 border-b border-zinc-200/60 dark:border-zinc-800/60 scroll-mt-20">
+    <section id="features" className="pt-4 sm:pt-6 pb-12 sm:pb-16 bg-white dark:bg-[#0c0c14] scroll-mt-20">
       <div className="max-w-5xl mx-auto px-4 sm:px-6">
         
-        {/* Section Heading */}
-        <div className="text-center mb-10 sm:mb-14">
-          <div className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-green-500/10 text-green-700 dark:text-green-300 text-xs font-bold uppercase tracking-wider mb-3.5 border border-green-500/20 shadow-sm">
-            <Sparkles className="w-3.5 h-3.5 text-green-600 animate-pulse" />
-            <span>Complete Menu Engineering</span>
-          </div>
-
-          <h2 className="text-2xl sm:text-4xl md:text-5xl font-black text-zinc-900 dark:text-white tracking-tight leading-[1.2] max-w-2xl mx-auto">
-            Sensory Copy, Smart Upselling &amp;{" "}
-            <span className="inline-block whitespace-nowrap">
-              <Highlighter action="highlight" color="#22c55e">
-                <span className="relative z-10 px-2 sm:px-3 py-0.5 text-white font-black">
-                  90+ Score
-                </span>
-              </Highlighter>
-            </span>
-          </h2>
-
-          <p className="mt-3 text-xs sm:text-base text-zinc-600 dark:text-zinc-300 font-medium max-w-xl mx-auto leading-relaxed">
-            We write emotion-driven food copy with portion clarity, configure high-margin checkout add-ons, and calibrate your score into the top 10% tier.
-          </p>
-        </div>
-
-        {/* 3 Cards Grid matching the Hero After-Card design */}
+        {/* 3 Cards Grid connecting seamlessly with the Hero comparison */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6">
           
           {/* Feature 2 Card: Solid Descriptions */}
@@ -131,3 +106,5 @@ export default function AuditFeaturesShowcase() {
     </section>
   );
 }
+
+

@@ -39,6 +39,12 @@ export const CLIENT_LOGOS = [
     width: 200,
     height: 80,
   },
+  {
+    name: "Dosa Diaries",
+    src: "/assets/case-studies/dosa-diaries-logo.jpg",
+    width: 140,
+    height: 80,
+  },
 ];
 
 export default function ClientLogoCarousel({ className = "" }) {
