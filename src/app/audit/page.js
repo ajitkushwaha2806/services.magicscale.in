@@ -15,13 +15,7 @@ export const metadata = {
 
 export default function AuditPage() {
   return (
-    <Suspense
-      fallback={
-        <div className="min-h-screen flex items-center justify-center bg-white dark:bg-[#0c0c14]">
-          <div className="w-8 h-8 border-4 border-green-600 border-t-transparent rounded-full animate-spin" />
-        </div>
-      }
-    >
+    <Suspense fallback={null}>
       <AuditPageClient />
     </Suspense>
   );

@@ -8,13 +8,6 @@ import posthog from "posthog-js";
 
 const STORAGE_KEY = "magicscale_enquiry_progress";
 
-const HELP_OPTIONS = [
-  "Boost Daily Orders",
-  "Fix Ads & ROAS",
-  "Menu Score & Setup",
-  "Full Account Management",
-];
-
 const DAILY_ORDER_OPTIONS = [
   "Under 20",
   "20 - 50",
@@ -187,27 +180,13 @@ export default function BookDemoModal({ open, onOpenChange }) {
           </div>
         ) : (
           <>
-            {/* Modal Header */}
-            <div className="px-5 pt-5 pb-3 sm:px-6 bg-zinc-50 dark:bg-zinc-900/60 border-b border-zinc-100 dark:border-zinc-800 relative">
-              <div className="mb-2 pr-8">
-                <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-md bg-green-500/10 border border-green-500/20 text-green-700 dark:text-green-300 text-[10px] sm:text-[11px] font-bold uppercase tracking-wider whitespace-nowrap">
-                  <Sparkles className="w-3 h-3 text-green-600 dark:text-green-400 shrink-0" />
-                  <span>Free Growth Audit</span>
-                </div>
-              </div>
-
-              <DialogHeader>
-                <DialogTitle className="text-left text-lg sm:text-2xl font-black text-zinc-900 dark:text-white tracking-tight pr-8">
-                  Enquire for Your Restaurant
-                </DialogTitle>
-              </DialogHeader>
-              <p className="text-xs text-zinc-500 dark:text-zinc-400 mt-1 text-left leading-relaxed">
-                Share your details. Our Zomato & Swiggy experts will analyze your outlet and connect with you.
-              </p>
-            </div>
+            {/* Screen-reader accessible title for Radix Dialog */}
+            <DialogHeader className="sr-only">
+              <DialogTitle>Enquire for Your Restaurant</DialogTitle>
+            </DialogHeader>
 
             {/* Modal Form Body */}
-            <div className="overflow-y-auto px-5 py-4 sm:px-6 flex-1">
+            <div className="overflow-y-auto px-5 pt-7 pb-5 sm:px-6 flex-1">
               <form onSubmit={handleSubmit} className="space-y-3">
                 {/* Restaurant / Brand Name */}
                 <div className="space-y-1">
@@ -278,32 +257,6 @@ export default function BookDemoModal({ open, onOpenChange }) {
                       onChange={(e) => setFormData({ ...formData, city: e.target.value })}
                       className="w-full h-10 pl-9 pr-3 text-sm rounded-md border border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-900 focus:bg-white focus:ring-2 focus:ring-green-500/20 focus:border-green-500 outline-none text-zinc-900 dark:text-white font-medium transition-colors"
                     />
-                  </div>
-                </div>
-
-                {/* Primary Goal / Help With */}
-                <div className="space-y-1">
-                  <label className="text-xs font-bold text-zinc-800 dark:text-zinc-200 uppercase tracking-wide">
-                    What do you need help with?
-                  </label>
-                  <div className="grid grid-cols-2 gap-1.5">
-                    {HELP_OPTIONS.map((opt) => {
-                      const isSelected = formData.requirement === opt;
-                      return (
-                        <button
-                          type="button"
-                          key={opt}
-                          onClick={() => setFormData({ ...formData, requirement: opt })}
-                          className={`px-2 py-1.5 rounded-md text-[11px] font-semibold text-center border transition-all ${
-                            isSelected
-                              ? "bg-green-50 dark:bg-green-950/60 border-green-500 text-green-700 dark:text-green-300 font-bold"
-                              : "bg-zinc-50 dark:bg-zinc-900/60 border-zinc-200 dark:border-zinc-800 text-zinc-600 dark:text-zinc-300 hover:border-zinc-300"
-                          }`}
-                        >
-                          {opt}
-                        </button>
-                      );
-                    })}
                   </div>
                 </div>
 

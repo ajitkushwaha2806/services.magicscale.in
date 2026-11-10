@@ -58,7 +58,7 @@ export default function ClientLogoCarousel({ className = "" }) {
         {loopedLogos.map((client, idx) => (
           <div
             key={idx}
-            className="w-36 sm:w-44 md:w-52 h-16 sm:h-20 md:h-22 shrink-0 rounded-md bg-white dark:bg-zinc-900/90 border border-zinc-200/80 dark:border-zinc-800 shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all duration-200 flex items-center justify-center px-4 py-2.5 sm:px-5 sm:py-3.5 select-none group"
+            className="w-[150px] sm:w-[185px] md:w-[215px] h-[68px] sm:h-[82px] md:h-[90px] shrink-0 rounded-md bg-white dark:bg-zinc-900/90 border border-zinc-200/80 dark:border-zinc-800 shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all duration-200 flex items-center justify-center p-2.5 sm:p-3 select-none group"
             title={client.name}
           >
             <Image
@@ -66,7 +66,7 @@ export default function ClientLogoCarousel({ className = "" }) {
               alt={client.name}
               width={client.width}
               height={client.height}
-              className="h-9 sm:h-11 md:h-13 w-auto max-w-[110px] sm:max-w-[140px] md:max-w-[160px] object-contain select-none transition-transform group-hover:scale-105 duration-200"
+              className="h-12 sm:h-15 md:h-17 w-auto max-w-[130px] sm:max-w-[160px] md:max-w-[185px] object-contain select-none transition-transform group-hover:scale-105 duration-200"
             />
           </div>
         ))}
