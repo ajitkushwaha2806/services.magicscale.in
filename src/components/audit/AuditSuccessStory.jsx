@@ -4,14 +4,11 @@ import {
   TrendingUp, 
   CheckCircle2, 
   Sparkles, 
-  Store, 
   ArrowRight, 
-  ShieldCheck, 
-  Zap,
-  ChevronDown,
-  FileText,
-  Calendar,
-  UtensilsCrossed
+  ChevronDown, 
+  FileText, 
+  Calendar, 
+  UtensilsCrossed 
 } from "lucide-react";
 
 const OUTLETS = {
@@ -69,23 +66,23 @@ const OUTLETS = {
     badgeLabel: "Success Story • Sharma Ji Ka Dhaba",
     cuisine: "North Indian & Dhaba",
     logoSrc: "/assets/case-studies/sharma-ji-dhaba-logo.jpg",
-    headlinePre: "₹1.5L ➔ ",
+    headlinePre: "₹0 ➔ ",
     headlineAccent: "₹2.36 Lakhs",
     headlinePost: "/Month",
     before: {
-      tag: "Onboarded",
-      sales: "₹1,52,833",
-      orders: "336 orders",
+      tag: "New Launch",
+      sales: "₹0",
+      orders: "0 orders (Day 0)",
     },
     after: {
-      tag: "+80% Orders",
+      tag: "604 Orders",
       sales: "₹2,36,172",
-      orders: "604 orders",
+      orders: "604 orders/mo",
     },
     maxSales: 236172,
     maxOrders: 629,
     data: [
-      { month: "May", salesValue: 152833, salesFormatted: "₹152.8K", ordersValue: 336, ordersFormatted: "336", isBefore: true, tag: "Onboarded" },
+      { month: "May", salesValue: 152833, salesFormatted: "₹152.8K", ordersValue: 336, ordersFormatted: "336", isBefore: false, tag: "Launch ₹1.52L" },
       { month: "Jun", salesValue: 196244, salesFormatted: "₹196.2K", ordersValue: 465, ordersFormatted: "465", isBefore: false, tag: "+28% Sales" },
       { month: "Jul", salesValue: 184404, salesFormatted: "₹184.4K", ordersValue: 499, ordersFormatted: "499", isBefore: false, tag: "499 Orders" },
       { month: "Aug", salesValue: 158849, salesFormatted: "₹158.8K", ordersValue: 393, ordersFormatted: "393", isBefore: false, tag: "Steady" },
@@ -98,8 +95,8 @@ const OUTLETS = {
         subtitle: "6-Month Scale (May - Oct)",
         img: "/assets/case-studies/sharma-ji-dhaba-growth.png",
         legend: ["1. Sales (₹)", "2. Orders", "3. AOV"],
-        stat: "₹1,52,833 ➔ ₹2,36,172",
-        statBadge: "+54.5%",
+        stat: "₹0 ➔ ₹2,36,172",
+        statBadge: "New Launch",
       },
       daily: {
         title: "Sharma Ji Ka Dhaba • Daily Performance (31 Oct - 07 Nov)",
@@ -123,7 +120,7 @@ export default function AuditSuccessStory({ onOpenForm }) {
 
   return (
     <section id="results" className="py-8 sm:py-16 bg-zinc-50/60 dark:bg-[#0c0c14] border-t border-zinc-200/70 dark:border-zinc-800/70 scroll-mt-20">
-      <div className="max-w-4xl mx-auto px-4 sm:px-6">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Outlet Switcher Tabs (Dosa Diaries vs Sharma Ji Ka Dhaba) */}
         <div className="flex justify-center mb-4 sm:mb-6">
@@ -529,19 +526,14 @@ export default function AuditSuccessStory({ onOpenForm }) {
         )}
 
         {/* Clean Single Action CTA */}
-        <div className="text-center">
+        <div className="text-center mt-6">
           <button
             onClick={onOpenForm}
-            className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 h-11 bg-green-600 hover:bg-green-700 text-white font-bold rounded-md shadow-lg shadow-green-600/20 text-xs sm:text-sm transition-all active:scale-[0.98] cursor-pointer"
+            className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 h-12 bg-green-600 hover:bg-green-700 text-white font-black rounded-md shadow-lg shadow-green-600/25 text-sm sm:text-base transition-all active:scale-[0.98] cursor-pointer uppercase tracking-wider"
           >
-            <Zap className="w-4 h-4 fill-white" />
-            <span className="whitespace-nowrap">Claim Free 3-Dish Preview</span>
+            <span>Enquire Now</span>
             <ArrowRight className="w-4 h-4" />
           </button>
-          <div className="mt-2 text-[10px] text-zinc-500 flex items-center justify-center gap-1.5">
-            <ShieldCheck className="w-3.5 h-3.5 text-green-600" />
-            <span>₹0 Free trial • 48-hr turnaround • No card needed</span>
-          </div>
         </div>
 
       </div>

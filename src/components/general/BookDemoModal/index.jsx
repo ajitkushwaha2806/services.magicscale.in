@@ -8,11 +8,10 @@ import posthog from "posthog-js";
 
 const STORAGE_KEY = "magicscale_enquiry_progress";
 
-const DAILY_ORDER_OPTIONS = [
-  "Under 20",
-  "20 - 50",
-  "50 - 100",
-  "100+",
+const SERVICES = [
+  { id: "onboarding", label: "New Outlet Onboarding", hasPlatforms: true },
+  { id: "menu", label: "Menu Work", hasPlatforms: true },
+  { id: "growth", label: "Account Handling (Growth)", hasPlatforms: false },
 ];
 
 export default function BookDemoModal({ open, onOpenChange }) {
@@ -21,10 +20,10 @@ export default function BookDemoModal({ open, onOpenChange }) {
     name: "",
     phone: "",
     city: "",
-    dailyOrders: "",
-    requirement: "Boost Daily Orders",
   });
 
+  const [selectedService, setSelectedService] = useState("onboarding");
+  const [platforms, setPlatforms] = useState(["Swiggy", "Zomato"]);
   const [isProcessing, setIsProcessing] = useState(false);
   const [submitted, setSubmitted] = useState(false);
 
@@ -40,31 +39,49 @@ export default function BookDemoModal({ open, onOpenChange }) {
           name: parsed.name || prev.name,
           phone: parsed.phone || prev.phone,
           city: parsed.city || prev.city,
-          dailyOrders: parsed.dailyOrders || prev.dailyOrders,
-          requirement: parsed.requirement || prev.requirement,
         }));
+        if (parsed.selectedService) setSelectedService(parsed.selectedService);
+        if (parsed.platforms && Array.isArray(parsed.platforms)) setPlatforms(parsed.platforms);
       }
     } catch (err) {
       console.warn("Could not read enquiry progress", err);
     }
   }, []);
 
-  // Save progress on every state change
+  // Save progress on change
   useEffect(() => {
     try {
       if (!submitted && (formData.name || formData.restaurantName || formData.phone)) {
-        localStorage.setItem(STORAGE_KEY, JSON.stringify(formData));
+        localStorage.setItem(
+          STORAGE_KEY,
+          JSON.stringify({
+            ...formData,
+            selectedService,
+            platforms,
+          })
+        );
       }
     } catch (err) {
       console.warn("Could not save enquiry progress", err);
     }
-  }, [formData, submitted]);
+  }, [formData, selectedService, platforms, submitted]);
 
   useEffect(() => {
     if (open) {
       setSubmitted(false);
     }
   }, [open]);
+
+  const togglePlatform = (plat) => {
+    setPlatforms((prev) => {
+      if (prev.includes(plat)) {
+        if (prev.length === 1) return prev; // keep at least 1 platform selected
+        return prev.filter((p) => p !== plat);
+      } else {
+        return [...prev, plat];
+      }
+    });
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -80,6 +97,12 @@ export default function BookDemoModal({ open, onOpenChange }) {
       return;
     }
 
+    const serviceObj = SERVICES.find((s) => s.id === selectedService) || SERVICES[0];
+    const platformStr = serviceObj.hasPlatforms && platforms.length > 0
+      ? ` (${platforms.join(", ")})`
+      : "";
+    const fullServiceRequirement = `${serviceObj.label}${platformStr}`;
+
     setIsProcessing(true);
 
     try {
@@ -91,8 +114,8 @@ export default function BookDemoModal({ open, onOpenChange }) {
           phone: cleanPhone,
           restaurantName: formData.restaurantName?.trim() || "",
           city: formData.city?.trim() || "",
-          dailyOrders: formData.dailyOrders || "",
-          businessActivity: `Website Enquiry: ${formData.restaurantName?.trim() || ""} | Goal: ${formData.requirement} | City: ${formData.city?.trim() || "N/A"} | Orders: ${formData.dailyOrders || "N/A"}`,
+          dailyOrders: fullServiceRequirement,
+          businessActivity: `Website Enquiry: ${formData.restaurantName?.trim() || ""} | Service: ${fullServiceRequirement} | City: ${formData.city?.trim() || "N/A"}`,
           planId: "website-enquiry",
         }),
       });
@@ -105,8 +128,8 @@ export default function BookDemoModal({ open, onOpenChange }) {
         posthog?.capture("enquiry_submitted", {
           restaurant: formData.restaurantName,
           city: formData.city,
-          dailyOrders: formData.dailyOrders,
-          requirement: formData.requirement,
+          service: fullServiceRequirement,
+          platforms,
         });
 
         if (window.fbq) {
@@ -139,11 +162,13 @@ export default function BookDemoModal({ open, onOpenChange }) {
     }, 300);
   };
 
+  const currentServiceObj = SERVICES.find((s) => s.id === selectedService) || SERVICES[0];
+
   return (
     <Dialog open={open} onOpenChange={(val) => { if (!isProcessing) onOpenChange(val); }}>
       <DialogContent className="z-[100] border border-zinc-200 dark:border-zinc-800 p-0 w-[95vw] max-w-[460px] bg-white dark:bg-[#0c0c14] rounded-md shadow-2xl overflow-hidden max-h-[92vh] flex flex-col">
         {submitted ? (
-          /* Celebratory Clean Success Screen (No double headers) */
+          /* Celebratory Clean Success Screen */
           <div className="p-6 sm:p-8 flex flex-col items-center text-center space-y-4 my-auto">
             <div className="w-16 h-16 rounded-full bg-green-100 dark:bg-green-950/60 border-2 border-green-500/30 flex items-center justify-center text-green-600 dark:text-green-400 shadow-xl shadow-green-500/10 animate-in zoom-in-75 duration-300">
               <CheckCircle2 className="w-8 h-8" />
@@ -165,14 +190,14 @@ export default function BookDemoModal({ open, onOpenChange }) {
               </div>
               <div className="flex items-start gap-2.5">
                 <Sparkles className="w-4 h-4 text-green-500 shrink-0 mt-0.5" />
-                <span>We will prepare a customized Swiggy & Zomato audit and roadmap for your outlet.</span>
+                <span>We will prepare a customized Swiggy &amp; Zomato audit and roadmap for your outlet.</span>
               </div>
             </div>
 
             <div className="w-full pt-2">
               <Button
                 onClick={handleClose}
-                className="w-full h-11 bg-green-600 hover:bg-green-700 text-white font-bold rounded-md shadow-lg shadow-green-600/20 text-sm"
+                className="w-full h-11 bg-green-600 hover:bg-green-700 text-white font-bold rounded-md shadow-lg shadow-green-600/20 text-sm cursor-pointer"
               >
                 Done
               </Button>
@@ -180,13 +205,22 @@ export default function BookDemoModal({ open, onOpenChange }) {
           </div>
         ) : (
           <>
-            {/* Screen-reader accessible title for Radix Dialog */}
             <DialogHeader className="sr-only">
               <DialogTitle>Enquire for Your Restaurant</DialogTitle>
             </DialogHeader>
 
+            {/* Modal Header */}
+            <div className="px-5 pt-5 pb-3 sm:px-6 border-b border-zinc-100 dark:border-zinc-800">
+              <h3 className="text-lg font-black text-zinc-900 dark:text-white tracking-tight">
+                Enquire Now
+              </h3>
+              <p className="text-xs text-zinc-500 dark:text-zinc-400 mt-0.5">
+                Get direct expert assistance for your restaurant listing.
+              </p>
+            </div>
+
             {/* Modal Form Body */}
-            <div className="overflow-y-auto px-5 pt-7 pb-5 sm:px-6 flex-1">
+            <div className="overflow-y-auto px-5 pt-4 pb-5 sm:px-6 flex-1">
               <form onSubmit={handleSubmit} className="space-y-3">
                 {/* Restaurant / Brand Name */}
                 <div className="space-y-1">
@@ -260,30 +294,68 @@ export default function BookDemoModal({ open, onOpenChange }) {
                   </div>
                 </div>
 
-                {/* Current Daily Orders (Optional) */}
-                <div className="space-y-1">
+                {/* 3 Service Options (Replaces Daily Orders) */}
+                <div className="space-y-1.5 pt-1">
                   <label className="text-xs font-bold text-zinc-800 dark:text-zinc-200 uppercase tracking-wide">
-                    Current Daily Orders
+                    Requirement *
                   </label>
-                  <div className="grid grid-cols-4 gap-1.5">
-                    {DAILY_ORDER_OPTIONS.map((orders) => {
-                      const isSelected = formData.dailyOrders === orders;
+
+                  {/* 3 Main Service Pills */}
+                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-1.5">
+                    {SERVICES.map((s) => {
+                      const isSelected = selectedService === s.id;
                       return (
                         <button
                           type="button"
-                          key={orders}
-                          onClick={() => setFormData({ ...formData, dailyOrders: isSelected ? "" : orders })}
-                          className={`py-1.5 px-1 rounded-md text-[10px] font-semibold text-center border transition-all ${
+                          key={s.id}
+                          onClick={() => setSelectedService(s.id)}
+                          className={`py-2 px-2 rounded-md text-[11px] sm:text-xs font-bold text-center border transition-all cursor-pointer flex items-center justify-center gap-1.5 ${
                             isSelected
-                              ? "bg-green-600 text-white border-green-600 font-bold shadow-sm"
-                              : "bg-zinc-50 dark:bg-zinc-900/60 border-zinc-200 dark:border-zinc-800 text-zinc-600 dark:text-zinc-400 hover:border-zinc-300"
+                              ? "bg-green-600 text-white border-green-600 shadow-xs"
+                              : "bg-zinc-50 dark:bg-zinc-900/60 border-zinc-200 dark:border-zinc-800 text-zinc-700 dark:text-zinc-300 hover:border-zinc-300 dark:hover:border-zinc-700"
                           }`}
                         >
-                          {orders}
+                          {isSelected && <CheckCircle2 className="w-3.5 h-3.5 shrink-0" />}
+                          <span className="leading-tight">{s.label}</span>
                         </button>
                       );
                     })}
                   </div>
+
+                  {/* Platform Sub-Selector for 1. New Outlet Onboarding & 2. Menu Work */}
+                  {currentServiceObj.hasPlatforms && (
+                    <div className="pt-1.5 animate-in fade-in slide-in-from-top-1 duration-200">
+                      <div className="p-2 sm:p-2.5 rounded-md bg-green-50/70 dark:bg-green-950/20 border border-green-200/80 dark:border-green-900/50 flex items-center justify-between gap-2">
+                        <span className="text-[11px] font-bold text-green-900 dark:text-green-300 uppercase tracking-wide">
+                          Select Platform(s):
+                        </span>
+                        <div className="flex items-center gap-1.5">
+                          {["Swiggy", "Zomato"].map((plat) => {
+                            const isChecked = platforms.includes(plat);
+                            return (
+                              <button
+                                type="button"
+                                key={plat}
+                                onClick={() => togglePlatform(plat)}
+                                className={`px-2.5 py-1 rounded text-xs font-bold border transition-all cursor-pointer flex items-center gap-1.5 ${
+                                  isChecked
+                                    ? "bg-green-600 text-white border-green-600 shadow-xs"
+                                    : "bg-white dark:bg-zinc-900 border-zinc-300 dark:border-zinc-700 text-zinc-600 dark:text-zinc-400 hover:border-zinc-400"
+                                }`}
+                              >
+                                <span className={`w-3.5 h-3.5 rounded flex items-center justify-center text-[10px] ${
+                                  isChecked ? "bg-white text-green-600 font-black" : "border border-zinc-400"
+                                }`}>
+                                  {isChecked ? "✓" : ""}
+                                </span>
+                                <span>{plat}</span>
+                              </button>
+                            );
+                          })}
+                        </div>
+                      </div>
+                    </div>
+                  )}
                 </div>
 
                 {/* Submit CTA */}
@@ -291,14 +363,14 @@ export default function BookDemoModal({ open, onOpenChange }) {
                   <Button
                     type="submit"
                     disabled={isProcessing}
-                    className="w-full h-11 bg-green-600 hover:bg-green-700 text-white text-sm font-bold rounded-md shadow-xl shadow-green-600/30 flex items-center justify-center gap-2 transition-all active:scale-[0.98]"
+                    className="w-full h-11 bg-green-600 hover:bg-green-700 text-white text-sm font-black uppercase tracking-wider rounded-md shadow-xl shadow-green-600/30 flex items-center justify-center gap-2 transition-all active:scale-[0.98] cursor-pointer"
                   >
                     {isProcessing ? (
                       <Loader2 className="w-5 h-5 animate-spin" />
                     ) : (
                       <>
                         <Send className="w-4 h-4" />
-                        <span>Submit Enquiry</span>
+                        <span>Enquire Now</span>
                         <ArrowRight className="w-4 h-4 ml-0.5" />
                       </>
                     )}

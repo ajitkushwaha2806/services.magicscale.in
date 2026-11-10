@@ -11,24 +11,14 @@ export default function Testimonials() {
     <SectionWrapper 
       id="reviews"
       title={
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "100px" }}
-          className="mx-auto mb-8 max-w-3xl text-center"
-        >
-          <Title
-            title={
-              <span className="text-3xl md:text-6xl">
-                Our <br />
-                <Highlighter action="highlight" color="#22c55e">
-                  <span className="text-white relative z-10 px-2 py-1">Customers</span>
-                </Highlighter>
-              </span>
-            }
-            description="800+ Restaurants already loved it"
-          />
-        </motion.div>
+        <Title
+          title={
+            <span className="text-3xl md:text-5xl font-black tracking-tight">
+              Our <span className="text-green-600 dark:text-green-400">Customers</span>
+            </span>
+          }
+          description="800+ Restaurants already loved it"
+        />
       }
     >
       {/* Client Reel Review */}

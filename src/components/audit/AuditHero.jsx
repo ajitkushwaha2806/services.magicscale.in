@@ -2,7 +2,7 @@
 import React from "react";
 import Image from "next/image";
 import { useSearchParams } from "next/navigation";
-import { Sparkles, ArrowRight, Zap } from "lucide-react";
+import { Sparkles, ArrowRight } from "lucide-react";
 import ClientLogoCarousel from "@/components/general/ClientLogoCarousel";
 
 export default function AuditHero({ onOpenForm }) {
@@ -35,11 +35,10 @@ export default function AuditHero({ onOpenForm }) {
       <div className="mt-6 sm:mt-7 mb-4 flex justify-center w-full max-w-md sm:max-w-none">
         <button
           onClick={onOpenForm}
-          className="w-full sm:w-auto h-12 sm:h-14 px-8 sm:px-10 text-sm sm:text-base font-bold text-white bg-green-600 hover:bg-green-700 rounded-md shadow-xl shadow-green-600/25 transition-all hover:scale-105 active:scale-[0.98] flex items-center justify-center gap-2 group whitespace-nowrap cursor-pointer"
+          className="w-full sm:w-auto h-12 sm:h-14 px-10 sm:px-14 text-base sm:text-lg font-black text-white bg-green-600 hover:bg-green-700 rounded-md shadow-xl shadow-green-600/25 transition-all hover:scale-105 active:scale-[0.98] flex items-center justify-center gap-2 group whitespace-nowrap cursor-pointer uppercase tracking-wider"
         >
-          <Zap className="w-4 h-4 text-amber-300 fill-amber-300 shrink-0" />
-          <span>Claim Free 3-Dish Preview</span>
-          <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1 shrink-0" />
+          <span>Enquire Now</span>
+          <ArrowRight className="w-5 h-5 transition-transform group-hover:translate-x-1 shrink-0" />
         </button>
       </div>
 
@@ -53,7 +52,7 @@ export default function AuditHero({ onOpenForm }) {
           Clean, consistent gap (gap-4 on mobile, gap-5/6 on desktop)
           between every card.
       ────────────────────────────────────────────────────────────── */}
-      <div className="w-full max-w-5xl mx-auto px-2 sm:px-4 relative z-10 mt-3 sm:mt-4">
+      <div className="w-full max-w-6xl mx-auto px-2 sm:px-4 lg:px-6 relative z-10 mt-3 sm:mt-4">
         
         {/* ROW 1: Comparison Cards (Before: Text-Only vs After: Photo Menu) */}
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
