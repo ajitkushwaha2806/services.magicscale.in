@@ -2,7 +2,7 @@
 import { useState } from "react";
 import posthog from "posthog-js";
 import { cn } from "@/lib/utils";
-import { ArrowRight, Send } from "lucide-react";
+import { ArrowRight, Zap } from "lucide-react";
 import BookDemoModal from "../../BookDemoModal";
 
 export default function PayButton({ className, children, ...props }) {
@@ -22,12 +22,12 @@ export default function PayButton({ className, children, ...props }) {
           if (props.onClick) props.onClick(e);
         }}
         className={cn(
-          "group inline-flex items-center justify-center rounded-md bg-green-600 px-4 py-2 font-bold text-white shadow-lg shadow-green-600/20 transition-all duration-300 hover:bg-green-700 active:scale-[0.98] text-sm whitespace-nowrap",
+          "group inline-flex items-center justify-center rounded-md bg-green-600 px-4 py-2 font-bold text-white shadow-lg shadow-green-600/20 transition-all duration-300 hover:bg-green-700 active:scale-[0.98] text-sm whitespace-nowrap cursor-pointer uppercase tracking-wider",
           className
         )}
       >
-        <span className="inline-flex items-center justify-center gap-1.5 whitespace-nowrap">
-          <Send className="w-3.5 h-3.5 shrink-0" />
+        <span className="inline-flex items-center justify-center gap-2 whitespace-nowrap">
+          <Zap className="w-3.5 h-3.5 text-amber-300 fill-amber-300 shrink-0" />
           <span className="whitespace-nowrap">{children || "Enquire Now"}</span>
           <ArrowRight className="h-3.5 w-3.5 shrink-0 transition-transform duration-300 group-hover:translate-x-1" />
         </span>

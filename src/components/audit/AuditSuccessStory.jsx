@@ -8,7 +8,8 @@ import {
   ChevronDown, 
   FileText, 
   Calendar, 
-  UtensilsCrossed 
+  UtensilsCrossed,
+  Zap 
 } from "lucide-react";
 
 const OUTLETS = {
@@ -529,10 +530,11 @@ export default function AuditSuccessStory({ onOpenForm }) {
         <div className="text-center mt-6">
           <button
             onClick={onOpenForm}
-            className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 h-12 bg-green-600 hover:bg-green-700 text-white font-black rounded-md shadow-lg shadow-green-600/25 text-sm sm:text-base transition-all active:scale-[0.98] cursor-pointer uppercase tracking-wider"
+            className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 h-12 bg-green-600 hover:bg-green-700 text-white font-black rounded-md shadow-lg shadow-green-600/25 text-sm sm:text-base transition-all active:scale-[0.98] cursor-pointer uppercase tracking-wider group"
           >
+            <Zap className="w-4 h-4 text-amber-300 fill-amber-300 shrink-0" />
             <span>Enquire Now</span>
-            <ArrowRight className="w-4 h-4" />
+            <ArrowRight className="w-4 h-4 shrink-0 transition-transform group-hover:translate-x-1" />
           </button>
         </div>
 

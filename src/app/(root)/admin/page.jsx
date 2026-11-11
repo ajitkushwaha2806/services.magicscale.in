@@ -180,7 +180,7 @@ export default function AdminDashboard() {
     <div className="min-h-screen bg-zinc-50 dark:bg-[#0a0a12] pb-16">
       {/* Top Header */}
       <header className="bg-white dark:bg-[#101018] border-b border-zinc-200 dark:border-zinc-800 sticky top-0 z-30 shadow-sm">
-        <div className="mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+        <div className="w-full px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
           <div className="flex items-center gap-3">
             <div className="h-9 w-9 bg-green-600 rounded-md flex items-center justify-center shadow-md shadow-green-600/20">
               <TrendingUp className="h-5 w-5 text-white" />
@@ -229,7 +229,7 @@ export default function AdminDashboard() {
 
         {/* Date Filter Tabs */}
         {activeDates.length > 0 && (
-          <div className="mx-auto px-4 sm:px-6 lg:px-8 py-2 border-t border-zinc-100 dark:border-zinc-800/60 bg-zinc-50/80 dark:bg-zinc-900/50 backdrop-blur-sm">
+          <div className="w-full px-4 sm:px-6 lg:px-8 py-2 border-t border-zinc-100 dark:border-zinc-800/60 bg-zinc-50/80 dark:bg-zinc-900/50 backdrop-blur-sm">
             <div className="flex items-center gap-2 overflow-x-auto pb-1 snap-x no-scrollbar">
               <button
                 onClick={() => setDateFilter("ALL")}
@@ -263,7 +263,7 @@ export default function AdminDashboard() {
         )}
       </header>
 
-      <main className="max-w-[1500px] mx-auto px-4 sm:px-6 lg:px-8 mt-6">
+      <main className="w-full px-4 sm:px-6 lg:px-8 mt-6">
         
         {/* Navigation / Filter Bar */}
         <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-5">
@@ -273,27 +273,10 @@ export default function AdminDashboard() {
           </div>
 
           <div className="flex items-center gap-3">
-            <div className="flex bg-zinc-200/70 dark:bg-zinc-800/80 p-1 rounded-md border border-zinc-200 dark:border-zinc-700">
-              <button 
-                onClick={() => setTypeFilter("ALL")}
-                className={`px-3 py-1.5 rounded-md text-xs font-bold transition-all ${typeFilter === 'ALL' ? 'bg-white dark:bg-zinc-900 text-green-700 dark:text-green-400 shadow-sm' : 'text-zinc-500 hover:text-zinc-700 dark:hover:text-zinc-300'}`}
-              >
-                All ({totalRecords})
-              </button>
-              <button 
-                onClick={() => setTypeFilter("MEETINGS")}
-                className={`px-3 py-1.5 rounded-md text-xs font-bold transition-all flex items-center gap-1.5 ${typeFilter === 'MEETINGS' ? 'bg-white dark:bg-zinc-900 text-green-700 dark:text-green-400 shadow-sm' : 'text-zinc-500 hover:text-zinc-700 dark:hover:text-zinc-300'}`}
-              >
-                <Video className="w-3.5 h-3.5" />
-                Google Meet Slots
-              </button>
-              <button 
-                onClick={() => setTypeFilter("REGISTRATION")}
-                className={`px-3 py-1.5 rounded-md text-xs font-bold transition-all flex items-center gap-1.5 ${typeFilter === 'REGISTRATION' ? 'bg-white dark:bg-zinc-900 text-green-700 dark:text-green-400 shadow-sm' : 'text-zinc-500 hover:text-zinc-700 dark:hover:text-zinc-300'}`}
-              >
-                <CreditCard className="w-3.5 h-3.5" />
-                Paid Plans
-              </button>
+            <div className="flex items-center bg-zinc-100 dark:bg-zinc-800/80 px-3 py-1.5 rounded-md border border-zinc-200 dark:border-zinc-700">
+              <span className="text-xs font-bold text-zinc-700 dark:text-zinc-300">
+                Total Leads: <strong className="text-green-600 dark:text-green-400 font-black">{totalRecords}</strong>
+              </span>
             </div>
           </div>
         </div>
@@ -310,13 +293,13 @@ export default function AdminDashboard() {
             <table className="w-full text-left text-xs text-zinc-600 dark:text-zinc-300">
               <thead className="bg-zinc-50 dark:bg-zinc-900/80 text-[11px] uppercase text-zinc-500 dark:text-zinc-400 border-b border-zinc-200 dark:border-zinc-800 font-extrabold tracking-wider">
                 <tr>
-                  <th className="px-5 py-3.5 w-36">Date / Time</th>
-                  <th className="px-5 py-3.5 w-48">Owner & Contact</th>
-                  <th className="px-5 py-3.5 w-52">Restaurant & City</th>
-                  <th className="px-5 py-3.5 w-52">Service / Meeting Slot</th>
-                  <th className="px-5 py-3.5 w-36">Payment</th>
-                  <th className="px-5 py-3.5 w-44">Lead Status</th>
-                  <th className="px-5 py-3.5 min-w-[240px]">Follow-up & Remarks</th>
+                  <th className="px-4 py-3.5 w-32 whitespace-nowrap">Date / Time</th>
+                  <th className="px-4 py-3.5 w-44 whitespace-nowrap">Owner & Contact</th>
+                  <th className="px-4 py-3.5 w-48 whitespace-nowrap">Restaurant & City</th>
+                  <th className="px-4 py-3.5 w-56 whitespace-nowrap">Requirement & Platforms</th>
+                  <th className="px-4 py-3.5 w-28 whitespace-nowrap">Payment</th>
+                  <th className="px-4 py-3.5 w-36 whitespace-nowrap">Lead Status</th>
+                  <th className="px-4 py-3.5 min-w-[220px]">Follow-up & Remarks</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-zinc-100 dark:divide-zinc-800/60">
@@ -496,28 +479,34 @@ function TableRow({ item, savingRemark, onSaveRemark, savingStatus, onSaveStatus
         )}
       </td>
 
-      {/* Service / Meeting Slot */}
+      {/* Requirement & Platforms */}
       <td className="px-5 py-4 whitespace-nowrap">
-        {item.meetingDate || item.meetingSlot ? (
+        {item.dailyOrders ? (
+          <div className="flex flex-col gap-1">
+            <span className="text-xs font-black text-green-700 dark:text-green-400 bg-green-50 dark:bg-green-950/40 border border-green-200 dark:border-green-800/60 px-2 py-0.5 rounded-md w-fit">
+              {item.dailyOrders}
+            </span>
+            <span className="text-[11px] text-zinc-500">
+              Free Website Enquiry
+            </span>
+          </div>
+        ) : item.meetingDate || item.meetingSlot ? (
           <div className="flex flex-col gap-1">
             <div className="inline-flex items-center gap-1.5 bg-green-50 dark:bg-green-950/50 border border-green-200 dark:border-green-800/60 px-2 py-1 rounded-md text-[11px] font-bold text-green-800 dark:text-green-300 w-fit">
               <Video className="w-3.5 h-3.5 text-green-600" />
               <span>Google Meet</span>
             </div>
             <div className="text-xs font-semibold text-zinc-800 dark:text-zinc-200 mt-0.5">
-              {item.meetingDate}
-            </div>
-            <div className="text-[11px] text-zinc-500 font-medium">
-              {item.meetingSlot}
+              {item.meetingDate} {item.meetingSlot}
             </div>
           </div>
         ) : (
           <div className="flex flex-col gap-1">
             <span className="text-xs font-bold text-zinc-800 dark:text-zinc-200">
-              {item.planId || "General Inquiry"}
+              {item.planId || "General Enquiry"}
             </span>
             <span className="text-[11px] text-zinc-500">
-              {item.businessActivity || "Growth Plan Inquiry"}
+              {item.businessActivity || "Growth Plan Enquiry"}
             </span>
           </div>
         )}

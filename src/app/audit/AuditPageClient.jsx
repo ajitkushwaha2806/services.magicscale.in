@@ -6,7 +6,7 @@ import Testimonials from "@/components/general/Reviews";
 import MasonryGallery from "@/components/general/galllery";
 import Faqs from "@/components/general/Faqs";
 import BookDemoModal from "@/components/general/BookDemoModal";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, Zap } from "lucide-react";
 
 export default function AuditPageClient() {
   const [modalOpen, setModalOpen] = useState(false);
@@ -42,8 +42,9 @@ export default function AuditPageClient() {
             onClick={handleOpenModal}
             className="w-full h-12 text-sm sm:text-base font-black text-white bg-green-600 hover:bg-green-700 active:scale-[0.98] rounded-md shadow-lg shadow-green-600/30 flex items-center justify-center gap-2 tracking-wide cursor-pointer uppercase transition-all"
           >
+            <Zap className="w-4 h-4 text-amber-300 fill-amber-300 shrink-0" />
             <span>Enquire Now</span>
-            <ArrowRight className="w-4 h-4" />
+            <ArrowRight className="w-4 h-4 shrink-0" />
           </button>
         </div>
       </div>

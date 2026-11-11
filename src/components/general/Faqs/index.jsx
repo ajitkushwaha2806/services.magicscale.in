@@ -1,7 +1,7 @@
 "use client";
 import React, { useState } from "react";
 import { FAQS } from "./helper/constants";
-import { ChevronDown, HelpCircle, ArrowRight } from "lucide-react";
+import { ChevronDown, HelpCircle, ArrowRight, Zap } from "lucide-react";
 import { AnimatePresence, motion } from "framer-motion";
 import { GridPattern } from "@/components/ui/grid-pattern";
 import { cn } from "@/lib/utils";
@@ -27,39 +27,39 @@ export default function Faqs({ onOpenForm }) {
         className={`rounded-md border transition-all duration-200 overflow-hidden ${
           isOpen
             ? "border-green-500 dark:border-green-500 bg-white dark:bg-[#12121c] shadow-sm ring-1 ring-green-500/20"
-            : "border-zinc-200/90 dark:border-zinc-800 bg-white dark:bg-[#101018] hover:border-zinc-300 dark:hover:border-zinc-700 shadow-xs"
+            : "border-zinc-200/90 dark:border-zinc-800 bg-white dark:bg-[#101018] hover:border-green-500/40 hover:shadow-sm shadow-xs"
         }`}
       >
         <button
           type="button"
           onClick={() => toggle(faq.globalIndex)}
-          className="w-full flex items-start justify-between gap-3 p-4 sm:p-4.5 text-left cursor-pointer transition-colors hover:bg-zinc-50/70 dark:hover:bg-zinc-800/30 select-none group"
+          className="w-full flex items-start justify-between gap-3 sm:gap-3.5 p-4 sm:p-5 text-left cursor-pointer transition-colors hover:bg-zinc-50/70 dark:hover:bg-zinc-800/30 select-none group"
           aria-expanded={isOpen}
         >
           <div className="flex items-start gap-3 sm:gap-3.5 flex-1 min-w-0">
             {/* Category Icon Badge */}
             <div
-              className={`w-9 h-9 rounded-md flex items-center justify-center shrink-0 transition-colors mt-0.5 ${
+              className={`w-9 h-9 sm:w-10 sm:h-10 rounded-md flex items-center justify-center shrink-0 transition-all duration-200 ${
                 isOpen
-                  ? "bg-green-600 text-white shadow-xs"
-                  : "bg-green-500/10 text-green-700 dark:text-green-300 border border-green-500/20 group-hover:bg-green-500/15"
+                  ? "bg-green-600 text-white shadow-xs border border-green-600"
+                  : "bg-green-500/10 text-green-700 dark:text-green-300 border border-green-500/25 group-hover:bg-green-500/15 group-hover:scale-105"
               }`}
             >
-              <Icon className="w-4 h-4 sm:w-4.5 sm:h-4.5" />
+              <Icon className="w-4 h-4 sm:w-5 sm:h-5" />
             </div>
 
-            {/* Question */}
-            <span className="text-sm sm:text-[15px] font-bold text-zinc-900 dark:text-white tracking-tight leading-snug pt-1">
+            {/* Question Title */}
+            <span className="text-sm sm:text-base font-bold text-zinc-900 dark:text-white tracking-tight leading-snug pt-1 group-hover:text-green-700 dark:group-hover:text-green-400 transition-colors">
               {faq.question}
             </span>
           </div>
 
-          {/* Chevron Indicator */}
+          {/* Interactive Circular Chevron Toggle */}
           <div
-            className={`w-7 h-7 rounded-md flex items-center justify-center shrink-0 transition-all duration-200 mt-0.5 ${
+            className={`w-7 h-7 sm:w-8 sm:h-8 rounded-full flex items-center justify-center shrink-0 transition-all duration-200 mt-1 ${
               isOpen
-                ? "rotate-180 bg-green-500/10 text-green-700 dark:text-green-300"
-                : "text-zinc-400 group-hover:text-zinc-600 dark:group-hover:text-zinc-200"
+                ? "rotate-180 bg-green-600 text-white border border-green-600 shadow-xs shadow-green-600/20"
+                : "bg-zinc-100 dark:bg-zinc-800 text-zinc-500 dark:text-zinc-400 border border-zinc-200/80 dark:border-zinc-700/80 group-hover:bg-green-500/15 group-hover:text-green-700 dark:group-hover:text-green-300 group-hover:border-green-500/30"
             }`}
           >
             <ChevronDown className="w-4 h-4" />
@@ -75,8 +75,8 @@ export default function Faqs({ onOpenForm }) {
               exit={{ height: 0, opacity: 0 }}
               transition={{ duration: 0.22, ease: "easeInOut" }}
             >
-              <div className="px-4 pb-4 sm:pb-5 pt-0 text-xs sm:text-sm text-zinc-600 dark:text-zinc-300 leading-relaxed">
-                <div className="pt-3 border-t border-zinc-100 dark:border-zinc-800/80 sm:pl-12">
+              <div className="px-4 sm:px-5 pb-4 sm:pb-5 pt-0 text-xs sm:text-sm text-zinc-600 dark:text-zinc-300 leading-relaxed font-normal">
+                <div className="pt-3.5 border-t border-zinc-100 dark:border-zinc-800/80 sm:pl-[52px]">
                   {faq.answer}
                 </div>
               </div>
@@ -151,10 +151,11 @@ export default function Faqs({ onOpenForm }) {
             <button
               type="button"
               onClick={onOpenForm}
-              className="w-full sm:w-auto px-8 h-12 text-sm sm:text-base font-black text-white bg-green-600 hover:bg-green-700 rounded-md shadow-md shadow-green-600/25 flex items-center justify-center gap-2 whitespace-nowrap active:scale-[0.98] transition-all cursor-pointer shrink-0 uppercase tracking-wider"
+              className="w-full sm:w-auto px-8 h-12 text-sm sm:text-base font-black text-white bg-green-600 hover:bg-green-700 rounded-md shadow-md shadow-green-600/25 flex items-center justify-center gap-2 whitespace-nowrap active:scale-[0.98] transition-all cursor-pointer shrink-0 uppercase tracking-wider group"
             >
+              <Zap className="w-4 h-4 text-amber-300 fill-amber-300 shrink-0" />
               <span>Enquire Now</span>
-              <ArrowRight className="w-4 h-4" />
+              <ArrowRight className="w-4 h-4 shrink-0 transition-transform group-hover:translate-x-1" />
             </button>
           </div>
         )}

@@ -2,7 +2,7 @@
 import React from "react";
 import Image from "next/image";
 import { useSearchParams } from "next/navigation";
-import { Sparkles, ArrowRight } from "lucide-react";
+import { Sparkles, ArrowRight, Zap } from "lucide-react";
 import ClientLogoCarousel from "@/components/general/ClientLogoCarousel";
 
 export default function AuditHero({ onOpenForm }) {
@@ -35,8 +35,9 @@ export default function AuditHero({ onOpenForm }) {
       <div className="mt-6 sm:mt-7 mb-4 flex justify-center w-full max-w-md sm:max-w-none">
         <button
           onClick={onOpenForm}
-          className="w-full sm:w-auto h-12 sm:h-14 px-10 sm:px-14 text-base sm:text-lg font-black text-white bg-green-600 hover:bg-green-700 rounded-md shadow-xl shadow-green-600/25 transition-all hover:scale-105 active:scale-[0.98] flex items-center justify-center gap-2 group whitespace-nowrap cursor-pointer uppercase tracking-wider"
+          className="w-full sm:w-auto h-12 sm:h-14 px-8 sm:px-12 text-base sm:text-lg font-black text-white bg-green-600 hover:bg-green-700 rounded-md shadow-xl shadow-green-600/25 transition-all hover:scale-105 active:scale-[0.98] flex items-center justify-center gap-2.5 group whitespace-nowrap cursor-pointer uppercase tracking-wider"
         >
+          <Zap className="w-5 h-5 text-amber-300 fill-amber-300 shrink-0" />
           <span>Enquire Now</span>
           <ArrowRight className="w-5 h-5 transition-transform group-hover:translate-x-1 shrink-0" />
         </button>
